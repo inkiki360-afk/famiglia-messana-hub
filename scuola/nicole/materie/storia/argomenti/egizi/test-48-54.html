@@ -3,227 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Antico Egitto - Spazio Nicole</title>
+    <title>Super Quiz Egizi per Nicole</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Lexend', sans-serif;
-            background-color: #fef3c7; 
+            background-color: #fef3c7;
             background-image: url("https://www.transparenttextures.com/patterns/sandpaper.png");
         }
-        .quiz-card { transition: all 0.3s ease; }
-        .option-btn { transition: all 0.2s ease; }
-        .option-btn:hover:not(:disabled) {
-            transform: translateX(10px);
-            background-color: #fef3c7;
-        }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .gold-border { border: 4px solid #d4af37; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4 pt-8">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <nav class="mb-8 w-full max-w-2xl flex items-center justify-between text-amber-900 font-semibold bg-white/60 backdrop-blur-md p-4 rounded-2xl shadow-sm border border-amber-100">
-        <div class="flex items-center space-x-2 text-sm">
-            <a href="../../../../index.html" class="hover:text-blue-600 transition-colors">Home</a>
-            <i class="fas fa-chevron-right text-xs text-amber-400"></i>
-            <a href="../../storia.html" class="hover:text-blue-600 transition-colors">Storia</a>
-            <i class="fas fa-chevron-right text-xs text-amber-400"></i>
-            <a href="egizi.html" class="hover:text-blue-600 transition-colors">Egizi</a>
-        </div>
-        <a href="egizi.html" class="text-xs bg-amber-200 hover:bg-amber-300 px-4 py-2 rounded-xl transition-colors flex items-center">
-            <i class="fas fa-door-open mr-2"></i> Esci
-        </a>
-    </nav>
-
-    <div id="quiz-container" class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10 quiz-card border border-amber-100">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-amber-800 mb-2">🇪🇬 Quiz Antico Egitto</h1>
-            <p class="text-amber-600 font-medium">Pagine 48-54 • Forza Nicole!</p>
-            <div class="w-full bg-amber-100 h-3 rounded-full mt-6 overflow-hidden">
-                <div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-amber-600 h-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-            <p id="question-counter" class="text-sm text-amber-500 mt-3 font-bold uppercase tracking-wider">Domanda 1 di 10</p>
-        </div>
-
-        <div id="question-section">
-            <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-6 leading-tight">Caricamento domanda...</h2>
-            <div id="options-container" class="space-y-4">
-                </div>
-        </div>
-
-        <div id="feedback" class="hidden mt-8 p-6 rounded-2xl border-2 shadow-inner">
-            <p id="feedback-title" class="font-bold text-xl mb-2"></p>
-            <p id="feedback-text" class="text-gray-700 leading-relaxed"></p>
-            <button id="next-btn" class="mt-6 w-full bg-amber-600 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-amber-700 transition-all transform active:scale-95">
-                Prossima Domanda <i class="fas fa-arrow-right ml-2"></i>
+    <div id="app-container" class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10 gold-border relative overflow-hidden">
+        
+        <!-- Schermata Iniziale -->
+        <div id="start-screen" class="text-center">
+            <div class="text-6xl mb-4">🏺</div>
+            <h1 class="text-4xl font-bold text-amber-900 mb-4">Sfida Egizia per Nicole</h1>
+            <p class="text-amber-700 mb-8">Sei pronta a dimostrare di essere una vera esperta? Ora ci sono ben 20 domande tra immagini, quiz e misteri da scrivere!</p>
+            <button onclick="startQuiz()" class="bg-amber-600 text-white px-10 py-4 rounded-2xl font-bold text-xl shadow-lg hover:bg-amber-700 transition-all hover:scale-105">
+                Inizia l'Avventura!
             </button>
         </div>
 
-        <div id="results-section" class="hidden text-center py-4">
-            <div class="text-6xl mb-4">🏆</div>
-            <h2 class="text-4xl font-bold text-amber-800 mb-4">Ottimo lavoro!</h2>
-            <p class="text-xl text-gray-700 mb-6">Hai totalizzato <span id="final-score" class="font-extrabold text-amber-600 text-3xl">0</span> su 10!</p>
-            <div id="result-message" class="mb-8 p-6 bg-amber-50 rounded-2xl border border-amber-200 text-amber-900 leading-relaxed"></div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button onclick="location.reload()" class="bg-amber-800 text-white py-4 rounded-xl font-bold shadow-lg hover:bg-amber-900 transition flex items-center justify-center">
-                    <i class="fas fa-redo mr-2"></i> Riprova
+        <!-- Quiz Interface -->
+        <div id="quiz-interface" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <span id="question-type-badge" class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Scelta Multipla</span>
+                <span id="score-display" class="font-bold text-amber-600">Punti: 0</span>
+            </div>
+
+            <div class="w-full bg-amber-100 h-3 rounded-full mb-8">
+                <div id="progress-bar" class="bg-amber-50 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+
+            <div id="question-content" class="fade-in">
+                <h2 id="question-text" class="text-2xl font-bold text-gray-800 mb-6 leading-tight"></h2>
+                
+                <!-- Area Immagine (opzionale) -->
+                <div id="image-container" class="hidden flex justify-center mb-6 bg-amber-50 p-4 rounded-2xl">
+                    <span id="question-emoji" class="text-7xl"></span>
+                </div>
+
+                <!-- Opzioni (per scelta multipla) -->
+                <div id="options-container" class="grid grid-cols-1 gap-3"></div>
+
+                <!-- Input (per domande da scrivere) -->
+                <div id="input-container" class="hidden">
+                    <input type="text" id="answer-input" placeholder="Scrivi qui la risposta..." 
+                           class="w-full p-4 border-3 border-amber-200 rounded-2xl focus:border-amber-500 focus:outline-none text-lg">
+                    <button id="submit-input-btn" onclick="checkInputAnswer()" class="mt-4 w-full bg-amber-800 text-white py-4 rounded-2xl font-bold shadow-lg">
+                        Invia Risposta
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feedback -->
+            <div id="feedback" class="hidden mt-8 p-6 rounded-2xl border-2 fade-in">
+                <p id="feedback-title" class="font-bold text-xl mb-2"></p>
+                <p id="feedback-text" class="text-gray-700 italic mb-4"></p>
+                <button id="next-btn" class="w-full bg-amber-600 text-white py-3 rounded-xl font-bold hover:bg-amber-700">
+                    Avanti →
                 </button>
-                <a href="egizi.html" class="bg-slate-200 text-slate-700 py-4 rounded-xl font-bold shadow-lg hover:bg-slate-300 transition flex items-center justify-center font-sans">
-                    <i class="fas fa-reply mr-2"></i> Torna a Egizi
-                </a>
             </div>
         </div>
-    </div>
 
-    <footer class="mt-12 text-amber-900/40 text-xs font-bold uppercase tracking-widest pb-8">
-        Hub Didattico Famiglia Messana
-    </footer>
+        <!-- Schermata Finale -->
+        <div id="final-screen" class="hidden text-center">
+            <h2 class="text-4xl font-bold text-amber-900 mb-4">Missione Compiuta!</h2>
+            <div id="final-emoji" class="text-7xl mb-4">🏆</div>
+            <p class="text-xl mb-6">Hai totalizzato <span id="final-score" class="font-bold text-amber-600">0</span> su <span id="total-questions-display"></span> punti!</p>
+            <div id="final-msg" class="p-6 bg-amber-50 rounded-2xl mb-8 border border-amber-200"></div>
+            <button onclick="location.reload()" class="bg-amber-800 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-amber-900">
+                Gioca Ancora
+            </button>
+        </div>
+    </div>
 
     <script>
         const quizData = [
             {
-                question: "Quale divinità egizia ha la testa di sciacallo ed è il dio dell'Aldilà e della mummificazione?",
-                options: ["Anubi", "Thot", "Sobek", "Bastet"],
-                correct: 0,
-                rationale: "Il testo specifica che Anubi aveva il corpo umano e la testa di sciacallo, occupandosi del passaggio dei defunti."
+                type: "choice",
+                question: "Di quale animale aveva la testa il dio Thot?",
+                options: ["Falco", "Sciacallo", "Uccello Ibis", "Coccodrillo"],
+                correct: 2,
+                rationale: "Thot era il dio della scrittura e aveva la testa di uccello ibis."
             },
             {
-                question: "A cosa serviva lo 'shaduf', una delle invenzioni tecnologiche degli Egizi?",
-                options: ["A misurare l'altezza del fiume", "Ad attingere acqua dal fiume per irrigare i campi", "A contare i giorni dell'anno", "A pesare il cuore dei defunti"],
+                type: "visual",
+                emoji: "🐊",
+                question: "Osserva questo animale sacro. Quale dio rappresentava e di cosa si occupava?",
+                options: ["Anubi - Aldilà", "Sobek - Piene del Nilo", "Bastet - Raccolti", "Hathor - Amore"],
                 correct: 1,
-                rationale: "Lo shaduf era un palo con un secchio e un peso che permetteva di sollevare l'acqua dal Nilo facilmente."
+                rationale: "Il coccodrillo era il simbolo di Sobek, dio delle acque e delle piene del Nilo."
             },
             {
-                question: "Dove venivano conservati gli organi interni dei defunti durante la mummificazione?",
-                options: ["Nelle piramidi", "Nelle mastabe", "Nei vasi canopi", "Sotto le bende di lino"],
-                correct: 2,
-                rationale: "Il testo spiega che gli organi prelevati (tranne il cuore) venivano conservati in questi vasi speciali."
+                type: "input",
+                question: "Come si chiamava lo strumento graduato usato per misurare l'altezza delle piene del fiume?",
+                answer: "nilometro",
+                rationale: "Il nilometro era una colonna graduata posta in un pozzo per controllare il livello del Nilo."
             },
             {
-                question: "Come si chiama la scrittura più semplice e veloce usata dagli Egizi per la vita quotidiana?",
-                options: ["Geroglifica", "Demotica", "Greco antico", "Ideografica"],
+                type: "choice",
+                question: "Cosa succedeva se, durante la pesatura, il cuore pesava più della piuma?",
+                options: ["Si andava nel Regno dei morti", "Il defunto non poteva accedere all'Aldilà", "Si diventava faraoni", "Si riceveva un premio"],
                 correct: 1,
-                rationale: "La scrittura demotica era fatta di segni più facili e veloci da tracciare rispetto ai geroglifici."
+                rationale: "Se il cuore era pesante (carico di colpe), il defunto non poteva entrare nel Regno dei morti."
             },
             {
-                question: "In un dipinto egizio, se la testa di una persona è di profilo, come sono solitamente raffigurati l'occhio e il busto?",
-                options: ["Sempre di profilo", "Sempre di spalle", "Di fronte", "Solo il busto è frontale"],
+                type: "input",
+                question: "Qual era la pianta usata dagli scribi esperti per creare fogli su cui scrivere?",
+                answer: "papiro",
+                rationale: "Gli scribi imparavano sulla terracotta, ma da esperti usavano i pregiati fogli di papiro."
+            },
+            {
+                type: "visual",
+                emoji: "👁️🎨",
+                question: "Secondo le regole dell'arte egizia, come doveva essere disegnato l'occhio in un volto di profilo?",
+                options: ["Chiuso", "Di profilo", "Frontale", "Non veniva disegnato"],
                 correct: 2,
-                rationale: "Secondo le regole dell'arte egizia, l'occhio e il busto venivano raffigurati frontali anche se la testa era di lato."
+                rationale: "L'arte egizia prevedeva che, anche se il volto era di profilo, l'occhio fosse visto frontalmente."
             },
             {
-                question: "Quale materiale usavano gli Egizi per realizzare i loro abiti leggeri?",
-                options: ["Cotone", "Lana", "Lino", "Seta"],
-                correct: 2,
-                rationale: "Il lino era la fibra vegetale più comune, perfetta per creare tuniche e gonnellini freschi."
-            },
-            {
-                question: "Durante la 'pesatura del cuore', il cuore del defunto doveva pesare:",
-                options: ["Più della piuma", "Esattamente un cubito", "Quanto o meno di una piuma", "Quanto un vasetto canopo"],
-                correct: 2,
-                rationale: "Solo un cuore leggero come una piuma (senza peccati) permetteva l'accesso all'Aldilà."
-            },
-            {
-                question: "Qual era l'unità di misura di lunghezza usata dagli Egizi, pari a circa 52 centimetri?",
-                options: ["Il metro", "Il cubito (o gomito)", "Il nilometro", "Il passo"],
+                type: "choice",
+                question: "In quali vasi venivano conservati gli organi estratti durante la mummificazione?",
+                options: ["Vasi di terracotta", "Vasi canopi", "Vasi di lino", "Sarcofaghi"],
                 correct: 1,
-                rationale: "Il cubito corrispondeva alla lunghezza dal gomito alla punta delle dita, circa 52 cm."
+                rationale: "I vasi canopi servivano a custodire gli organi interni, tranne il cuore."
             },
             {
-                question: "Quale tra questi giochi da tavolo era simile alla nostra dama e si diffuse nel Nuovo Regno?",
-                options: ["Mehen", "Scacchi", "Senet", "Danza degli specchi"],
+                type: "input",
+                question: "Quanti giorni durava l'anno nel calendario inventato dagli Egizi?",
+                answer: "365",
+                rationale: "Grazie all'astronomia, gli Egizi calcolarono un anno di 365 giorni diviso in 12 mesi."
+            },
+            {
+                type: "choice",
+                question: "Chi era l'unica donna a poter partecipare ai riti religiosi insieme al Faraone?",
+                options: ["La Scriba", "La Dea Bastet", "La Regina", "La Sacerdotessa"],
                 correct: 2,
-                rationale: "Il senet era un gioco molto amato e diffuso, con regole che ricordano la dama."
+                rationale: "Solo il faraone e la regina potevano partecipare ai riti celebrati nei templi."
             },
             {
-                question: "Perché lo scarabeo era un simbolo sacro molto importante per gli Egizi?",
-                options: ["Rappresentava la pioggia", "Era il simbolo del Sole del mattino", "Proteggeva i gatti", "Misurava il tempo"],
+                type: "visual",
+                emoji: "🧶✨",
+                question: "Con quale tessuto leggero erano realizzati gli abiti degli Antichi Egizi?",
+                options: ["Seta", "Lana", "Lino", "Pelle"],
+                correct: 2,
+                rationale: "Gli abiti erano fatti di lino per proteggersi dal calore del Sole."
+            },
+            // NUOVE DOMANDE AGGIUNTE
+            {
+                type: "choice",
+                question: "Cosa significa letteralmente il termine 'geroglifico'?",
+                options: ["Disegno degli dèi", "Segno sacro inciso", "Scrittura segreta", "Pietra parlante"],
                 correct: 1,
-                rationale: "Gli Egizi vedevano nello scarabeo la forza che fa rinascere il Sole ogni mattina."
+                rationale: "Il termine deriva dal fatto che i primi segni furono ritrovati incisi sulle pareti di tombe e templi."
+            },
+            {
+                type: "input",
+                question: "In quale anno fu ritrovata a Rosetta la famosa stele che permise di decifrare la scrittura?",
+                answer: "1799",
+                rationale: "La Stele di Rosetta fu trovata nel 1799 e conteneva lo stesso testo in greco, demotico e geroglifico."
+            },
+            {
+                type: "visual",
+                emoji: "🐄☀️",
+                question: "Quale dea aveva un copricapo con le corna da mucca e il Sole?",
+                options: ["Iside", "Bastet", "Hathor", "Maat"],
+                correct: 2,
+                rationale: "Hathor era la dea del cielo e dell'amore, rappresentata con le corna di mucca."
+            },
+            {
+                type: "choice",
+                question: "Quale di queste affermazioni sui diritti delle donne egizie è CORRETTA?",
+                options: ["Non potevano uscire di casa", "Potevano usare i propri beni e scegliere il marito", "Non potevano lavorare", "Non potevano possedere nulla"],
+                correct: 1,
+                rationale: "Le donne egizie godevano di molta libertà rispetto ad altre società antiche: lavoravano e gestivano beni."
+            },
+            {
+                type: "input",
+                question: "Su quale numero si basava il sistema di calcolo sviluppato dagli Egizi?",
+                answer: "10",
+                rationale: "Gli Egizi avevano sviluppato un sistema di calcolo basato sulla decina (il numero 10)."
+            },
+            {
+                type: "choice",
+                question: "Sugli orologi solari, come veniva indicata l'ora?",
+                options: ["Dall'altezza dell'acqua", "Dalla posizione delle stelle", "Dall'ombra proiettata da un'asta", "Dal suono di un campanello"],
+                correct: 2,
+                rationale: "L'ombra si spostava sul terreno indicando il passare delle 12 ore diurne."
+            },
+            {
+                type: "visual",
+                emoji: "💺✨",
+                question: "Iside era la dea della natura e moglie di Osiride. Quale simbolo aveva sulla testa?",
+                options: ["Un Sole", "Un trono", "Un fiore di loto", "Una stella"],
+                correct: 1,
+                rationale: "Iside è facilmente riconoscibile perché porta sulla testa il simbolo del trono."
+            },
+            {
+                type: "input",
+                question: "Il gatto era considerato l'anello di congiunzione tra la Terra e quale altro luogo?",
+                answer: "cielo",
+                rationale: "Per gli Egizi il gatto era un animale sacro che univa il mondo terreno (Terra) a quello divino (Cielo)."
+            },
+            {
+                type: "choice",
+                question: "In quante ore diurne e quante ore notturne gli Egizi suddividevano il giorno?",
+                options: ["10 diurne e 10 notturne", "12 diurne e 12 notturne", "24 ore tutte uguali", "8 diurne e 16 notturne"],
+                correct: 1,
+                rationale: "Il giorno era diviso esattamente in 12 ore di luce e 12 ore di buio."
+            },
+            {
+                type: "visual",
+                emoji: "🪞💃",
+                question: "A quale dea era dedicata la famosa 'danza degli specchi' eseguita durante i riti?",
+                options: ["Iside", "Hathor", "Bastet", "Sekhmet"],
+                correct: 1,
+                rationale: "La danza degli specchi era un rito musicale dedicato a Hathor, dea dell'amore e del cielo."
             }
         ];
 
-        let currentQuestion = 0;
+        let currentQ = 0;
         let score = 0;
 
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const feedbackSection = document.getElementById('feedback');
-        const feedbackTitle = document.getElementById('feedback-title');
-        const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-btn');
-        const progressIndicator = document.getElementById('progress-bar');
-        const counterText = document.getElementById('question-counter');
+        function startQuiz() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            showQuestion();
+        }
 
-        function loadQuestion() {
-            const q = quizData[currentQuestion];
+        function showQuestion() {
+            const q = quizData[currentQ];
+            const typeBadge = document.getElementById('question-type-badge');
+            const questionText = document.getElementById('question-text');
+            const optionsBox = document.getElementById('options-container');
+            const inputBox = document.getElementById('input-container');
+            const imageBox = document.getElementById('image-container');
+            const feedback = document.getElementById('feedback');
+            
+            feedback.classList.add('hidden');
+            inputBox.classList.add('hidden');
+            imageBox.classList.add('hidden');
+            optionsBox.innerHTML = '';
+            
+            document.getElementById('answer-input').value = '';
+            document.getElementById('progress-bar').style.width = `${(currentQ / quizData.length) * 100}%`;
+            document.getElementById('score-display').textContent = `Punti: ${score}`;
+
             questionText.textContent = q.question;
-            optionsContainer.innerHTML = '';
-            feedbackSection.classList.add('hidden');
-            
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-amber-100 bg-white text-gray-700 font-bold shadow-sm hover:border-amber-400 focus:outline-none";
-                btn.textContent = opt;
-                btn.onclick = () => selectOption(index);
-                optionsContainer.appendChild(btn);
-            });
 
-            const progress = ((currentQuestion + 1) / quizData.length) * 100;
-            progressIndicator.style.width = `${progress}%`;
-            counterText.textContent = `Domanda ${currentQuestion + 1} di ${quizData.length}`;
-        }
-
-        function selectOption(index) {
-            const q = quizData[currentQuestion];
-            const buttons = optionsContainer.querySelectorAll('button');
-            buttons.forEach(btn => btn.disabled = true);
-            feedbackSection.classList.remove('hidden');
-            
-            if (index === q.correct) {
-                score++;
-                buttons[index].classList.replace('border-amber-100', 'border-green-500');
-                buttons[index].classList.add('bg-green-50', 'text-green-800');
-                feedbackTitle.textContent = "✅ Corretto!";
-                feedbackTitle.className = "font-bold text-2xl mb-1 text-green-600";
-                feedbackSection.classList.add('border-green-200', 'bg-green-50');
-            } else {
-                buttons[index].classList.replace('border-amber-100', 'border-red-500');
-                buttons[index].classList.add('bg-red-50', 'text-red-800');
-                buttons[q.correct].classList.replace('border-amber-100', 'border-green-500');
-                feedbackTitle.textContent = "❌ Quasi...";
-                feedbackTitle.className = "font-bold text-2xl mb-1 text-red-600";
-                feedbackSection.classList.add('border-red-200', 'bg-red-50');
+            if (q.type === "choice" || q.type === "visual") {
+                typeBadge.textContent = q.type === "visual" ? "Sfida Visiva" : "Scelta Multipla";
+                if (q.type === "visual") {
+                    imageBox.classList.remove('hidden');
+                    document.getElementById('question-emoji').textContent = q.emoji;
+                }
+                q.options.forEach((opt, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = "p-4 text-left border-2 border-amber-100 rounded-xl hover:bg-amber-50 hover:border-amber-400 transition font-medium text-gray-700";
+                    btn.textContent = opt;
+                    btn.onclick = () => checkChoice(i);
+                    optionsBox.appendChild(btn);
+                });
+            } else if (q.type === "input") {
+                typeBadge.textContent = "Scrivi la risposta";
+                inputBox.classList.remove('hidden');
+                document.getElementById('submit-input-btn').disabled = false;
             }
-            feedbackText.textContent = q.rationale;
         }
 
-        nextBtn.onclick = () => {
-            currentQuestion++;
-            if (currentQuestion < quizData.length) {
-                feedbackSection.classList.remove('border-green-200', 'bg-green-50', 'border-red-200', 'bg-red-50');
-                loadQuestion();
+        function checkChoice(idx) {
+            const q = quizData[currentQ];
+            const isCorrect = idx === q.correct;
+            handleResult(isCorrect);
+        }
+
+        function checkInputAnswer() {
+            const q = quizData[currentQ];
+            const userAns = document.getElementById('answer-input').value.toLowerCase().trim();
+            const isCorrect = userAns === q.answer.toLowerCase();
+            handleResult(isCorrect);
+        }
+
+        function handleResult(isCorrect) {
+            const q = quizData[currentQ];
+            const fb = document.getElementById('feedback');
+            const fbt = document.getElementById('feedback-title');
+            const fbtx = document.getElementById('feedback-text');
+            
+            if (isCorrect) score++;
+            
+            fb.classList.remove('hidden');
+            fb.className = `mt-8 p-6 rounded-2xl border-2 ${isCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`;
+            fbt.textContent = isCorrect ? "🎉 Grandiosa!" : "🧐 Oh no, Nicole!";
+            fbt.className = `font-bold text-xl mb-2 ${isCorrect ? 'text-green-700' : 'text-red-700'}`;
+            fbtx.textContent = q.rationale;
+            
+            // Disabilita altri input
+            document.querySelectorAll('#options-container button').forEach(b => b.disabled = true);
+            document.getElementById('submit-input-btn').disabled = true;
+        }
+
+        document.getElementById('next-btn').onclick = () => {
+            currentQ++;
+            if (currentQ < quizData.length) {
+                showQuestion();
             } else {
-                showResults();
+                showFinal();
             }
         };
 
-        function showResults() {
-            document.getElementById('question-section').classList.add('hidden');
-            feedbackSection.classList.add('hidden');
-            document.getElementById('results-section').classList.remove('hidden');
+        function showFinal() {
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('final-screen').classList.remove('hidden');
             document.getElementById('final-score').textContent = score;
-
+            document.getElementById('total-questions-display').textContent = quizData.length;
+            
             let msg = "";
-            if (score === 10) msg = "Incredibile Nicole! Sei una vera Regina del Nilo, conosci tutto sugli Antichi Egizi!";
-            else if (score >= 7) msg = "Bravissima Nicole! Hai imparato quasi tutto, continua così!";
-            else msg = "Buon lavoro! Rileggi le pagine e riprova, diventerai un'esperta in un lampo!";
-            document.getElementById('result-message').textContent = msg;
+            let emoji = "🏺";
+            if (score === quizData.length) { msg = "Incredibile! Sei diventata la Gran Sacerdotessa d'Egitto! Conosci ogni singolo segreto delle pagine studiate."; emoji = "👑"; }
+            else if (score >= 15) { msg = "Bravissima Nicole! Hai una memoria da scriba reale, continua così!"; emoji = "📜"; }
+            else if (score >= 10) { msg = "Buon lavoro! Hai una buona base, ma rileggi i dettagli sulle divinità e sulla scrittura."; emoji = "🏜️"; }
+            else { msg = "Gli dèi ti consigliano di rileggere le pagine con attenzione per superare la prossima sfida!"; emoji = "🐫"; }
+            
+            document.getElementById('final-msg').textContent = msg;
+            document.getElementById('final-emoji').textContent = emoji;
         }
-
-        window.onload = loadQuestion;
     </script>
 </body>
 </html>
