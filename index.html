@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Hub Famiglia Messana</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,6 +21,36 @@
 </head>
 
 <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex flex-col">
+
+  <!-- LOGIN SECTION -->
+  <div id="login-section" class="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center z-1000">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 max-w-md w-full mx-4">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-slate-800 mb-2">Famiglia <span class="text-blue-600">Messana</span></h1>
+        <p class="text-slate-500">Hub Privato</p>
+      </div>
+      
+      <div class="mb-6">
+        <label for="password" class="block text-slate-700 font-semibold mb-3">Password di accesso</label>
+        <input 
+          id="password" 
+          type="password" 
+          placeholder="Inserisci la password..." 
+          class="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:outline-none focus:border-blue-500 font-medium"
+          onkeypress="if(event.key === 'Enter') checkPassword()"
+        />
+      </div>
+      
+      <button onclick="checkPassword()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold shadow-lg hover:bg-blue-700 transition-colors">
+        Accedi
+      </button>
+      
+      <p id="error-message" class="text-red-500 text-sm mt-4 text-center hidden">Password non corretta</p>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT (Hidden until login) -->
+  <div id="main-content" class="hidden flex flex-col min-h-screen">
 
   <!-- NAV -->
   <nav class="sticky top-0 z-50 bg-white bg-opacity-60 backdrop-blur-md shadow-sm">
@@ -156,7 +187,42 @@
     </div>
   </footer>
 
+  </div>
+
   <script>
+    // Password Protection
+    function checkPassword() {
+      const passwordInput = document.getElementById('password');
+      const loginSection = document.getElementById('login-section');
+      const mainContent = document.getElementById('main-content');
+      const errorMessage = document.getElementById('error-message');
+      const correctPassword = 'Nino1619';
+
+      if (passwordInput.value === correctPassword) {
+        sessionStorage.setItem('logged_in', 'true');
+        loginSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        errorMessage.classList.add('hidden');
+      } else {
+        errorMessage.classList.remove('hidden');
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    }
+
+    // Check if already logged in
+    window.addEventListener('load', () => {
+      const loginSection = document.getElementById('login-section');
+      const mainContent = document.getElementById('main-content');
+      
+      if (sessionStorage.getItem('logged_in') === 'true') {
+        loginSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+      } else {
+        document.getElementById('password').focus();
+      }
+    });
+
     // Menu Mobile
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
