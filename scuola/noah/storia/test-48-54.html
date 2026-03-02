@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Antico Egitto per Noah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #fef3c7; /* Light sand color */
+            background-image: url("https://www.transparenttextures.com/patterns/sandpaper.png");
+        }
+        .quiz-card {
+            transition: all 0.3s ease;
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(10px);
+            background-color: #fef3c7;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="quiz-container" class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10 quiz-card">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-amber-800 mb-2">🇪🇬 Quiz Antico Egitto</h1>
+            <p class="text-amber-600">Mettiti alla prova, Noah!</p>
+            <div class="w-full bg-amber-100 h-2 rounded-full mt-6">
+                <div id="progress-bar" class="bg-amber-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <p id="question-counter" class="text-sm text-amber-500 mt-2 font-semibold">Domanda 1 di 10</p>
+        </div>
+
+        <!-- Question Section -->
+        <div id="question-section">
+            <h2 id="question-text" class="text-xl font-semibold text-gray-800 mb-6">Caricamento domanda...</h2>
+            <div id="options-container" class="space-y-3">
+                <!-- Buttons will be injected here -->
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div id="feedback" class="hidden mt-8 p-4 rounded-2xl border-2">
+            <p id="feedback-title" class="font-bold text-lg mb-1"></p>
+            <p id="feedback-text" class="text-gray-700 text-sm italic"></p>
+            <button id="next-btn" class="mt-4 w-full bg-amber-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-amber-700 transition">
+                Prossima Domanda
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden text-center">
+            <h2 class="text-4xl font-bold text-amber-800 mb-4">Ottimo lavoro!</h2>
+            <p class="text-xl text-gray-700 mb-6">Hai totalizzato <span id="final-score" class="font-bold text-amber-600">0</span> su 10!</p>
+            <div id="result-message" class="mb-8 p-4 bg-amber-50 rounded-2xl border border-amber-200 text-amber-900"></div>
+            <button onclick="location.reload()" class="bg-amber-800 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-amber-900 transition">
+                Riprova il Quiz
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Quale divinità egizia ha la testa di sciacallo ed è il dio dell'Aldilà e della mummificazione?",
+                options: ["Anubi", "Thot", "Sobek", "Bastet"],
+                correct: 0,
+                rationale: "Il testo specifica che Anubi aveva il corpo umano e la testa di sciacallo, occupandosi del passaggio dei defunti."
+            },
+            {
+                question: "A cosa serviva lo 'shaduf', una delle invenzioni tecnologiche degli Egizi?",
+                options: ["A misurare l'altezza del fiume", "Ad attingere acqua dal fiume per irrigare i campi", "A contare i giorni dell'anno", "A pesare il cuore dei defunti"],
+                correct: 1,
+                rationale: "Lo shaduf era un palo con un secchio e un peso che permetteva di sollevare l'acqua dal Nilo facilmente."
+            },
+            {
+                question: "Dove venivano conservati gli organi interni dei defunti durante la mummificazione?",
+                options: ["Nelle piramidi", "Nelle mastabe", "Nei vasi canopi", "Sotto le bende di lino"],
+                correct: 2,
+                rationale: "Il testo spiega che gli organi prelevati (tranne il cuore) venivano conservati in questi vasi speciali."
+            },
+            {
+                question: "Come si chiama la scrittura più semplice e veloce usata dagli Egizi per la vita quotidiana?",
+                options: ["Geroglifica", "Demotica", "Greco antico", "Ideografica"],
+                correct: 1,
+                rationale: "La scrittura demotica era fatta di segni più facili e veloci da tracciare rispetto ai geroglifici."
+            },
+            {
+                question: "In un dipinto egizio, se la testa di una persona è di profilo, come sono solitamente raffigurati l'occhio e il busto?",
+                options: ["Sempre di profilo", "Sempre di spalle", "Di fronte", "Solo il busto è frontale"],
+                correct: 2,
+                rationale: "Secondo le regole dell'arte egizia, l'occhio e il busto venivano raffigurati frontali anche se la testa era di lato."
+            },
+            {
+                question: "Quale materiale usavano gli Egizi per realizzare i loro abiti leggeri?",
+                options: ["Cotone", "Lana", "Lino", "Seta"],
+                correct: 2,
+                rationale: "Il lino era la fibra vegetale più comune, perfetta per creare tuniche e gonnellini freschi."
+            },
+            {
+                question: "Durante la 'pesatura del cuore', il cuore del defunto doveva pesare:",
+                options: ["Più della piuma", "Esattamente un cubito", "Quanto o meno di una piuma", "Quanto un vasetto canopo"],
+                correct: 2,
+                rationale: "Solo un cuore leggero come una piuma (senza peccati) permetteva l'accesso all'Aldilà."
+            },
+            {
+                question: "Qual era l'unità di misura di lunghezza usata dagli Egizi, pari a circa 52 centimetri?",
+                options: ["Il metro", "Il cubito (o gomito)", "Il nilometro", "Il passo"],
+                correct: 1,
+                rationale: "Il cubito corrispondeva alla lunghezza dal gomito alla punta delle dita, circa 52 cm."
+            },
+            {
+                question: "Quale tra questi giochi da tavolo era simile alla nostra dama e si diffuse nel Nuovo Regno?",
+                options: ["Mehen", "Scacchi", "Senet", "Danza degli specchi"],
+                correct: 2,
+                rationale: "Il senet era un gioco molto amato e diffuso, con regole che ricordano la dama."
+            },
+            {
+                question: "Perché lo scarabeo era un simbolo sacro molto importante per gli Egizi?",
+                options: ["Rappresentava la pioggia", "Era il simbolo del Sole del mattino", "Proteggeva i gatti", "Misurava il tempo"],
+                correct: 1,
+                rationale: "Gli Egizi vedevano nello scarabeo la forza che fa rinascere il Sole ogni mattina."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackSection = document.getElementById('feedback');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const progressIndicator = document.getElementById('progress-bar');
+        const counterText = document.getElementById('question-counter');
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            questionText.textContent = q.question;
+            optionsContainer.innerHTML = '';
+            feedbackSection.classList.add('hidden');
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-4 rounded-xl border-2 border-amber-100 bg-white text-gray-700 font-medium shadow-sm hover:border-amber-400 focus:outline-none";
+                btn.textContent = opt;
+                btn.onclick = () => selectOption(index);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Update Progress
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressIndicator.style.width = `${progress}%`;
+            counterText.textContent = `Domanda ${currentQuestion + 1} di ${quizData.length}`;
+        }
+
+        function selectOption(index) {
+            const q = quizData[currentQuestion];
+            const buttons = optionsContainer.querySelectorAll('button');
+            
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+
+            feedbackSection.classList.remove('hidden');
+            
+            if (index === q.correct) {
+                score++;
+                buttons[index].classList.replace('border-amber-100', 'border-green-500');
+                buttons[index].classList.add('bg-green-50');
+                feedbackTitle.textContent = "✅ Corretto!";
+                feedbackTitle.className = "font-bold text-lg mb-1 text-green-600";
+                feedbackSection.classList.add('border-green-100', 'bg-green-50');
+            } else {
+                buttons[index].classList.replace('border-amber-100', 'border-red-500');
+                buttons[index].classList.add('bg-red-50');
+                buttons[q.correct].classList.replace('border-amber-100', 'border-green-500');
+                feedbackTitle.textContent = "❌ Quasi...";
+                feedbackTitle.className = "font-bold text-lg mb-1 text-red-600";
+                feedbackSection.classList.add('border-red-100', 'bg-red-50');
+            }
+
+            feedbackText.textContent = q.rationale;
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                feedbackSection.classList.remove('border-green-100', 'bg-green-50', 'border-red-100', 'bg-red-50');
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            document.getElementById('question-section').classList.add('hidden');
+            feedbackSection.classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+
+            let msg = "";
+            if (score === 10) msg = "Incredibile Noah! Sei un vero Faraone, conosci tutto sugli Antichi Egizi!";
+            else if (score >= 7) msg = "Bravissimo Noah! Hai imparato quasi tutto, continua così!";
+            else msg = "Buon lavoro! Rileggi le pagine e riprova, diventerai un esperto in un lampo!";
+            
+            document.getElementById('result-message').textContent = msg;
+        }
+
+        // Start
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>

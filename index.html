@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub Famiglia Messana</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .card-image-placeholder {
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex flex-col">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-white bg-opacity-60 backdrop-blur-md shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <div class="flex-shrink-0">
+          <a href="index.html" class="text-xl font-bold text-slate-800 tracking-tight">
+            Famiglia <span class="text-blue-600">Messana</span>
+          </a>
+        </div>
+
+        <!-- Menu Desktop -->
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Home</a>
+          <a href="scuola/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Scuola</a>
+          <a href="viaggi/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Viaggi</a>
+          <a href="progetti-ia/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Progetti IA</a>
+          <a href="svago/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Svago</a>
+        </div>
+
+        <!-- Bottone Mobile -->
+        <div class="md:hidden">
+          <button id="nav-toggle" class="text-slate-700 p-2 focus:outline-none" aria-label="Apri menu">
+            <i class="fas fa-bars fa-lg"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="nav-menu" class="md:hidden hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+      <a href="index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Home</a>
+      <a href="scuola/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Scuola</a>
+      <a href="viaggi/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Viaggi</a>
+      <a href="progetti-ia/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Progetti IA</a>
+      <a href="svago/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Svago</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
+    <header class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">Benvenuti nell'Hub di Famiglia</h1>
+      <p class="text-slate-500 max-w-2xl mx-auto text-lg">
+        Tutto ciò che riguarda la nostra vita quotidiana, i nostri interessi e il nostro futuro, organizzato in un unico posto.
+      </p>
+    </header>
+
+    <!-- GRIGLIA CARD -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12" aria-label="Sezioni principali">
+
+      <!-- Scuola -->
+      <article>
+        <a href="scuola/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Scuola">
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
+            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
+              <img src="img/copertina-scuola.png" alt="" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-amber-500\'><i class=\'fas fa-graduation-cap\'></i></span>'">
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Scuola</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Risorse educative, corsi e materiali didattici.</p>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Viaggi -->
+      <article>
+        <a href="viaggi/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Viaggi">
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
+            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
+              <img src="img/copertina-viaggi.png" alt="" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-sky-500\'><i class=\'fas fa-plane-departure\'></i></span>'">
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Viaggi</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Documenti, foto e ricordi dei nostri viaggi.</p>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Progetti IA -->
+      <article>
+        <a href="progetti-ia/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Progetti IA">
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
+            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
+              <img src="img/copertina-ai.png" alt="" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-violet-500\'><i class=\'fas fa-robot\'></i></span>'">
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Progetti IA</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Esperimenti e progetti con intelligenza artificiale.</p>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Svago -->
+      <article>
+        <a href="svago/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Svago">
+          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
+            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
+              <img src="img/copertina-svago.png" alt="" loading="lazy"
+                   class="absolute inset-0 w-full h-full object-cover"
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-pink-500\'><i class=\'fas fa-gamepad\'></i></span>'">
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Svago</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">Giochi e momenti di relax per la famiglia.</p>
+            </div>
+          </div>
+        </a>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-slate-600 text-sm flex items-center justify-center">
+        <i class="fas fa-heart text-red-500 mx-2" aria-hidden="true"></i>
+        Hub Famiglia Messana - Condividiamo, impariamo e cresciamo insieme
+        <i class="fas fa-heart text-red-500 mx-2" aria-hidden="true"></i>
+      </p>
+      <p class="text-slate-400 text-xs mt-3 uppercase tracking-widest">© 2026 Famiglia Messana. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Menu Mobile
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        const isHidden = navMenu.classList.contains('hidden');
+        navMenu.classList.toggle('hidden');
+        navToggle.setAttribute('aria-expanded', !isHidden);
+      });
+
+      // Chiudi menu dopo click su un link (comodo su mobile)
+      navMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navMenu.classList.add('hidden');
+          navToggle.setAttribute('aria-expanded', false);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

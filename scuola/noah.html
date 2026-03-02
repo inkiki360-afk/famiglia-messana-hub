@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scuola Noah - Famiglia Messana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white bg-opacity-60 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-xl font-bold text-slate-800 tracking-tight">
+                        Famiglia <span class="text-blue-600">Messana</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Home</a>
+                    <a href="index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Scuola</a>
+                    <a href="../viaggi/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Viaggi</a>
+                    <a href="../progetti-ia/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Progetti IA</a>
+                    <a href="../svago/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Svago</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="nav-toggle" class="text-slate-700 p-2 focus:outline-none" aria-label="Apri menu">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="nav-menu" class="md:hidden hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+            <a href="../index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Home</a>
+            <a href="index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Scuola</a>
+            <a href="../viaggi/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Viaggi</a>
+            <a href="../progetti-ia/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Progetti IA</a>
+            <a href="../svago/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Svago</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">Spazio Noah</h1>
+            <p class="text-slate-600 text-lg">Qui troverai tutte le risorse, appunti e materiali dedicati a Noah.</p>
+            <a href="index.html" class="inline-block mt-4 text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center">
+                <i class="fas fa-arrow-left mr-2"></i> Torna a Scuola
+            </a>
+        </header>
+        
+        <!-- Materie Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <!-- Matematica -->
+            <article>
+                <a href="noah/matematica.html" class="group block">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        <div class="h-32 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                            <i class="fas fa-calculator text-white text-4xl"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Matematica</h3>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Italiano -->
+            <article>
+                <a href="noah/italiano.html" class="group block">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        <div class="h-32 bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center">
+                            <i class="fas fa-book text-white text-4xl"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Italiano</h3>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Geografia -->
+            <article>
+                <a href="noah/geografia.html" class="group block">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        <div class="h-32 bg-gradient-to-br from-green-400 to-teal-600 flex items-center justify-center">
+                            <i class="fas fa-globe text-white text-4xl"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Geografia</h3>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Storia -->
+            <article>
+                <a href="noah/storia.html" class="group block">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        <div class="h-32 bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center">
+                            <i class="fas fa-scroll text-white text-4xl"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Storia</h3>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Inglese -->
+            <article>
+                <a href="noah/inglese.html" class="group block">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                        <div class="h-32 bg-gradient-to-br from-red-400 to-rose-600 flex items-center justify-center">
+                            <i class="fas fa-language text-white text-4xl"></i>
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Inglese</h3>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+
+        <section class="mt-12 p-6 bg-blue-50 rounded-lg border border-blue-200">
+            <h2 class="text-lg font-semibold text-slate-800 mb-3">Collegati alle materie di Nicole</h2>
+            <div class="flex flex-wrap gap-3">
+                <a href="nicole.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-user mr-2"></i> Spazio Nicole
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                const isHidden = navMenu.classList.contains('hidden');
+                navMenu.classList.toggle('hidden');
+                navToggle.setAttribute('aria-expanded', !isHidden);
+            });
+            navMenu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navMenu.classList.add('hidden');
+                    navToggle.setAttribute('aria-expanded', false);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
