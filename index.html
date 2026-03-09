@@ -1,248 +1,207 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Hub Famiglia Messana</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    .card-image-placeholder {
-      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
-  </style>
-</head>
-
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen flex flex-col">
-
-  <!-- LOGIN SECTION -->
-  <div id="login-section" class="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center z-1000">
-    <div class="bg-white rounded-3xl shadow-2xl p-8 sm:p-12 max-w-md w-full mx-4">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-slate-800 mb-2">Famiglia <span class="text-blue-600">Messana</span></h1>
-        <p class="text-slate-500">Hub Privato</p>
-      </div>
-      
-      <div class="mb-6">
-        <label for="password" class="block text-slate-700 font-semibold mb-3">Password di accesso</label>
-        <input 
-          id="password" 
-          type="password" 
-          placeholder="Inserisci la password..." 
-          class="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:outline-none focus:border-blue-500 font-medium"
-          onkeypress="if(event.key === 'Enter') checkPassword()"
-        />
-      </div>
-      
-      <button onclick="checkPassword()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold shadow-lg hover:bg-blue-700 transition-colors">
-        Accedi
-      </button>
-      
-      <p id="error-message" class="text-red-500 text-sm mt-4 text-center hidden">Password non corretta</p>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT (Hidden until login) -->
-  <div id="main-content" class="hidden flex flex-col min-h-screen">
-
-  <!-- NAV -->
-  <nav class="sticky top-0 z-50 bg-white bg-opacity-60 backdrop-blur-md shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-
-        <div class="flex-shrink-0">
-          <a href="index.html" class="text-xl font-bold text-slate-800 tracking-tight">
-            Famiglia <span class="text-blue-600">Messana</span>
-          </a>
-        </div>
-
-        <!-- Menu Desktop -->
-        <div class="hidden md:flex space-x-8">
-          <a href="index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Home</a>
-          <a href="scuola/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Scuola</a>
-          <a href="viaggi/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Viaggi</a>
-          <a href="progetti-ia/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Progetti IA</a>
-          <a href="svago/index.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Svago</a>
-        </div>
-
-        <!-- Bottone Mobile -->
-        <div class="md:hidden">
-          <button id="nav-toggle" class="text-slate-700 p-2 focus:outline-none" aria-label="Apri menu">
-            <i class="fas fa-bars fa-lg"></i>
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Menu Mobile -->
-    <div id="nav-menu" class="md:hidden hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
-      <a href="index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Home</a>
-      <a href="scuola/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Scuola</a>
-      <a href="viaggi/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Viaggi</a>
-      <a href="progetti-ia/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Progetti IA</a>
-      <a href="svago/index.html" class="block text-slate-700 hover:text-blue-600 font-medium">Svago</a>
-    </div>
-  </nav>
-
-  <!-- MAIN -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
-    <header class="text-center mb-16">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">Benvenuti nell'Hub di Famiglia</h1>
-      <p class="text-slate-500 max-w-2xl mx-auto text-lg">
-        Tutto ciò che riguarda la nostra vita quotidiana, i nostri interessi e il nostro futuro, organizzato in un unico posto.
-      </p>
-    </header>
-
-    <!-- GRIGLIA CARD -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12" aria-label="Sezioni principali">
-
-      <!-- Scuola -->
-      <article>
-        <a href="scuola/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Scuola">
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
-            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
-              <img src="img/copertina-scuola.png" alt="" loading="lazy"
-                   class="absolute inset-0 w-full h-full object-cover"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-amber-500\'><i class=\'fas fa-graduation-cap\'></i></span>'">
-            </div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Scuola</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">Risorse educative, corsi e materiali didattici.</p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Viaggi -->
-      <article>
-        <a href="viaggi/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Viaggi">
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
-            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
-              <img src="img/copertina-viaggi.png" alt="" loading="lazy"
-                   class="absolute inset-0 w-full h-full object-cover"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-sky-500\'><i class=\'fas fa-plane-departure\'></i></span>'">
-            </div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Viaggi</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">Documenti, foto e ricordi dei nostri viaggi.</p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Progetti IA -->
-      <article>
-        <a href="progetti-ia/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Progetti IA">
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
-            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
-              <img src="img/copertina-ai.png" alt="" loading="lazy"
-                   class="absolute inset-0 w-full h-full object-cover"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-violet-500\'><i class=\'fas fa-robot\'></i></span>'">
-            </div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Progetti IA</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">Esperimenti e progetti con intelligenza artificiale.</p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <!-- Svago -->
-      <article>
-        <a href="svago/index.html" class="group block h-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl" aria-label="Vai a Svago">
-          <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col border border-slate-100">
-            <div class="h-48 w-full card-image-placeholder relative overflow-hidden">
-              <img src="img/copertina-svago.png" alt="" loading="lazy"
-                   class="absolute inset-0 w-full h-full object-cover"
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-pink-500\'><i class=\'fas fa-gamepad\'></i></span>'">
-            </div>
-            <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">Svago</h3>
-              <p class="text-slate-600 text-sm leading-relaxed">Giochi e momenti di relax per la famiglia.</p>
-            </div>
-          </div>
-        </a>
-      </article>
-
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <p class="text-slate-600 text-sm flex items-center justify-center">
-        <i class="fas fa-heart text-red-500 mx-2" aria-hidden="true"></i>
-        Hub Famiglia Messana - Condividiamo, impariamo e cresciamo insieme
-        <i class="fas fa-heart text-red-500 mx-2" aria-hidden="true"></i>
-      </p>
-      <p class="text-slate-400 text-xs mt-3 uppercase tracking-widest">© 2026 Famiglia Messana. Tutti i diritti riservati.</p>
-    </div>
-  </footer>
-
-  </div>
-
-  <script>
-    // Password Protection
-    function checkPassword() {
-      const passwordInput = document.getElementById('password');
-      const loginSection = document.getElementById('login-section');
-      const mainContent = document.getElementById('main-content');
-      const errorMessage = document.getElementById('error-message');
-      const correctPassword = 'Nino1619';
-
-      if (passwordInput.value === correctPassword) {
-        sessionStorage.setItem('logged_in', 'true');
-        loginSection.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        errorMessage.classList.add('hidden');
-      } else {
-        errorMessage.classList.remove('hidden');
-        passwordInput.value = '';
-        passwordInput.focus();
+  <head>
+    <meta charset="UTF-8" />
+    <title>Famiglia Messana – Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Dashboard di famiglia della Famiglia Messana: Spazio Nicole, Noah, Viky, Sandra, Viaggi e Creatività."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --cream: #fef9f3;
+        --warm-white: #fffbf7;
+        --coral: #e07a5f;
+        --coral-soft: rgba(224, 122, 95, 0.2);
+        --mustard: #f2cc8f;
+        --sage: #81b29a;
+        --text: #3d405b;
+        --text-soft: #6b6d7a;
+        --shadow: rgba(61, 64, 91, 0.12);
+        --radius: 24px;
+        --radius-sm: 14px;
       }
-    }
 
-    // Check if already logged in
-    window.addEventListener('load', () => {
-      const loginSection = document.getElementById('login-section');
-      const mainContent = document.getElementById('main-content');
-      
-      if (sessionStorage.getItem('logged_in') === 'true') {
-        loginSection.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-      } else {
-        document.getElementById('password').focus();
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    });
 
-    // Menu Mobile
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.getElementById('nav-menu');
+      body {
+        font-family: "Nunito", system-ui, sans-serif;
+        background: linear-gradient(160deg, #fef9f3 0%, #f5e6d8 40%, #ede0d4 100%);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.5;
+        padding: 28px 16px 56px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', () => {
-        const isHidden = navMenu.classList.contains('hidden');
-        navMenu.classList.toggle('hidden');
-        navToggle.setAttribute('aria-expanded', !isHidden);
-      });
+      .page {
+        width: 100%;
+        max-width: 900px;
+      }
 
-      // Chiudi menu dopo click su un link (comodo su mobile)
-      navMenu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          navMenu.classList.add('hidden');
-          navToggle.setAttribute('aria-expanded', false);
-        });
-      });
-    }
-  </script>
+      header {
+        text-align: center;
+        margin-bottom: 36px;
+      }
 
-</body>
+      .family-title h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+
+      .family-title h1::after {
+        content: " \2764";
+        color: var(--coral);
+        font-weight: 700;
+      }
+
+      .family-title p {
+        font-size: 1rem;
+        color: var(--text-soft);
+        margin-top: 8px;
+        font-weight: 600;
+      }
+
+      .boxes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .box {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border-radius: var(--radius);
+        background: var(--warm-white);
+        border: 2px solid rgba(224, 122, 95, 0.25);
+        box-shadow: 0 8px 24px var(--shadow);
+        padding: 20px;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .box::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--coral), var(--mustard));
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .box:hover {
+        border-color: var(--coral);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 16px 40px rgba(224, 122, 95, 0.2);
+      }
+
+      .box:hover::before {
+        opacity: 1;
+      }
+
+      .box img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+        margin-bottom: 14px;
+        border: 2px solid var(--coral-soft);
+      }
+
+      .box h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--text);
+      }
+
+      .box p {
+        font-size: 0.8rem;
+        color: var(--text-soft);
+        font-weight: 500;
+      }
+
+      @media (max-width: 700px) {
+        .boxes {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+
+      @media (max-width: 450px) {
+        .boxes {
+          grid-template-columns: 1fr;
+        }
+
+        .family-title h1 {
+          font-size: 1.65rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="family-title">
+          <h1>Famiglia Messana</h1>
+          <p>Dashboard di famiglia</p>
+        </div>
+      </header>
+
+      <main class="boxes">
+        <a class="box" href="scuola/nicole.html">
+          <img src="img/Spazio-NIcole.png" alt="Spazio Nicole" />
+          <h2>Spazio Nicole</h2>
+          <p>Compiti, materie e risorse per Nicole.</p>
+        </a>
+
+        <a class="box" href="scuola/noah.html">
+          <img src="img/Spazio-Noah.png" alt="Spazio Noah" />
+          <h2>Spazio Noah</h2>
+          <p>Compiti, giochi e materiali per Noah.</p>
+        </a>
+
+        <a class="box" href="viky/index.html">
+          <img src="img/viky.jpg" alt="Spazio Viky" />
+          <h2>Spazio Viky</h2>
+          <p>Il tuo spazio personale.</p>
+        </a>
+
+        <a class="box" href="sandra/index.html">
+          <img src="img/sandra-3.png" alt="Spazio Sandra" />
+          <h2>Spazio Sandra</h2>
+          <p>Il tuo spazio personale.</p>
+        </a>
+
+        <a class="box" href="viaggi/index.html">
+          <img src="img/copertina-viaggi.png" alt="Viaggi" />
+          <h2>Viaggi</h2>
+          <p>Diari e ricordi dei viaggi di famiglia.</p>
+        </a>
+
+        <a class="box" href="creativita/index.html">
+          <img src="img/copertina-ai.png" alt="Creatività" />
+          <h2>Creatività</h2>
+          <p>Progetti IA, hobby e attività creative.</p>
+        </a>
+      </main>
+    </div>
+  </body>
 </html>

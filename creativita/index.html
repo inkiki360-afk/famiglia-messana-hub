@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Svago - Famiglia Messana</title>
+    <title>Creatività - Famiglia Messana</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -29,17 +29,15 @@
       .page-header { text-align: center; margin-bottom: 2.5rem; }
       .page-header h1 { font-size: 2.25rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; }
       .page-header p { font-size: 1.1rem; color: var(--text-soft); font-weight: 600; }
-      .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+      .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
       .card { display: block; text-decoration: none; color: inherit; background: var(--warm-white); border: 2px solid rgba(224,122,95,0.25); border-radius: var(--radius); box-shadow: 0 8px 24px var(--shadow); overflow: hidden; transition: all 0.25s ease; position: relative; }
       .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--coral), var(--mustard)); opacity: 0; transition: opacity 0.25s; }
       .card:hover { border-color: var(--coral); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(224,122,95,0.2); }
       .card:hover::before { opacity: 1; }
-      .card-icon { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; background: linear-gradient(135deg, #81b29a, #6a9b82); }
+      .card-img { width: 100%; height: 160px; object-fit: cover; border-bottom: 2px solid var(--coral-soft); }
       .card h3 { padding: 1.25rem; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--text); }
       .card p { padding: 0 1.25rem 1.25rem; text-align: center; font-size: 0.9rem; color: var(--text-soft); }
       .card:hover h3 { color: var(--coral); }
-      .content-card { background: var(--warm-white); border: 2px solid rgba(224,122,95,0.25); border-radius: var(--radius); box-shadow: 0 8px 24px var(--shadow); padding: 2rem; }
-      .content-card p { font-size: 1.1rem; color: var(--text); line-height: 1.7; }
       .site-footer { background: var(--warm-white); border-top: 2px solid rgba(224,122,95,0.2); padding: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-soft); font-weight: 600; }
       .site-footer i { color: var(--coral); margin: 0 0.25rem; }
     </style>
@@ -52,7 +50,7 @@
                 <a href="/index.html">Home</a>
                 <a href="/scuola/index.html">Scuola</a>
                 <a href="/viaggi/index.html">Viaggi</a>
-                <a href="/creativita/index.html">Creatività</a>
+                <a href="index.html">Creatività</a>
             </div>
             <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Apri menu"><i class="fas fa-bars"></i></button>
         </div>
@@ -60,21 +58,26 @@
             <a href="/index.html">Home</a>
             <a href="/scuola/index.html">Scuola</a>
             <a href="/viaggi/index.html">Viaggi</a>
-            <a href="/creativita/index.html">Creatività</a>
+            <a href="index.html">Creatività</a>
         </div>
     </nav>
     <main>
         <header class="page-header">
-            <h1>Svago</h1>
-            <p>Giochi e momenti di relax per la famiglia.</p>
+            <h1>Creatività</h1>
+            <p>Progetti IA, hobby e attività creative della famiglia.</p>
         </header>
         <div class="cards-grid">
-            <a class="card" href="#"><div class="card-icon"><i class="fas fa-gamepad"></i></div><h3>Giochi</h3><p>Scopri i nostri giochi preferiti</p></a>
-            <a class="card" href="#"><div class="card-icon"><i class="fas fa-smile"></i></div><h3>Attività</h3><p>Attività di relax e divertimento</p></a>
+            <a class="card" href="/progetti-ia/index.html">
+                <img src="../img/copertina-ai.png" alt="Progetti IA" class="card-img">
+                <h3>Progetti IA</h3>
+                <p>Esperimenti e progetti con intelligenza artificiale.</p>
+            </a>
+            <a class="card" href="/svago/index.html">
+                <img src="../img/copertina-svago.png" alt="Svago" class="card-img">
+                <h3>Svago</h3>
+                <p>Attività, hobby e momenti di relax.</p>
+            </a>
         </div>
-        <article class="content-card">
-            <p>Questa sezione è in fase di sviluppo. Presto aggiungeremo giochi, attività e momenti di divertimento per tutta la famiglia!</p>
-        </article>
     </main>
     <footer class="site-footer"><i class="fas fa-heart"></i> Hub Famiglia Messana <i class="fas fa-heart"></i></footer>
     <script>
