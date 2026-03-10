@@ -33,6 +33,10 @@
       .content-card h1 { font-size: 1.75rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
       .content-card h1 i { color: var(--coral); }
       .content-card p { font-size: 1.1rem; color: var(--text); line-height: 1.7; }
+      .link-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+      .link-list a { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; background: rgba(224,122,95,0.12); border: 2px solid rgba(224,122,95,0.3); border-radius: 14px; color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.2s; }
+      .link-list a:hover { background: rgba(224,122,95,0.2); border-color: var(--coral); }
+      .link-list a i { color: var(--coral); }
     </style>
 </head>
 <body>
@@ -64,6 +68,9 @@
         <article class="content-card">
             <h1><i class="fas fa-language"></i> Inglese</h1>
             <p>Qui troverai appunti, esercizi e materiali didattici di Inglese.</p>
+            <div class="link-list">
+                <a href="../../avverbi-frequenza/index.html"><i class="fas fa-sync-alt"></i> Avverbi di frequenza – Impara gli avverbi di frequenza in inglese.</a>
+            </div>
         </article>
     </main>
     <script>
