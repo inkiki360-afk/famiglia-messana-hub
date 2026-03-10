@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viaggio in Camper – Pasqua 2026 | Liguria & Toscana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fraunces:opsz,wght@9..144,700&display=swap');
+
+        :root {
+            --sea: #0ea5e9;
+            --hill: #10b981;
+            --sand: #fef3c7;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Fraunces', serif;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-pattern {
+            background-color: #0f172a;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1543743336-963399caab5e?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .day-number {
+            background: linear-gradient(135deg, var(--sea), var(--hill));
+        }
+
+        .sticky-summary {
+            position: sticky;
+            top: 5rem;
+        }
+
+        details summary::-webkit-details-marker {
+            display:none;
+        }
+
+        details[open] summary i.chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Note area styling */
+        .note-field {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            background-color: #fffbeb;
+            font-size: 13px;
+            color: #475569;
+            resize: vertical;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .note-field:focus {
+            border-color: var(--accent);
+            background-color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive tables for mobile */
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2.25rem !important; line-height: 2.5rem !important; }
+            table.resp-table thead { display: none; }
+            table.resp-table tr { display: block; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; }
+            table.resp-table td { display: block; text-align: left; padding: 0.5rem 0; }
+            table.resp-table td::before { content: attr(data-label); font-weight: bold; display: block; color: var(--ink); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.25rem; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-slate-900 leading-relaxed overflow-x-hidden">
+
+    <!-- Site nav (Famiglia Messana) -->
+    <nav class="bg-white border-b border-slate-200 px-4 py-2 flex items-center justify-between text-sm">
+        <div class="flex items-center gap-4">
+            <a href="/index.html" class="font-semibold text-slate-700 hover:text-emerald-600 transition-colors">Famiglia Messana</a>
+            <a href="../index.html" class="text-slate-500 hover:text-emerald-600 transition-colors"><i class="fas fa-arrow-left mr-1"></i> Torna a Viaggi</a>
+        </div>
+    </nav>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-10 w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="https://drive.google.com/uc?id=1SC4VNV6I0uHWnazaBwjqwi6UgaN8fdAf" alt="Logo Viaggio" class="h-10 sm:h-12 w-auto object-contain rounded" loading="lazy" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2830/2830305.png';">
+                <span class="font-bold tracking-tight text-sm sm:text-lg uppercase text-slate-700">Pasqua 2026</span>
+            </div>
+            <div class="hidden lg:flex gap-6 text-sm font-semibold text-slate-600 uppercase tracking-wider">
+                <a href="#concept" class="hover:text-emerald-600 transition-colors">Concept</a>
+                <a href="#timeline" class="hover:text-emerald-600 transition-colors">Itinerario</a>
+                <a href="#finale" class="hover:text-emerald-600 transition-colors">Opzioni Finale</a>
+            </div>
+            <button onclick="window.print()" class="bg-emerald-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg hover:bg-emerald-700 transition-all">
+                <i class="fas fa-print mr-1 sm:mr-2"></i>STAMPA
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header / Hero -->
+    <header class="hero-pattern pt-28 pb-16 sm:pt-36 sm:pb-24 px-5 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">
+                Road Trip Family Edition
+            </span>
+            <h1 class="hero-title text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-balance text-white">Liguria & Toscana</h1>
+            <p class="text-base sm:text-xl md:text-2xl text-slate-200 font-light max-w-2xl mx-auto mb-10 text-balance">
+                Una vacanza rigenerante di 7 giorni tra mare, colline e acque termali.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 rounded-2xl border border-white/10">
+                    <p class="text-[10px] text-slate-300 uppercase mb-0.5 tracking-wider font-bold">Partenza</p>
+                    <p class="font-bold text-sm sm:text-base">2 Aprile • Legnano</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 rounded-2xl border border-white/10">
+                    <p class="text-[10px] text-slate-300 uppercase mb-0.5 tracking-wider font-bold">Rientro Base</p>
+                    <p class="font-bold text-sm sm:text-base">8 Aprile • Milano</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            
+            <aside class="hidden lg:block lg:col-span-4">
+                <div class="sticky-summary space-y-6">
+                    <div id="concept" class="bg-white rounded-3xl p-8 card-shadow border border-slate-100">
+                        <h2 class="text-2xl font-bold mb-4">Il Concept</h2>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            <strong>7 giorni di pura qualità</strong>. Un percorso fluido studiato per massimizzare il relax senza troppi spostamenti.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fas fa-water"></i></span>
+                                <span>Liguria: Apertura in riva al mare</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-hot-tub"></i></span>
+                                <span>Toscana: Borghi e Terme</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fas fa-caravan"></i></span>
+                                <span>Rientro intelligente al Giorno 8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-900 text-emerald-50 rounded-3xl p-8 shadow-xl">
+                        <h3 class="text-xl font-bold mb-4 italic text-balance">"7 Giorni, infiniti sorrisi."</h3>
+                        <p class="text-emerald-200/80 text-sm">
+                            Il Gran Finale WOW resta a disposizione se decidiamo di allungare la festa!
+                        </p>
+                    </div>
+                </div>
+            </aside>
+
+            <div id="timeline" class="lg:col-span-8 space-y-10 sm:space-y-12">
+                <h2 class="text-2xl sm:text-3xl font-bold flex items-center gap-4">
+                    <i class="fas fa-map-marked-alt text-emerald-600"></i>
+                    Timeline del Viaggio (7 Giorni)
+                </h2>
+
+                <!-- Tappa 1 -->
+                <div class="relative pl-2 sm:pl-8 lg:pl-0">
+                    <div class="hidden sm:block absolute left-[50%] lg:left-0 top-0 bottom-0 w-px bg-slate-200 lg:hidden"></div>
+                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
+                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
+                                    <span class="text-lg sm:text-xl">1-2</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight">Riva Trigoso & Sestri</h3>
+                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Liguria • Relax e Mare</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="space-y-4 text-balance">
+                                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">Arrivo al mare. Setup camper e prima serata ligure. Il Giorno 2 è dedicato alla ciclopedonale.</p>
+                                <ul class="space-y-2 text-slate-500">
+                                    <li class="flex items-center gap-2 text-xs sm:text-sm"><i class="fas fa-check text-emerald-500"></i> Baia del Silenzio</li>
+                                    <li class="flex items-center gap-2 text-xs sm:text-sm"><i class="fas fa-check text-emerald-500"></i> Focaccia calda in spiaggia</li>
+                                </ul>
+                            </div>
+                            <div class="rounded-2xl overflow-hidden h-40 sm:h-48 shadow-sm">
+                                <img src="https://tourismmedia.italia.it/is/image/mitur/20210408160302-sestri-levante-ligria-shutterstock-1668302098?wid=2480&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Sestri Levante" loading="lazy">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <details class="bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden group">
+                                <summary class="flex items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-slate-100 transition-colors list-none">
+                                    <span class="font-bold text-slate-700 text-xs sm:text-sm flex items-center"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Suggerimenti</span>
+                                    <i class="fas fa-chevron-down text-slate-400 transition-transform text-xs chevron"></i>
+                                </summary>
+                                <div class="p-3 sm:p-4 pt-0 text-[13px] sm:text-sm text-slate-600 leading-relaxed text-balance">
+                                    <p>Fare un giro in bici lungo la <strong>Maremonti</strong>: panoramica, facile per i bimbi e ventilata.</p>
+                                </div>
+                            </details>
+
+                            <!-- Campo Note -->
+                            <div class="mt-4">
+                                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
+                                <textarea class="note-field" placeholder="Aggiungi qui orari, nomi di ristoranti o appunti per questa tappa..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tappa 2 -->
+                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
+                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
+                                    <span class="text-lg sm:text-xl">3</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight">Pisa: Un Salto nella Storia</h3>
+                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Toscana • Tappa Cultura</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="rounded-2xl overflow-hidden h-40 sm:h-48 order-2 md:order-1 shadow-sm">
+                                <img src="https://www.arteemusei.com/upload/blog/1750409082vBannerImage_TorrediPisa.jpg" class="w-full h-full object-cover" alt="Pisa" loading="lazy">
+                            </div>
+                            <div class="space-y-4 order-1 md:order-2 text-balance">
+                                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">Pomeriggio in Piazza dei Miracoli. Picnic e foto divertenti alla Torre.</p>
+                                <div class="bg-slate-50 p-3 sm:p-4 rounded-xl border-l-4 border-emerald-500 shadow-sm">
+                                    <p class="text-[10px] font-bold uppercase text-slate-400 mb-1">Punto Camper</p>
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-snug">Area Via di Pratale: spaziosa e pratica.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Campo Note -->
+                        <div class="mt-4">
+                            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
+                            <textarea class="note-field" placeholder="Cose da vedere a Pisa o appunti sulla sosta..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Tappa 3 -->
+                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
+                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
+                                    <span class="text-lg sm:text-xl">4-5</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight text-balance text-slate-800">Val d'Orcia & Borghi</h3>
+                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Toscana • Colline Verdi</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed text-balance">Pienza e Bagno Vignoni. Gelato, pecorino e corse tra i cipressi.</p>
+                        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 h-24 sm:h-32 mb-6 shadow-sm rounded-xl overflow-hidden">
+                            <img src="https://tourismmedia.italia.it/is/image/mitur/20210312120351-enit-val-dorcia?wid=1600&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Panorama" loading="lazy">
+                            <img src="https://tourismmedia.italia.it/is/image/mitur/20210312120256-val-d-orcia-istock-1287500516?wid=1600&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Colline" loading="lazy">
+                            <img src="https://www.incinqueconlavaligia.com/wp-content/uploads/2020/06/Cavallo-in-Val-dOrcia_Toscana.jpg" class="w-full h-full object-cover" alt="Cavallo" loading="lazy">
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <details class="bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden group">
+                                <summary class="flex items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-slate-100 transition-colors list-none">
+                                    <span class="font-bold text-slate-700 text-xs sm:text-sm flex items-center"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Suggerimenti</span>
+                                    <i class="fas fa-chevron-down text-slate-400 transition-transform text-xs chevron"></i>
+                                </summary>
+                                <div class="p-3 sm:p-4 pt-0 text-[13px] sm:text-sm text-slate-600 text-balance">
+                                    <p>Cercate i <strong>cipressi di San Quirico</strong> al tramonto. Per i piccoli: visita all'agriturismo con le caprette.</p>
+                                </div>
+                            </details>
+                            <!-- Campo Note -->
+                            <div class="mt-4">
+                                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
+                                <textarea class="note-field" placeholder="Agriturismi preferiti o borghi da non perdere..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PENULTIMA TAPPA: SCELTA TERMALE -->
+                    <div class="relative z-10 bg-amber-50 rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-amber-200 mb-8 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center mb-6 gap-4">
+                            <div class="bg-amber-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
+                                <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
+                                <span class="text-lg sm:text-xl">6-7</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-amber-900 leading-tight text-balance">Wellness Toscano</h3>
+                                <p class="text-amber-700 font-semibold text-[11px] sm:text-sm uppercase tracking-wider text-balance">Relax prima del rientro a Milano</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm sm:text-base text-amber-800 mb-8 leading-relaxed text-balance italic font-semibold">
+                            Scegliamo dove passare le ultime 48 ore di relax toscano:
+                        </p>
+
+                        <!-- OPZIONE 1: SATURNIA -->
+                        <details class="bg-white border border-amber-200 rounded-2xl overflow-hidden group mb-4 shadow-sm">
+                            <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer hover:bg-amber-100/50 transition-colors list-none">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold">1</div>
+                                    <span class="font-bold text-slate-800 text-sm sm:text-lg">Parco Termale di Saturnia</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-amber-400 transition-transform text-xs chevron"></i>
+                            </summary>
+                            <div class="p-4 sm:p-6 pt-0 border-t border-amber-50">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left border-collapse resp-table">
+                                        <thead>
+                                            <tr class="text-amber-900 border-b border-amber-100">
+                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">PRO</th>
+                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">CONTRO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-slate-600">
+                                            <tr class="border-b border-amber-50">
+                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Effetto Wow:</strong> Estetica naturale unica al mondo.</td>
+                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Distanza:</strong> La più lontana (480 km da casa).</td>
+                                            </tr>
+                                            <tr class="border-b border-amber-50">
+                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Bimbi:</strong> Vasche dedicate sicure e calde.</td>
+                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Odore:</strong> Zolfo molto persistente.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center gap-3">
+                                    <i class="fas fa-caravan text-emerald-600 text-xl text-emerald-600"></i>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">Sosta Camper</p>
+                                        <p class="text-xs sm:text-sm text-emerald-700"><strong>Alveare del Pinzi:</strong> Top per camperisti.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- OPZIONE 2: QUERCIOLAIA -->
+                        <details class="bg-white border border-amber-200 rounded-2xl overflow-hidden group shadow-sm mb-6">
+                            <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer hover:bg-amber-100/50 transition-colors list-none">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</div>
+                                    <span class="font-bold text-slate-800 text-sm sm:text-lg">Terme Antiche Querciolaia</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-amber-400 transition-transform text-xs chevron"></i>
+                            </summary>
+                            <div class="p-4 sm:p-6 pt-0 border-t border-amber-50">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left border-collapse resp-table">
+                                        <thead>
+                                            <tr class="text-amber-900 border-b border-amber-100">
+                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">PRO</th>
+                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">CONTRO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-slate-600">
+                                            <tr class="border-b border-amber-50">
+                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Strategica:</strong> Vicino Siena, accorcia il rientro di 100 km.</td>
+                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Meno Wow:</strong> Atmosfera più sobria.</td>
+                                            </tr>
+                                            <tr class="border-b border-amber-50">
+                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Indoor:</strong> Vasche al coperto ottime se piove.</td>
+                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Regole:</strong> Molto severi su maschere/giochi.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center gap-3">
+                                    <i class="fas fa-caravan text-emerald-600 text-xl text-emerald-600"></i>
+                                    <div>
+                                        <p class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">Sosta Camper</p>
+                                        <p class="text-xs sm:text-sm text-emerald-700"><strong>Area Rapolano:</strong> Tranquilla e vicina.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Campo Note Wellness -->
+                        <div class="mt-2 bg-white/50 p-4 rounded-2xl border border-amber-200/50">
+                            <label class="block text-[11px] font-bold text-amber-600 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Decisione e Note</label>
+                            <textarea class="note-field" placeholder="Quale scegliamo? Aggiungi qui le tue riflessioni..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- CHIUSURA VACANZA 7 GIORNI -->
+                    <div class="relative z-10 bg-slate-100 rounded-2xl p-6 sm:p-8 border border-slate-200 text-center mb-12 shadow-inner">
+                        <i class="fas fa-flag-checkered text-3xl text-slate-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-balance">Giorno 8: Rientro Base</h3>
+                        <p class="text-slate-600 text-sm sm:text-base text-balance leading-relaxed">
+                            Si riparte con calma verso <strong>Milano/Legnano</strong>. Chiudiamo qui la nostra vacanza ufficiale di 7 giorni, rigenerati e felici!
+                        </p>
+                        <div class="mt-4 flex justify-center gap-2">
+                            <span class="bg-white px-4 py-1.5 rounded-full text-[10px] font-bold text-slate-500 uppercase border border-slate-200 shadow-sm"><i class="fas fa-road mr-2"></i>~350-450 km per casa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gran Finale WOW (Opzionale) -->
+                <section id="finale" class="pt-6 sm:pt-8 opacity-90 grayscale-[0.2] hover:grayscale-0 transition-all">
+                    <div class="bg-slate-900 text-white rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-12 shadow-2xl relative overflow-hidden border border-white/5">
+                        <div class="relative z-10 text-white">
+                            <div class="inline-block bg-amber-500 text-slate-900 text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest">Extra Opzionale</div>
+                            <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-amber-400 text-balance text-white text-balance">Gran Finale WOW (Giorno 8-11?)</h2>
+                            <p class="text-slate-400 mb-8 sm:mb-10 max-w-xl text-sm sm:text-base leading-relaxed text-balance text-white">
+                                Decidiamo alla fine: vogliamo allungare di qualche giorno? Ecco le opzioni per i bimbi lungo la strada del ritorno.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                                <div class="space-y-4 text-white">
+                                    <h4 class="text-emerald-400 font-bold uppercase tracking-[0.15em] text-[10px] border-b border-white/10 pb-2 text-center sm:text-left text-emerald-400">Parchi Divertimento</h4>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
+                                        <div class="flex justify-between items-start mb-1">
+                                            <a href="https://www.leolandia.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-amber-500 text-sm sm:text-base hover:underline leading-tight text-amber-500">Leolandia (BG)</a>
+                                            <span class="text-[9px] text-slate-400 shrink-0">50 km</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 text-white">Il sogno dei più piccoli a casa.</p>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
+                                        <div class="flex justify-between items-start mb-1">
+                                            <a href="https://www.cavallinomatto.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-amber-500 text-sm sm:text-base hover:underline leading-tight text-amber-500">Cavallino Matto (LI)</a>
+                                            <span class="text-[9px] text-slate-400 shrink-0">330 km</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 text-white">Adrenalina sulla costa toscana.</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-4 text-white">
+                                    <h4 class="text-blue-400 font-bold uppercase tracking-[0.15em] text-[10px] border-b border-white/10 pb-2 text-center sm:text-left text-blue-400">Scoperte e Natura</h4>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
+                                        <div class="flex justify-between items-start mb-1">
+                                            <a href="https://www.acquariodigenova.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-400 text-sm sm:text-base hover:underline leading-tight text-blue-400">Acquario Genova</a>
+                                            <span class="text-[9px] text-slate-400 shrink-0">170 km</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 text-white">Tappa sottomarina lungo la costa.</p>
+                                    </div>
+                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
+                                        <div class="flex justify-between items-start mb-1">
+                                            <a href="https://www.parcodellapreistoria.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-400 text-sm sm:text-base hover:underline leading-tight text-balance text-emerald-400">Parco Preistoria (CR)</a>
+                                            <span class="text-[9px] text-slate-400 shrink-0">60 km</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 text-white">Dinosauri giganti a Rivolta d'Adda.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Campo Note Finale -->
+                            <div class="mt-8 bg-white/5 p-4 rounded-2xl border border-white/10">
+                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2 text-white"></i>Note e Idee per l'Allungo</label>
+                                <textarea class="note-field" style="background-color: rgba(255,255,255,0.05); color: white; border-style: solid;" placeholder="Quale parco preferiscono Noah e Nicole? Segna qui i desideri dell'ultimo minuto..."></textarea>
+                            </div>
+
+                            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-white">
+                                <div class="text-center md:text-left">
+                                    <p class="text-slate-500 text-[13px] italic text-slate-500">"Il viaggio non finisce finché non siamo a casa."</p>
+                                </div>
+                                <div class="flex items-center gap-4 text-xs sm:text-sm text-white">
+                                    <span class="text-slate-400 tracking-wide font-semibold text-white">Legnano Family Base</span>
+                                    <i class="fas fa-home text-emerald-500 animate-pulse text-emerald-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-50 border-t border-slate-200 py-10 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-center gap-5 mb-6 text-slate-300">
+                <i class="fas fa-caravan text-xl sm:text-2xl"></i>
+                <i class="fas fa-map text-xl sm:text-2xl"></i>
+                <i class="fas fa-heart text-xl sm:text-2xl"></i>
+            </div>
+            <p class="text-slate-500 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mb-2 tracking-widest uppercase">Progetto Viaggio Pasqua 2026</p>
+            <p class="text-slate-400 text-[10px] italic font-semibold">Victor, Sandra, Noah & Nicole</p>
+        </div>
+    </footer>
+</body>
+</html>
