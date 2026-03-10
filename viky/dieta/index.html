@@ -3,359 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Dieta - Obiettivo 80kg - Spazio Viky</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <title>App Dieta – Obiettivo 80kg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>body { margin: 0; padding: 0; }</style>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.06);
+            --radius: 16px;
+            --radius-sm: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 0 0 2rem;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 0 1rem; }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem 1rem 2rem;
+            text-align: center;
+            border-radius: 0 0 24px 24px;
+            box-shadow: var(--shadow);
+        }
+        header h1 { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.25rem; }
+        header p { font-size: 0.8rem; opacity: 0.9; }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.75rem;
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .today-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        main { padding: 1.25rem 0; }
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .card h2 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: var(--primary); }
+        .input-wrap { position: relative; }
+        .autocomplete-list {
+            position: absolute;
+            left: 0; right: 0;
+            top: 100%;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .autocomplete-list:empty { display: none; }
+        .autocomplete-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .autocomplete-item:last-child { border-bottom: none; }
+        .autocomplete-item:hover, .autocomplete-item.selected { background: #f1f5f9; }
+        .autocomplete-item span:last-child { font-size: 0.8rem; color: var(--text-muted); }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.25rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-ghost {
+            background: #f1f5f9;
+            color: var(--text);
+        }
+        .btn-ghost:hover { background: #e2e8f0; }
+        .btn-danger { background: #fef2f2; color: var(--danger); }
+        .btn-danger:hover { background: #fee2e2; }
+        .msg {
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .msg-error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        .msg-success { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+        .msg-hide { display: none; }
+        .total-box {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            padding: 1.25rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .total-box .label { font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.05em; }
+        .total-box .value { font-size: 2rem; font-weight: 800; }
+        .entry-list { list-style: none; }
+        .entry-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border);
+            gap: 0.75rem;
+        }
+        .entry-item:last-child { border-bottom: none; }
+        .entry-item .name { font-weight: 600; flex: 1; min-width: 0; }
+        .entry-item .meta { font-size: 0.8rem; color: var(--text-muted); }
+        .entry-item .kcal { font-weight: 700; color: var(--primary); }
+        .entry-item .actions { display: flex; align-items: center; gap: 0.5rem; }
+        .entry-item button { padding: 0.5rem; border: none; background: none; cursor: pointer; color: var(--text-muted); border-radius: 8px; }
+        .entry-item button:hover { color: var(--danger); background: #fef2f2; }
+        .empty-state {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .empty-state i { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
+        .reset-row { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .filter-wrap { margin-bottom: 1rem; }
+        .filter-wrap input { margin-bottom: 0; }
+        @media (min-width: 500px) {
+            .container { padding: 0 1.5rem; }
+            header { padding: 2rem 1.5rem 2.5rem; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel" data-type="module">
-        const { useState, useEffect, useMemo } = React;
+    <header>
+        <a href="../index.html" class="back-link" aria-label="Torna a Spazio Viky"><i class="fas fa-arrow-left"></i> Spazio Viky</a>
+        <h1>App Dieta – Obiettivo 80kg</h1>
+        <p>Conta le calorie in modo semplice</p>
+        <span class="today-badge" id="today-badge"></span>
+    </header>
 
-        // --- CONFIGURAZIONE: inserisci qui la tua Firebase config (da Firebase Console) ---
-        const FIREBASE_CONFIG_STRING = '{"apiKey":"","authDomain":"","projectId":"","storageBucket":"","messagingSenderId":"","appId":""}';
-        const APP_ID = 'dieta-80kg-v2';
-        const GEMINI_API_KEY = ''; // Opzionale: per analisi AI cibo
+    <main class="container">
+        <div id="message" class="msg msg-hide" role="alert"></div>
 
-        let firebaseApp = null;
-        let firebaseAuth = null;
-        let firebaseDb = null;
-        try {
-            const config = JSON.parse(FIREBASE_CONFIG_STRING);
-            if (config && config.apiKey) {
-                firebaseApp = firebase.initializeApp(config);
-                firebaseAuth = firebase.auth();
-                firebaseDb = firebase.firestore();
-            }
-        } catch (e) { console.warn('Firebase non configurato. Usa la app in modalità demo.'); }
-
-        const PIANO_SETTIMANALE = {
-            'Lunedì': { sport: 'Padel (1h30)', colazione: { text: '250ml Latte parz. screm., caffè, 2 fette biscottate, 30g marmellata fragole, 100g uva', kcal: 350, ing: ['Latte parz. screm.', 'Fette biscottate', 'Marmellata fragole', 'Uva'] }, spuntino: { text: '25g Frutta secca', kcal: 160, ing: ['Mix Frutta secca'] }, pranzo: { text: '80g Riso integrale, 120g Legumi, 200g Verdure', kcal: 650, ing: ['Riso integrale', 'Legumi (ceci/lenticchie)', 'Zucchine/Carote'] }, cena: { text: '3 Uova, 250g Verdure', kcal: 550, ing: ['Uova', 'Spinaci/Broccoli'] } },
-            'Martedì': { sport: 'Riposo', colazione: { text: '250ml Latte, caffè, 2 fette biscottate, 30g marmellata, 150g frutta', kcal: 380, ing: ['Latte', 'Fette biscottate', 'Marmellata', 'Frutta fresca'] }, spuntino: { text: '25g Frutta secca', kcal: 160, ing: ['Mix Frutta secca'] }, pranzo: { text: '80g Riso o Farro, 112g Tonno al naturale, 200g Verdure', kcal: 620, ing: ['Riso o Farro', 'Tonno al naturale', 'Finocchi/Pomodori'] }, cena: { text: '180g Petto di pollo, 250g Verdure', kcal: 500, ing: ['Petto di pollo', 'Zucchine'] } },
-            'Mercoledì': { sport: 'Palestra (PT)', colazione: { text: '250ml Latte, caffè, 2 fette biscottate, 30g marmellata', kcal: 320, ing: ['Latte', 'Fette biscottate', 'Marmellata'] }, spuntino: { text: 'Yogurt Greco 150g', kcal: 150, ing: ['Yogurt Greco'] }, pranzo: { text: '80g Riso, 120g Legumi, 200g Verdure', kcal: 650, ing: ['Riso', 'Legumi', 'Verdure miste'] }, cena: { text: '70g Pasta, sugo pomodoro, 30g parmigiano, verdure', kcal: 650, ing: ['Pasta integrale', 'Passata pomodoro', 'Parmigiano', 'Broccoli'] } },
-            'Giovedì': { sport: 'Padel (Maestro)', colazione: { text: '250ml Latte, caffè, 2 fette biscottate, 30g marmellata, frutta', kcal: 380, ing: ['Latte', 'Fette biscottate', 'Marmellata', 'Frutta fresca'] }, spuntino: { text: '25g Frutta secca', kcal: 160, ing: ['Mix Frutta secca'] }, pranzo: { text: '80g Riso, 120g Tonno o Legumi, 200g Verdure', kcal: 650, ing: ['Riso', 'Tonno o Legumi', 'Insalata'] }, cena: { text: 'Insalatona con 150g Pollo o Tonno, verdure, 40g Pane', kcal: 550, ing: ['Pollo o Tonno', 'Insalata mista', 'Pane integrale'] } },
-            'Venerdì': { sport: 'Riposo', colazione: { text: '250ml Latte, caffè, 2 fette biscottate, marmellata', kcal: 320, ing: ['Latte', 'Fette biscottate', 'Marmellata'] }, spuntino: { text: '25g Frutta secca', kcal: 160, ing: ['Mix Frutta secca'] }, pranzo: { text: '80g Riso o Farro, 150g Pollo o Legumi, 200g Verdure', kcal: 700, ing: ['Riso o Farro', 'Pollo o Legumi', 'Zucchine'] }, cena: { text: '180g Pesce, 250g Verdure, 40g Pane', kcal: 550, ing: ['Pesce bianco', 'Finocchi', 'Pane integrale'] } },
-            'Sabato': { sport: 'Attività libera', colazione: { text: 'Latte, caffè, fette biscottate, marmellata', kcal: 320, ing: ['Latte', 'Fette biscottate', 'Marmellata'] }, spuntino: { text: 'Frutta', kcal: 100, ing: ['Frutta fresca'] }, pranzo: { text: 'Insalatona con proteine', kcal: 500, ing: ['Tonno/Pollo', 'Insalata', 'Pomodori'] }, cena: { text: 'PIZZA (Margherita, Marinara o Verdure)', kcal: 850, ing: ['Pizza (Ristorante/Asporto)'] } },
-            'Domenica': { sport: 'Passeggiata', colazione: { text: 'Normale', kcal: 400, ing: ['Latte', 'Fette biscottate'] }, spuntino: { text: 'Frutta', kcal: 100, ing: ['Frutta fresca'] }, pranzo: { text: 'Pranzo in famiglia', kcal: 900, ing: ['Pasta', 'Carne magra', 'Olio EVO'] }, cena: { text: 'Proteine leggere + Verdure', kcal: 400, ing: ['Pesce o Bresaola', 'Verdure al vapore'] } }
-        };
-
-        const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
-        const Icon = ({ name, size = 18, className = '' }) => {
-            const map = { Home: 'fa-home', Calendar: 'fa-calendar', ShoppingCart: 'fa-shopping-cart', Scale: 'fa-weight-scale', Plus: 'fa-plus', Utensils: 'fa-utensils', ChevronRight: 'fa-chevron-right', Trash2: 'fa-trash', CheckCircle2: 'fa-circle-check', Activity: 'fa-chart-line', Zap: 'fa-bolt', Clock: 'fa-clock', Search: 'fa-search', Check: 'fa-check', Send: 'fa-paper-plane', Flame: 'fa-fire', Circle: 'fa-circle', PlusCircle: 'fa-circle-plus', Loader2: 'fa-spinner', AlertCircle: 'fa-circle-exclamation', History: 'fa-clock-rotate-left', ScanBarcode: 'fa-barcode', Type: 'fa-font', Sunrise: 'fa-sun', ShoppingBag: 'fa-bag-shopping', ClipboardList: 'fa-clipboard-list', TrendingDown: 'fa-chart-line', HeartPulse: 'fa-heart-pulse' };
-            const fa = map[name] || 'fa-circle';
-            const spin = name === 'Loader2';
-            return <i className={'fas ' + fa + (spin ? ' fa-spin' : '') + ' ' + className} style={{ fontSize: size }} aria-hidden />;
-        };
-
-        const MealCardWithCheck = ({ title, data, completed, onToggle }) => (
-            <div onClick={onToggle} className={'p-4 rounded-[32px] border flex items-start gap-4 transition-all cursor-pointer active:scale-[0.98] ' + (completed ? 'bg-blue-50 border-blue-200 ring-1 ring-blue-100 shadow-sm' : 'bg-white border-slate-100 shadow-sm')}>
-                <div className={'mt-1 w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 transition-all ' + (completed ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-100 text-slate-300')}><Icon name="Check" size={20} /></div>
-                <div className="flex-1">
-                    <div className="flex justify-between items-center mb-1"><h4 className={'font-bold text-sm ' + (completed ? 'text-blue-700' : 'text-slate-800')}>{title}</h4><span className={'text-[9px] font-black px-2 py-0.5 rounded-full ' + (completed ? 'bg-blue-200 text-blue-700' : 'bg-slate-100 text-slate-500')}>{data?.kcal || 0} KCAL</span></div>
-                    <p className={(completed ? 'text-blue-600/60' : 'text-slate-500') + ' text-[10px] leading-snug'}>{data?.text || ''}</p>
-                </div>
+        <section class="card">
+            <h2><i class="fas fa-search fa-fw"></i> Cerca alimento</h2>
+            <div class="filter-wrap">
+                <label for="filter">Filtro rapido (opzionale)</label>
+                <input type="text" id="filter" placeholder="Es: pasta, frutta..." autocomplete="off">
             </div>
-        );
+            <div class="input-wrap">
+                <label for="food-input">Alimento</label>
+                <input type="text" id="food-input" placeholder="Scrivi il nome dell'alimento..." autocomplete="off" aria-autocomplete="list" aria-controls="autocomplete-list" aria-expanded="false">
+                <div id="autocomplete-list" class="autocomplete-list" role="listbox"></div>
+            </div>
+            <label for="grams-input">Grammi</label>
+            <input type="number" id="grams-input" placeholder="Es: 100" min="1" max="9999" step="1" inputmode="numeric">
+            <button type="button" id="btn-add" class="btn btn-primary" disabled>
+                <i class="fas fa-plus"></i> Calcola e aggiungi
+            </button>
+        </section>
 
-        const NavButton = ({ active, icon, label, onClick }) => (
-            <button onClick={onClick} className={'flex flex-col items-center gap-1 transition-colors ' + (active ? 'text-blue-600' : 'text-slate-400')}><div className="mb-0.5">{icon}</div><span className="text-[8px] font-black uppercase tracking-tighter">{label}</span></button>
-        );
+        <section class="card">
+            <div class="total-box">
+                <div class="label">Calorie totali oggi</div>
+                <div class="value" id="total-kcal">0</div>
+            </div>
+            <h2><i class="fas fa-list fa-fw"></i> Cibi aggiunti oggi</h2>
+            <ul class="entry-list" id="entry-list"></ul>
+            <div id="empty-state" class="empty-state">
+                <i class="fas fa-utensils"></i>
+                <p>Nessun alimento aggiunto. Usa il modulo sopra per iniziare.</p>
+            </div>
+            <div class="reset-row">
+                <button type="button" id="btn-reset" class="btn btn-ghost" style="width:100%">
+                    <i class="fas fa-trash-alt"></i> Azzera la giornata
+                </button>
+            </div>
+        </section>
+    </main>
 
-        const WeightTrendChart = ({ data }) => {
-            const chartData = [...data].sort((a, b) => a.timestamp - b.timestamp);
-            const padding = 20, width = 300, height = 150;
-            const minWeight = Math.min(...chartData.map(d => d.value)) - 1;
-            const maxWeight = Math.max(...chartData.map(d => d.value)) + 1;
-            const weightRange = maxWeight - minWeight;
-            const getX = (index) => padding + (index * (width - padding * 2)) / (chartData.length - 1);
-            const getY = (value) => height - padding - ((value - minWeight) * (height - padding * 2)) / weightRange;
-            const points = chartData.map((d, i) => getX(i) + ',' + getY(d.value)).join(' ');
-            return (
-                <svg viewBox={'0 0 ' + width + ' ' + height} className="w-full h-auto">
-                    <line x1={padding} y1={getY(minWeight)} x2={width-padding} y2={getY(minWeight)} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4" />
-                    <polyline fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" points={points} />
-                    {chartData.map((d, i) => (
-                        <g key={i}>
-                            <circle cx={getX(i)} cy={getY(d.value)} r="4" fill="white" stroke="#2563eb" strokeWidth="2" />
-                            {(i === 0 || i === chartData.length - 1) && <text x={getX(i)} y={getY(d.value) - 10} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e40af">{d.value}</text>}
-                            <text x={getX(i)} y={height - 2} textAnchor="middle" fontSize="8" fill="#94a3b8" fontWeight="bold">{d.date.split('/')[0]}/{d.date.split('/')[1]}</text>
-                        </g>
-                    ))}
-                </svg>
-            );
+    <script>
+(function () {
+        'use strict';
+
+        var STORAGE_PREFIX = 'dieta-80kg-';
+        var FOODS = {
+            'banana': 89,
+            'mela': 52,
+            'pera': 57,
+            'arancia': 47,
+            'uva': 69,
+            'fragole': 32,
+            'pane': 265,
+            'pasta secca': 353,
+            'riso secco': 360,
+            'pollo petto': 165,
+            'tacchino': 135,
+            'tonno naturale': 116,
+            'salmone': 208,
+            'uova': 155,
+            'latte parzialmente scremato': 46,
+            'yogurt greco': 97,
+            'parmigiano': 431,
+            'mozzarella': 280,
+            'olio extravergine': 884,
+            'mandorle': 579,
+            'noci': 654,
+            'pizza margherita': 270,
+            'patate': 77,
+            'zucchine': 17,
+            'broccoli': 34,
+            'carote': 41,
+            'pomodori': 18,
+            'ceci cotti': 164,
+            'lenticchie cotte': 116,
+            'fagioli cotti': 127
         };
 
-        const App = () => {
-            const [user, setUser] = useState(null);
-            const [view, setView] = useState('home');
-            const [meals, setMeals] = useState([]);
-            const [weights, setWeights] = useState([]);
-            const [activities, setActivities] = useState([]);
-            const [isLogging, setIsLogging] = useState(false);
-            const [isLoggingActivity, setIsLoggingActivity] = useState(false);
-            const [logType, setLogType] = useState('text');
-            const [logInput, setLogInput] = useState('');
-            const [barcodeInput, setBarcodeInput] = useState('');
-            const [quantityInput, setQuantityInput] = useState('');
-            const [activityInput, setActivityInput] = useState('');
-            const [loadingCategory, setLoadingCategory] = useState(null);
-            const [errorMessage, setErrorMessage] = useState(null);
-            const [shoppingChecks, setShoppingChecks] = useState({});
-            const [mealExtras, setMealExtras] = useState({ colazione: '', spuntino: '', pranzo: '', cena: '' });
+        function todayKey() {
+            var d = new Date();
+            var y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+            return y + '-' + m + '-' + day;
+        }
 
-            useEffect(() => {
-                if (!firebaseAuth) return;
-                firebaseAuth.signInAnonymously().catch(e => console.warn('Auth:', e));
-                const unsub = firebaseAuth.onAuthStateChanged(setUser);
-                return () => unsub();
-            }, []);
+        function loadDay(dayKey) {
+            try {
+                var raw = localStorage.getItem(STORAGE_PREFIX + dayKey);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) { return []; }
+        }
 
-            useEffect(() => {
-                if (!user || !firebaseDb) return;
-                const base = firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid);
-                const unMeals = base.collection('meals').onSnapshot(snap => setMeals(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-                const unWeights = base.collection('weights').onSnapshot(snap => setWeights(snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => b.timestamp - a.timestamp)));
-                const unAct = base.collection('activity').onSnapshot(snap => setActivities(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-                return () => { unMeals(); unWeights(); unAct(); };
-            }, [user]);
+        function saveDay(dayKey, entries) {
+            try {
+                localStorage.setItem(STORAGE_PREFIX + dayKey, JSON.stringify(entries));
+            } catch (e) { console.warn('localStorage save failed', e); }
+        }
 
-            const stats = useMemo(() => {
-                const today = new Date().toLocaleDateString('it-IT');
-                const consumed = meals.filter(m => m.date === today).reduce((acc, m) => acc + (m.calories || 0), 0);
-                const todayActivity = activities.find(a => a.date === today)?.calories || 0;
-                const burned = 2500 + todayActivity;
-                return { consumed, target: 2000, burned, remaining: Math.max(2000 - consumed, 0) };
-            }, [meals, activities]);
+        function normalize(str) {
+            return (str || '').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
 
-            const toggleMeal = async (type, mealData) => {
-                if (!user || !firebaseDb) return;
-                const today = new Date().toLocaleDateString('it-IT');
-                const col = firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid).collection('meals');
-                const existing = meals.find(m => m.date === today && m.predefinedId === type);
-                if (existing) await col.doc(existing.id).delete();
-                else await col.add({ food: type.charAt(0).toUpperCase() + type.slice(1) + ' (Piano)', calories: mealData.kcal, date: today, timestamp: Date.now(), predefinedId: type, type: 'predefined' });
-            };
+        function filterFoods(query, filterText) {
+            var nq = normalize(query);
+            var nf = normalize(filterText);
+            var names = Object.keys(FOODS);
+            if (nf) names = names.filter(function (n) { return n.indexOf(nf) !== -1; });
+            if (!nq) return names.slice(0, 12);
+            return names.filter(function (n) { return n.indexOf(nq) !== -1; }).slice(0, 12);
+        }
 
-            const logActivity = async (val) => {
-                if (!val || !user || !firebaseDb) return;
-                const today = new Date().toLocaleDateString('it-IT');
-                const col = firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid).collection('activity');
-                const existing = activities.find(a => a.date === today);
-                const data = { calories: parseInt(val), date: today, timestamp: Date.now() };
-                if (existing) await col.doc(existing.id).set(data);
-                else await col.add(data);
-                setIsLoggingActivity(false);
-                setActivityInput('');
-            };
+        function findFood(name) {
+            var n = normalize(name);
+            var key = Object.keys(FOODS).find(function (k) { return normalize(k) === n; });
+            return key != null ? { name: key, kcalPer100: FOODS[key] } : null;
+        }
 
-            const handleAI = async (text, category, quantity = '') => {
-                if (!text || !user || !firebaseDb) return;
-                setLoadingCategory(category);
-                setErrorMessage(null);
-                let attempts = 0;
-                while (attempts < 5) {
-                    try {
-                        const prompt = category === 'barcode' ? 'Identifica prodotto codice: ' + text + ', quantità ' + (quantity || 100) + 'g. Rispondi JSON: {"food": "Nome", "calories": numero}.' : 'Cibo: "' + text + '". Quantità ' + (quantity || 'standard') + '. Per uomo 85kg. Rispondi JSON: {"food": "nome", "calories": numero}.';
-                        if (!GEMINI_API_KEY) { setErrorMessage('Configura GEMINI_API_KEY per analisi AI.'); setLoadingCategory(null); return; }
-                        const resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
-                        const res = await resp.json();
-                        const match = (res.candidates?.[0]?.content?.parts?.[0]?.text || '').match(/\{[\s\S]*\}/);
-                        const data = match ? JSON.parse(match[0]) : { food: text, calories: 0 };
-                        await firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid).collection('meals').add({ ...data, date: new Date().toLocaleDateString('it-IT'), timestamp: Date.now(), type: 'extra', category });
-                        if (category === 'manual' || category === 'barcode') { setLogInput(''); setBarcodeInput(''); setQuantityInput(''); setIsLogging(false); } else setMealExtras(prev => ({ ...prev, [category]: '' }));
-                        setLoadingCategory(null); return;
-                    } catch (e) { attempts++; await delay(1000 * Math.pow(2, attempts)); }
-                }
-                setErrorMessage('Errore connessione.'); setLoadingCategory(null);
-            };
+        function showMessage(text, isError) {
+            var el = document.getElementById('message');
+            el.textContent = text;
+            el.className = 'msg ' + (isError ? 'msg-error' : 'msg-success');
+            el.classList.remove('msg-hide');
+            clearTimeout(window._msgTimer);
+            window._msgTimer = setTimeout(function () { el.classList.add('msg-hide'); }, 3000);
+        }
 
-            const addWeight = async (val) => {
-                if (!val || !user || !firebaseDb) return;
-                await firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid).collection('weights').add({ value: parseFloat(val), date: new Date().toLocaleDateString('it-IT'), timestamp: Date.now() });
-            };
+        function renderEntries(entries) {
+            var list = document.getElementById('entry-list');
+            var empty = document.getElementById('empty-state');
+            list.innerHTML = '';
+            var total = 0;
+            entries.forEach(function (e, i) {
+                total += e.calories;
+                var li = document.createElement('li');
+                li.className = 'entry-item';
+                li.innerHTML =
+                    '<div><span class="name">' + escapeHtml(e.name) + '</span><div class="meta">' + e.grams + ' g &middot; ' + e.kcalPer100 + ' kcal/100g</div></div>' +
+                    '<span class="kcal">' + Math.round(e.calories) + ' kcal</span>' +
+                    '<div class="actions"><button type="button" data-index="' + i + '" aria-label="Elimina"><i class="fas fa-trash-alt"></i></button></div>';
+                list.appendChild(li);
+            });
+            document.getElementById('total-kcal').textContent = Math.round(total);
+            empty.style.display = entries.length ? 'none' : 'block';
+        }
 
-            const dynamicShoppingList = useMemo(() => {
-                const list = [];
-                for (let i = 0; i < 3; i++) {
-                    const d = new Date(); d.setDate(d.getDate() + i);
-                    const name = new Intl.DateTimeFormat('it-IT', { weekday: 'long' }).format(d);
-                    const capName = name.charAt(0).toUpperCase() + name.slice(1);
-                    const dayData = PIANO_SETTIMANALE[capName] || PIANO_SETTIMANALE['Lunedì'];
-                    list.push(...dayData.colazione.ing, ...dayData.spuntino.ing, ...dayData.pranzo.ing, ...dayData.cena.ing);
-                }
-                return [...new Set(list)].sort();
-            }, []);
+        function escapeHtml(s) {
+            var div = document.createElement('div');
+            div.textContent = s;
+            return div.innerHTML;
+        }
 
-            const dayName = new Intl.DateTimeFormat('it-IT', { weekday: 'long' }).format(new Date());
-            const capDay = dayName.charAt(0).toUpperCase() + dayName.slice(1);
-            const todayData = PIANO_SETTIMANALE[capDay] || PIANO_SETTIMANALE['Lunedì'];
-            const todayStr = new Date().toLocaleDateString('it-IT');
-            const todayMeals = meals.filter(m => m.date === todayStr).sort((a, b) => b.timestamp - a.timestamp);
+        function renderAutocomplete(names, selectedIndex) {
+            var list = document.getElementById('autocomplete-list');
+            list.innerHTML = '';
+            list.setAttribute('aria-expanded', names.length ? 'true' : 'false');
+            names.forEach(function (name, i) {
+                var kcal = FOODS[name];
+                var div = document.createElement('div');
+                div.className = 'autocomplete-item' + (i === selectedIndex ? ' selected' : '');
+                div.setAttribute('role', 'option');
+                div.setAttribute('data-name', name);
+                div.innerHTML = '<span>' + escapeHtml(name) + '</span><span>' + kcal + ' kcal/100g</span>';
+                list.appendChild(div);
+            });
+        }
 
-            if (!firebaseApp) {
-                return (
-                    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-                        <div className="bg-white rounded-3xl border border-slate-200 p-8 max-w-md text-center shadow-lg">
-                            <h1 className="text-xl font-bold text-slate-800 mb-2">App Dieta – Obiettivo 80kg</h1>
-                            <p className="text-sm text-slate-600 mb-4">Per usare l’app con salvataggio dati, configura Firebase in <code className="bg-slate-100 px-2 py-0.5 rounded text-xs">viky/dieta/index.html</code>: apri il file e sostituisci <code className="bg-slate-100 px-2 py-0.5 rounded text-xs">FIREBASE_CONFIG_STRING</code> con la tua config (JSON) da Firebase Console.</p>
-                            <a href="../index.html" className="inline-block text-blue-600 font-semibold text-sm">Torna a Spazio Viky</a>
-                        </div>
-                    </div>
-                );
+        function hideAutocomplete() {
+            var list = document.getElementById('autocomplete-list');
+            list.innerHTML = '';
+            list.setAttribute('aria-expanded', 'false');
+        }
+
+        var state = {
+            dayKey: todayKey(),
+            entries: [],
+            autocompleteIndex: -1
+        };
+
+        function loadAndRender() {
+            state.entries = loadDay(state.dayKey);
+            renderEntries(state.entries);
+        }
+
+        function addEntry(name, grams) {
+            var found = findFood(name);
+            if (!found) {
+                showMessage('Alimento non trovato nel database. Controlla il nome o scegli dalla lista mentre digiti.', true);
+                return false;
             }
+            var calories = (found.kcalPer100 / 100) * grams;
+            state.entries.push({
+                name: found.name,
+                grams: grams,
+                kcalPer100: found.kcalPer100,
+                calories: calories
+            });
+            saveDay(state.dayKey, state.entries);
+            renderEntries(state.entries);
+            showMessage('Aggiunto: ' + found.name + ' (' + Math.round(calories) + ' kcal)', false);
+            return true;
+        }
 
-            return (
-                <div className="flex flex-col h-screen bg-slate-50 text-slate-900 font-sans overflow-hidden">
-                    <header className="bg-white border-b p-4 flex justify-between items-center shrink-0">
-                        <div className="flex flex-col">
-                            <a href="../index.html" className="text-[10px] font-bold text-slate-400 hover:text-blue-600 uppercase tracking-widest mb-1 inline-flex items-center gap-1"><i className="fas fa-arrow-left"/> Spazio Viky</a>
-                            <h1 className="text-xl font-bold text-blue-600 mb-1 leading-none">Obiettivo 80kg</h1>
-                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date())}</p>
-                        </div>
-                        <div className="flex flex-col items-end">
-                            <div className="flex items-center gap-2 bg-blue-50 px-3 py-1.5 rounded-2xl border border-blue-100 shadow-sm">
-                                <Icon name="Scale" size={16} className="text-blue-600" />
-                                <span className="text-sm font-bold text-blue-800">{weights[0]?.value ?? 85.6} kg</span>
-                            </div>
-                            {weights[0]?.date && <div className="text-[9px] text-slate-400 font-bold mt-1 uppercase">Ultimo: {weights[0].date}</div>}
-                        </div>
-                    </header>
+        function removeEntry(index) {
+            state.entries.splice(index, 1);
+            saveDay(state.dayKey, state.entries);
+            loadAndRender();
+        }
 
-                    <main className="flex-1 overflow-y-auto p-4 pb-28 space-y-6">
-                        {view === 'home' && (
-                            <div className="space-y-6">
-                                <section className="grid grid-cols-3 gap-3">
-                                    <div className="bg-indigo-600 rounded-3xl p-4 flex flex-col items-center justify-center text-center shadow-lg"><Icon name="Utensils" size={18} className="text-white/40 mb-1"/><p className="text-[9px] font-bold text-indigo-100 uppercase mb-1">Acquisite</p><p className="text-xl font-black text-white">{stats.consumed}</p></div>
-                                    <div onClick={() => setIsLoggingActivity(true)} className="bg-orange-500 rounded-3xl p-4 flex flex-col items-center justify-center text-center shadow-lg cursor-pointer active:scale-95 transition-transform relative"><Icon name="Flame" size={18} className="text-white/40 mb-1"/><p className="text-[9px] font-bold text-orange-50 uppercase mb-1">Bruciate</p><p className="text-xl font-black text-white">{stats.burned}</p><div className="absolute top-1 right-2 flex items-center gap-1 bg-white/20 px-1.5 py-0.5 rounded-full text-[7px] font-black text-white uppercase"><Icon name="HeartPulse" size={8}/> Salute</div></div>
-                                    <div className="bg-emerald-600 rounded-3xl p-4 flex flex-col items-center justify-center text-center shadow-lg"><Icon name="Zap" size={18} className="text-white/40 mb-1"/><p className="text-[9px] font-bold text-emerald-100 uppercase mb-1">Residue</p><p className="text-xl font-black text-white">{stats.remaining}</p></div>
-                                </section>
-                                {errorMessage && <p className="text-sm text-red-600 font-medium">{errorMessage}</p>}
-                                {todayMeals.length > 0 && (
-                                    <div className="bg-white rounded-3xl border border-indigo-100 p-4 shadow-sm">
-                                        <h4 className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-3 flex items-center gap-2"><Icon name="Activity" size={12}/> Riepilogo Odierno</h4>
-                                        <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-                                            {todayMeals.map(m => (
-                                                <div key={m.id} className="flex justify-between items-center py-2 border-b border-slate-50 last:border-0">
-                                                    <span className="text-xs font-semibold text-slate-700 truncate max-w-[180px]">{m.food}</span>
-                                                    <div className="flex items-center gap-3"><span className="text-xs font-black text-indigo-600">+{m.calories}</span><button onClick={() => firebaseDb.collection('artifacts').doc(APP_ID).collection('users').doc(user.uid).collection('meals').doc(m.id).delete()} className="text-slate-300"><Icon name="Trash2" size={12}/></button></div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                <section className="space-y-4">
-                                    <h3 className="text-lg font-bold px-1">Piano Odierno</h3>
-                                    {['colazione', 'spuntino', 'pranzo', 'cena'].map((type) => (
-                                        <div key={type} className="space-y-2">
-                                            <MealCardWithCheck title={type.charAt(0).toUpperCase() + type.slice(1)} data={todayData[type]} completed={meals.some(m => m.date === todayStr && m.predefinedId === type)} onToggle={() => toggleMeal(type, todayData[type])} />
-                                            <div className="ml-14 flex gap-2">
-                                                <input type="text" placeholder={'Extra ' + type + '...'} className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-[11px] outline-none shadow-sm focus:ring-1 ring-blue-300" value={mealExtras[type]} onChange={(e) => setMealExtras(prev => ({ ...prev, [type]: e.target.value }))} onKeyDown={(e) => e.key === 'Enter' && handleAI(mealExtras[type], type)} disabled={loadingCategory === type} />
-                                                <button onClick={() => handleAI(mealExtras[type], type)} disabled={loadingCategory !== null || !mealExtras[type]} className="bg-blue-600 text-white p-2 rounded-xl active:scale-90 transition-transform">{loadingCategory === type ? <Icon name="Loader2" size={14} className="animate-spin" /> : <Icon name="PlusCircle" size={14} />}</button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </section>
-                            </div>
-                        )}
+        function resetDay() {
+            if (state.entries.length === 0) return;
+            if (!confirm('Vuoi azzerare tutti gli alimenti di oggi?')) return;
+            state.entries = [];
+            saveDay(state.dayKey, state.entries);
+            loadAndRender();
+            showMessage('Giornata azzerata.', false);
+        }
 
-                        {view === 'settimana' && (
-                            <div className="space-y-6">
-                                <h2 className="text-2xl font-black text-slate-800 px-1 tracking-tight">Programma Settimana</h2>
-                                <div className="grid gap-4">
-                                    {Object.entries(PIANO_SETTIMANALE).map(([day, plan]) => (
-                                        <div key={day} className="bg-white rounded-[32px] border border-slate-100 p-5 space-y-4 shadow-sm">
-                                            <div className="flex justify-between items-center border-b border-slate-50 pb-3"><h4 className="font-black text-lg text-slate-800">{day}</h4><span className="text-[9px] bg-orange-100 text-orange-600 px-3 py-1 rounded-full font-black uppercase tracking-widest">{plan.sport}</span></div>
-                                            <div className="space-y-3">
-                                                <div className="flex items-start gap-2"><div className="w-5 h-5 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center mt-0.5"><Icon name="Utensils" size={10}/></div><p className="text-[11px] text-slate-600 leading-tight"><b>Pranzo:</b> {plan.pranzo.text}</p></div>
-                                                <div className="flex items-start gap-2"><div className="w-5 h-5 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center mt-0.5"><Icon name="Utensils" size={10}/></div><p className="text-[11px] text-slate-600 leading-tight"><b>Cena:</b> {plan.cena.text}</p></div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+        // Today badge
+        document.getElementById('today-badge').textContent = 'Oggi: ' + state.dayKey;
 
-                        {view === 'spesa' && (
-                            <div className="space-y-6">
-                                <div className="flex items-center gap-3 px-1">
-                                    <div className="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center shadow-lg"><Icon name="ShoppingBag" size={22}/></div>
-                                    <div><h2 className="text-2xl font-black text-slate-800 tracking-tight leading-none">Spesa 3 Giorni</h2><p className="text-[10px] text-slate-400 font-bold uppercase mt-1">Oggi + prossimi 2 giorni</p></div>
-                                </div>
-                                <div className="bg-white rounded-[32px] border border-slate-100 divide-y overflow-hidden shadow-sm">
-                                    {dynamicShoppingList.map((item, i) => (
-                                        <div key={i} onClick={() => setShoppingChecks(prev => ({...prev, [item]: !prev[item]}))} className={'flex items-center gap-4 p-5 transition-colors active:bg-slate-50 ' + (shoppingChecks[item] ? 'bg-slate-50/50' : 'bg-white')}>
-                                            <div className={'w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ' + (shoppingChecks[item] ? 'bg-emerald-500 border-emerald-500' : 'border-slate-200')}>{shoppingChecks[item] && <Icon name="Check" size={14} className="text-white"/>}</div>
-                                            <span className={'text-sm font-medium transition-all ' + (shoppingChecks[item] ? 'text-slate-300 line-through' : 'text-slate-700')}>{item}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+        // Filter: only affects autocomplete suggestions
+        var filterEl = document.getElementById('filter');
+        var foodInput = document.getElementById('food-input');
+        var gramsInput = document.getElementById('grams-input');
+        var btnAdd = document.getElementById('btn-add');
+        var autocompleteList = document.getElementById('autocomplete-list');
 
-                        {view === 'piano' && (
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-[32px] border p-6 shadow-sm space-y-6">
-                                    <h3 className="text-xl font-black flex items-center gap-2 tracking-tight"><Icon name="TrendingDown" size={22} className="text-blue-600"/> Progresso Peso</h3>
-                                    <div className="w-full bg-slate-50 rounded-2xl p-4 border border-slate-100 overflow-hidden">
-                                        {weights.length >= 2 ? <WeightTrendChart data={weights} /> : <div className="h-32 flex flex-col items-center justify-center text-slate-400 gap-2"><Icon name="Activity" size={24} className="opacity-20 animate-pulse" /><p className="text-[10px] font-bold uppercase tracking-widest">Servono 2 pesate</p></div>}
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <input type="number" step="0.1" id="w-upd" placeholder="Registra peso..." className="flex-1 bg-slate-50 border-none rounded-2xl p-4 focus:ring-1 ring-blue-500 outline-none text-sm"/>
-                                        <button onClick={() => { const e = document.getElementById('w-upd'); addWeight(e.value); e.value = ''; }} className="bg-blue-600 text-white px-8 rounded-2xl font-bold active:scale-95 transition-transform">Salva</button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </main>
+        function updateAddButton() {
+            var name = foodInput.value.trim();
+            var grams = parseInt(gramsInput.value, 10);
+            btnAdd.disabled = !name || !grams || grams < 1;
+        }
 
-                    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 pb-8 flex justify-around items-center z-40 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-                        <NavButton active={view === 'home'} icon={<Icon name="Home" size={22}/>} label="Oggi" onClick={() => setView('home')} />
-                        <NavButton active={view === 'settimana'} icon={<Icon name="ClipboardList" size={22}/>} label="Programma" onClick={() => setView('settimana')} />
-                        <div className="relative -mt-10"><button onClick={() => setIsLogging(true)} className="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-xl active:scale-90 transition-transform"><Icon name="Plus" size={28}/></button></div>
-                        <NavButton active={view === 'spesa'} icon={<Icon name="ShoppingCart" size={22}/>} label="Spesa" onClick={() => setView('spesa')} />
-                        <NavButton active={view === 'piano'} icon={<Icon name="Scale" size={22}/>} label="Peso" onClick={() => setView('piano')} />
-                    </nav>
+        function openAutocomplete() {
+            var query = foodInput.value.trim();
+            var names = filterFoods(query, filterEl.value.trim());
+            state.autocompleteIndex = -1;
+            renderAutocomplete(names, -1);
+        }
 
-                    {isLoggingActivity && (
-                        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end p-4">
-                            <div className="bg-white w-full rounded-t-[40px] p-8 shadow-2xl max-w-md mx-auto">
-                                <div className="flex justify-between items-center mb-6"><h3 className="text-xl font-black flex items-center gap-2"><Icon name="HeartPulse" className="text-orange-500"/> Dati App Salute</h3><button onClick={() => setIsLoggingActivity(false)} className="text-slate-400 font-bold uppercase text-xs">Annulla</button></div>
-                                <p className="text-xs text-slate-500 mb-4 leading-relaxed">Inserisci le <b>Calorie Attive</b> che leggi su iPhone o Apple Watch per oggi.</p>
-                                <input type="number" className="w-full bg-slate-50 rounded-2xl p-5 border border-slate-100 text-2xl font-black text-center text-orange-600 outline-none focus:ring-2 ring-orange-500" placeholder="0 kcal" value={activityInput} onChange={(e) => setActivityInput(e.target.value)} autoFocus />
-                                <button onClick={() => logActivity(activityInput)} className="w-full py-5 rounded-2xl font-black bg-orange-500 text-white shadow-lg active:scale-95 mt-4">Sincronizza Bruciate</button>
-                            </div>
-                        </div>
-                    )}
+        foodInput.addEventListener('input', function () {
+            updateAddButton();
+            openAutocomplete();
+        });
+        foodInput.addEventListener('focus', function () { openAutocomplete(); });
+        foodInput.addEventListener('blur', function () {
+            setTimeout(hideAutocomplete, 200);
+        });
+        filterEl.addEventListener('input', function () { openAutocomplete(); });
 
-                    {isLogging && (
-                        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end p-4">
-                            <div className="bg-white w-full rounded-t-[40px] p-8 shadow-2xl max-w-md mx-auto">
-                                <div className="flex justify-between items-center mb-6"><h3 className="text-xl font-black">Aggiungi Pasto</h3><button onClick={() => setIsLogging(false)} className="text-slate-400 font-bold uppercase text-xs p-2">Chiudi</button></div>
-                                <div className="flex bg-slate-100 p-1 rounded-2xl mb-6">
-                                    <button onClick={() => setLogType('text')} className={'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all ' + (logType === 'text' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500')}><Icon name="Type" size={16}/> Testo</button>
-                                    <button onClick={() => setLogType('barcode')} className={'flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold transition-all ' + (logType === 'barcode' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500')}><Icon name="ScanBarcode" size={16}/> Barcode</button>
-                                </div>
-                                <div className="space-y-4">
-                                    {logType === 'text' ? (<><textarea className="w-full bg-slate-50 rounded-2xl p-4 h-28 outline-none border border-slate-100 text-sm" placeholder="Es: Pasta al pomodoro..." value={logInput} onChange={(e) => setLogInput(e.target.value)} disabled={loadingCategory === 'manual'}/><input type="text" placeholder="Quantità (es: 100g)" className="w-full bg-slate-50 rounded-2xl p-4 text-sm border border-slate-100" value={quantityInput} onChange={(e) => setQuantityInput(e.target.value)}/></>) : (<><input type="number" className="w-full bg-slate-50 rounded-2xl p-5 border border-slate-100 text-sm font-mono text-center tracking-widest outline-none" placeholder="Codice EAN..." value={barcodeInput} onChange={(e) => setBarcodeInput(e.target.value)}/><input type="number" placeholder="Grammi" className="w-full bg-slate-50 rounded-2xl p-4 text-sm border border-slate-100 outline-none mt-2" value={quantityInput} onChange={(e) => setQuantityInput(e.target.value)}/></>)}
-                                    <button onClick={() => logType === 'text' ? handleAI(logInput, 'manual', quantityInput) : handleAI(barcodeInput, 'barcode', quantityInput)} disabled={loadingCategory !== null || (logType === 'text' ? !logInput : !barcodeInput)} className={'w-full py-5 rounded-2xl font-black flex items-center justify-center gap-2 transition-all ' + (loadingCategory ? 'bg-slate-200 text-slate-400' : 'bg-blue-600 text-white shadow-lg active:scale-95')}>{loadingCategory ? <Icon name="Loader2" size={20} className="animate-spin"/> : 'Analizza & Registra'}</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        };
+        foodInput.addEventListener('keydown', function (e) {
+            var items = autocompleteList.querySelectorAll('.autocomplete-item');
+            if (items.length === 0) return;
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                state.autocompleteIndex = Math.min(state.autocompleteIndex + 1, items.length - 1);
+                items.forEach(function (el, i) { el.classList.toggle('selected', i === state.autocompleteIndex); });
+                items[state.autocompleteIndex].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                state.autocompleteIndex = Math.max(state.autocompleteIndex - 1, -1);
+                items.forEach(function (el, i) { el.classList.toggle('selected', i === state.autocompleteIndex); });
+                if (state.autocompleteIndex >= 0) items[state.autocompleteIndex].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter' && state.autocompleteIndex >= 0 && items[state.autocompleteIndex]) {
+                e.preventDefault();
+                var name = items[state.autocompleteIndex].getAttribute('data-name');
+                foodInput.value = name;
+                hideAutocomplete();
+                gramsInput.focus();
+            }
+        });
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        autocompleteList.addEventListener('click', function (e) {
+            var item = e.target.closest('.autocomplete-item');
+            if (!item) return;
+            var name = item.getAttribute('data-name');
+            if (name) {
+                foodInput.value = name;
+                hideAutocomplete();
+                gramsInput.focus();
+                updateAddButton();
+            }
+        });
+
+        gramsInput.addEventListener('input', updateAddButton);
+
+        btnAdd.addEventListener('click', function () {
+            var name = foodInput.value.trim();
+            var grams = parseInt(gramsInput.value, 10);
+            if (!name || !grams || grams < 1) return;
+            if (addEntry(name, grams)) {
+                foodInput.value = '';
+                gramsInput.value = '';
+                updateAddButton();
+                hideAutocomplete();
+                foodInput.focus();
+            }
+        });
+
+        document.getElementById('entry-list').addEventListener('click', function (e) {
+            var btn = e.target.closest('button[data-index]');
+            if (!btn) return;
+            var index = parseInt(btn.getAttribute('data-index'), 10);
+            removeEntry(index);
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', resetDay);
+
+        loadAndRender();
+        updateAddButton();
+})();
     </script>
 </body>
 </html>
