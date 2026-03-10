@@ -60,57 +60,7 @@
       font-weight: 600;
       margin-top: 2px;
     }
-    .header-weight {
-      background: linear-gradient(135deg, #1d283a, #020617);
-      border-radius: 999px;
-      padding: 6px 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #1e293b;
-      box-shadow: 0 8px 24px rgba(15,23,42,0.6);
-      font-size: 0.8rem;
-    }
-    .header-weight span.value { font-weight: 800; }
     main { flex: 1; overflow-y: auto; padding-top: 8px; }
-    .cards-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .stat-card {
-      border-radius: var(--radius-md);
-      padding: 10px 8px;
-      text-align: center;
-      color: white;
-      box-shadow: 0 18px 40px rgba(15,23,42,0.6);
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-card small {
-      display: block;
-      text-transform: uppercase;
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      opacity: 0.85;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-    .stat-card strong {
-      font-size: 1.25rem;
-      font-weight: 800;
-    }
-    .stat-card .icon {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-      font-size: 0.7rem;
-      opacity: 0.6;
-    }
-    .stat-card.indigo { background: linear-gradient(135deg, #3730a3, #4f46e5); }
-    .stat-card.orange { background: linear-gradient(135deg, #ea580c, #f97316); }
-    .stat-card.emerald { background: linear-gradient(135deg, #059669, #10b981); }
     .section-card {
       background: linear-gradient(145deg, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
       border-radius: var(--radius-lg);
@@ -256,21 +206,31 @@
       color: var(--text-soft);
     }
     .plan-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      padding: 3px 0;
-    }
-    .plan-item input[type="checkbox"] {
-      margin-top: 2px;
-      accent-color: #4f46e5;
+      padding: 4px 0;
+      font-size: 0.8rem;
+      color: var(--text-soft);
     }
     .meal-block {
       margin-top: 10px;
       padding: 10px 12px;
       border-radius: 16px;
-      background: rgba(15,23,42,0.8);
       border: 1px solid #1e293b;
+    }
+    .meal-block[data-meal="colazione"] {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(251, 191, 36, 0.08));
+      border-color: rgba(249, 115, 22, 0.35);
+    }
+    .meal-block[data-meal="spuntino"] {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(15, 23, 42, 0.9));
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+    .meal-block[data-meal="pranzo"] {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(99, 102, 241, 0.08));
+      border-color: rgba(79, 70, 229, 0.4);
+    }
+    .meal-block[data-meal="cena"] {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(15, 23, 42, 0.85));
+      border-color: rgba(16, 185, 129, 0.35);
     }
     .meal-header {
       display: flex;
@@ -291,102 +251,92 @@
       letter-spacing: 0.14em;
       color: var(--text-soft);
     }
-    .meal-add-btn {
+    .meal-time {
       font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid #1d4ed8;
-      background: rgba(37,99,235,0.12);
-      color: #bfdbfe;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      color: var(--indigo-soft);
+      font-weight: 600;
     }
-    .meal-form {
-      margin-top: 6px;
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.7rem;
+    .meal-time::before { content: " – "; }
+    .pranzo-option-header {
+      list-style: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--orange-soft);
+      margin-top: 12px;
+      margin-bottom: 4px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.3);
     }
-    .meal-form-row {
-      display: flex;
-      gap: 4px;
+    .pranzo-option-header:first-child { margin-top: 0; }
+    .regole-base {
+      margin-top: 4px;
     }
-    .meal-form input {
-      flex: 1;
-      padding: 4px 6px;
-      border-radius: 999px;
-      border: 1px solid #1e293b;
-      background: rgba(15,23,42,0.9);
-      color: var(--text);
-      font-size: 0.7rem;
-      outline: none;
+    .regole-base h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 8px;
     }
-    .meal-save-btn {
-      align-self: flex-end;
-      margin-top: 2px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid #16a34a;
-      background: rgba(22,163,74,0.12);
-      color: #bbf7d0;
-      font-size: 0.7rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .meal-list {
-      margin-top: 6px;
+    .regole-base ul {
       list-style: none;
       padding: 0;
-      font-size: 0.7rem;
+      margin: 0;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      max-height: 110px;
-      overflow-y: auto;
+      line-height: 1.6;
     }
-    .meal-list-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      padding: 3px 0;
-      border-bottom: 1px dashed rgba(148,163,184,0.25);
+    .regole-base li {
+      padding: 4px 0;
+      padding-left: 1.2em;
+      position: relative;
     }
-    .meal-list-item:last-child {
-      border-bottom: none;
+    .regole-base li::before {
+      content: "•";
+      color: var(--indigo-soft);
+      position: absolute;
+      left: 0;
     }
-    /* piccoli controlli inline per target e bruciate */
-    .inline-edit {
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 0.7rem;
+    .tomorrow-section {
+      margin-top: 4px;
+    }
+    .tomorrow-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.8rem;
       color: var(--text-soft);
     }
-    .inline-edit label { display: flex; align-items: center; gap: 4px; }
-    .inline-edit input {
+    .tomorrow-list li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tomorrow-list li:last-child { border-bottom: none; }
+    .tomorrow-list .meal-tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--indigo-soft);
+      min-width: 72px;
+    }
+    .notes-textarea {
       width: 100%;
-      padding: 4px 6px;
-      border-radius: 999px;
-      border: 1px solid #1e293b;
-      background: rgba(15,23,42,0.9);
+      min-height: 88px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.8);
       color: var(--text);
-      font-size: 0.7rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      resize: vertical;
       outline: none;
     }
-    .inline-edit button {
-      align-self: flex-end;
-      margin-top: 4px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid #1e293b;
-      background: rgba(15,23,42,0.95);
+    .notes-textarea::placeholder {
       color: var(--text-soft);
-      font-size: 0.7rem;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -395,47 +345,11 @@
     <header>
       <div class="header-titles">
         <h1>Obiettivo 80kg</h1>
-        <p>Gestione dieta e calorie</p>
-      </div>
-      <div class="header-weight">
-        <i class="fas fa-weight-scale"></i>
-        <span class="value" id="header-weight">85.6 kg</span>
+        <p>Promemoria pasti e organizzazione settimana</p>
       </div>
     </header>
 
     <main>
-      <section class="cards-row">
-        <div class="stat-card indigo">
-          <small>Calorie assunte</small>
-          <strong id="kcal-in">0</strong>
-          <span class="icon"><i class="fas fa-utensils"></i></span>
-        </div>
-        <div class="stat-card orange">
-          <small>Calorie bruciate</small>
-          <strong id="kcal-out">2500</strong>
-          <span class="icon"><i class="fas fa-fire"></i></span>
-          <div class="inline-edit">
-            <label for="input-kcal-out">
-              <span>Imposta bruciate</span>
-            </label>
-            <input id="input-kcal-out" type="number" min="0" step="10" placeholder="Es. 2800" />
-            <button type="button" id="btn-set-kcal-out">Salva</button>
-          </div>
-        </div>
-        <div class="stat-card emerald">
-          <small>Calorie residue</small>
-          <strong id="kcal-left">2000</strong>
-          <span class="icon"><i class="fas fa-bolt"></i></span>
-          <div class="inline-edit">
-            <label for="input-kcal-target">
-              <span>Target giornaliero</span>
-            </label>
-            <input id="input-kcal-target" type="number" min="800" step="50" placeholder="Es. 2000" />
-            <button type="button" id="btn-set-kcal-target">Salva target</button>
-          </div>
-        </div>
-      </section>
-
       <section class="section-card" aria-labelledby="diario-title">
         <div class="section-header">
           <h2 id="diario-title">Diario pasti</h2>
@@ -457,62 +371,31 @@
           </select>
         </div>
         <p class="diary-placeholder">
-          Aggiungi gli alimenti per ogni pasto. Le calorie verranno sommate in automatico nelle card
-          in alto e salvate sul dispositivo.
+          Piano settimanale: consulta cosa mangiare per ogni giorno. Le note si salvano sul dispositivo.
         </p>
 
         <div class="meal-block" data-meal="colazione">
           <div class="meal-header">
             <div class="meal-title">
               <span>Colazione</span>
+              <span class="meal-time" id="time-colazione"></span>
               <span class="meal-title-badge">inizio giornata</span>
             </div>
-            <button type="button" class="meal-add-btn" data-meal-add="colazione">
-              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
-            </button>
-          </div>
-          <div class="meal-form" data-meal-form="colazione">
-            <div class="meal-form-row">
-              <input type="text" class="meal-name" placeholder="Alimento (es. yogurt)" />
-            </div>
-            <div class="meal-form-row">
-              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
-              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
-            </div>
-            <button type="button" class="meal-save-btn" data-meal-save="colazione">
-              <i class="fas fa-check"></i><span>Aggiungi alla colazione</span>
-            </button>
           </div>
           <div class="plan-label">Piano di oggi</div>
           <ul class="plan-list" id="plan-list-colazione"></ul>
-          <ul class="meal-list" id="meal-list-colazione"></ul>
         </div>
 
         <div class="meal-block" data-meal="spuntino">
           <div class="meal-header">
             <div class="meal-title">
               <span>Spuntino</span>
+              <span class="meal-time" id="time-spuntino"></span>
               <span class="meal-title-badge">metà mattina</span>
             </div>
-            <button type="button" class="meal-add-btn" data-meal-add="spuntino">
-              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
-            </button>
-          </div>
-          <div class="meal-form" data-meal-form="spuntino">
-            <div class="meal-form-row">
-              <input type="text" class="meal-name" placeholder="Alimento (es. frutta)" />
-            </div>
-            <div class="meal-form-row">
-              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
-              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
-            </div>
-            <button type="button" class="meal-save-btn" data-meal-save="spuntino">
-              <i class="fas fa-check"></i><span>Aggiungi allo spuntino</span>
-            </button>
           </div>
           <div class="plan-label">Piano di oggi</div>
           <ul class="plan-list" id="plan-list-spuntino"></ul>
-          <ul class="meal-list" id="meal-list-spuntino"></ul>
         </div>
 
         <div class="meal-block" data-meal="pranzo">
@@ -521,25 +404,9 @@
               <span>Pranzo</span>
               <span class="meal-title-badge">metà giornata</span>
             </div>
-            <button type="button" class="meal-add-btn" data-meal-add="pranzo">
-              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
-            </button>
-          </div>
-          <div class="meal-form" data-meal-form="pranzo">
-            <div class="meal-form-row">
-              <input type="text" class="meal-name" placeholder="Alimento (es. pasta)" />
-            </div>
-            <div class="meal-form-row">
-              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
-              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
-            </div>
-            <button type="button" class="meal-save-btn" data-meal-save="pranzo">
-              <i class="fas fa-check"></i><span>Aggiungi al pranzo</span>
-            </button>
           </div>
           <div class="plan-label">Piano di oggi</div>
           <ul class="plan-list" id="plan-list-pranzo"></ul>
-          <ul class="meal-list" id="meal-list-pranzo"></ul>
         </div>
 
         <div class="meal-block" data-meal="cena">
@@ -548,36 +415,44 @@
               <span>Cena</span>
               <span class="meal-title-badge">fine giornata</span>
             </div>
-            <button type="button" class="meal-add-btn" data-meal-add="cena">
-              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
-            </button>
-          </div>
-          <div class="meal-form" data-meal-form="cena">
-            <div class="meal-form-row">
-              <input type="text" class="meal-name" placeholder="Alimento (es. pesce)" />
-            </div>
-            <div class="meal-form-row">
-              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
-              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
-            </div>
-            <button type="button" class="meal-save-btn" data-meal-save="cena">
-              <i class="fas fa-check"></i><span>Aggiungi alla cena</span>
-            </button>
           </div>
           <div class="plan-label">Piano di oggi</div>
           <ul class="plan-list" id="plan-list-cena"></ul>
-          <ul class="meal-list" id="meal-list-cena"></ul>
         </div>
       </section>
 
-      <section class="section-card" aria-labelledby="peso-title">
+      <section class="section-card" aria-labelledby="domani-title">
         <div class="section-header">
-          <h2 id="peso-title">Peso</h2>
-          <span class="label-icon"><i class="fas fa-chart-line"></i></span>
+          <h2 id="domani-title">Per domani compra / prepara</h2>
+          <span class="label-icon"><i class="fas fa-shopping-basket"></i></span>
         </div>
-        <p class="weight-placeholder" id="peso-info">
-          Peso attuale: <strong>85.6 kg</strong>. Mancano <strong id="kg-mancanti">5.6 kg</strong> all'obiettivo di 80 kg.
-        </p>
+        <div class="tomorrow-section">
+          <p class="diary-placeholder" id="tomorrow-day-label"></p>
+          <ul class="tomorrow-list" id="tomorrow-list"></ul>
+        </div>
+      </section>
+
+      <section class="section-card" aria-labelledby="note-title">
+        <div class="section-header">
+          <h2 id="note-title">Note / Preparazione</h2>
+          <span class="label-icon"><i class="fas fa-sticky-note"></i></span>
+        </div>
+        <textarea class="notes-textarea" id="notes-textarea" placeholder="Es: scongelare il pesce, preparare il riso, comprare yogurt greco..." aria-labelledby="note-title"></textarea>
+      </section>
+
+      <section class="section-card" aria-labelledby="regole-title">
+        <div class="section-header">
+          <h2 id="regole-title">Regole base del piano</h2>
+          <span class="label-icon"><i class="fas fa-list-check"></i></span>
+        </div>
+        <div class="regole-base">
+          <ul>
+            <li>Olio EVO: max 3 cucchiai al giorno</li>
+            <li>Verdure: libere, puoi mangiarne anche di più</li>
+            <li>Frutta: 1–2 al giorno</li>
+            <li>Pizza: 1 volta a settimana (domenica)</li>
+          </ul>
+        </div>
       </section>
     </main>
   </div>
@@ -621,6 +496,10 @@
         dom: 'Domenica'
       };
 
+      var mealTimes = {
+        lun: { colazione: '7:30', spuntino: '10:30' }
+      };
+
       var weeklyPlan = {
         lun: {
           colazione: [
@@ -630,17 +509,28 @@
             '30 g marmellata di fragole',
             '100 g uva'
           ],
-          spuntino: [
-            '25 g frutta secca'
-          ],
+          spuntino: ['25 g frutta secca'],
           pranzo: [
+            'Opzione 1',
             '80 g riso integrale',
-            '120 g legumi (ceci o lenticchie)',
-            '200 g verdure'
+            '120 g ceci',
+            '200 g verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 2',
+            '2 uova sode',
+            '60 g pane',
+            'insalata',
+            '1 cucchiaio olio EVO',
+            'Opzione 3',
+            '120 g tonno al naturale',
+            '80 g farro',
+            'pomodorini',
+            '1 cucchiaio olio EVO'
           ],
           cena: [
             '3 uova',
-            '250 g verdure'
+            '250 g verdure',
+            '1 cucchiaio olio EVO'
           ]
         },
         mar: {
@@ -649,19 +539,31 @@
             'caffè',
             '2 fette biscottate',
             '30 g marmellata',
-            '150 g frutta'
+            '1 frutto'
           ],
-          spuntino: [
-            '25 g frutta secca'
-          ],
+          spuntino: ['25 g frutta secca'],
           pranzo: [
-            '80 g riso o farro',
-            '150 g pollo',
-            '200 g verdure'
+            'Opzione 1',
+            '80 g farro',
+            '120 g lenticchie',
+            '200 g verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 2',
+            '2 uova sode',
+            '80 g riso integrale',
+            'verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 3',
+            '120 g tonno',
+            '60 g pane',
+            'insalata',
+            '1 cucchiaio olio EVO'
           ],
           cena: [
-            '180 g petto di pollo',
-            '250 g verdure'
+            'minestrone di verdure (350–400 g)',
+            '150 g ricotta',
+            '40 g pane',
+            '1 cucchiaino olio EVO'
           ]
         },
         mer: {
@@ -671,19 +573,29 @@
             '2 fette biscottate',
             '30 g marmellata'
           ],
-          spuntino: [
-            'yogurt greco 150 g'
-          ],
+          spuntino: ['1 banana oppure mela', '15 g frutta secca'],
           pranzo: [
-            '80 g riso',
-            '120 g legumi',
-            '200 g verdure'
+            'Opzione 1',
+            '70 g riso integrale',
+            '120 g ceci',
+            '200 g verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 2',
+            '80 g farro',
+            '100 g ricotta',
+            'pomodorini',
+            '1 cucchiaio olio EVO',
+            'Opzione 3',
+            '120 g tonno',
+            '70 g riso',
+            'verdure',
+            '1 cucchiaio olio EVO'
           ],
           cena: [
-            '70 g pasta',
-            'sugo di pomodoro',
-            '30 g parmigiano',
-            'verdure'
+            '180 g petto di pollo oppure carne magra',
+            '250 g verdure',
+            '40 g pane',
+            '1 cucchiaio olio EVO'
           ]
         },
         gio: {
@@ -691,43 +603,66 @@
             '250 ml latte',
             'caffè',
             '2 fette biscottate',
-            '30 g marmellata',
-            'frutta'
+            'marmellata',
+            '1 frutto'
           ],
-          spuntino: [
-            '25 g frutta secca'
-          ],
+          spuntino: ['25 g frutta secca'],
           pranzo: [
-            '80 g riso',
-            '120 g tonno oppure legumi',
-            '200 g verdure'
+            'Opzione 1',
+            '80 g riso integrale',
+            '120 g lenticchie',
+            'verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 2',
+            '3 uova sode',
+            '50 g pane',
+            'verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 3',
+            '120 g sgombro in scatola',
+            '60 g pane',
+            'insalata',
+            '1 cucchiaio olio EVO'
           ],
           cena: [
-            'insalatona con',
-            '150 g pollo oppure tonno',
-            'verdure',
-            '40 g pane'
+            '150 g bresaola',
+            'rucola',
+            '40 g grana',
+            '40 g pane',
+            '1 cucchiaino olio EVO'
           ]
         },
         ven: {
           colazione: [
-            '250 ml latte',
+            'latte',
             'caffè',
-            '2 fette biscottate',
-            'marmellata'
+            'fette biscottate',
+            'marmellata',
+            '1 frutto'
           ],
-          spuntino: [
-            '25 g frutta secca'
-          ],
+          spuntino: ['25 g frutta secca'],
           pranzo: [
-            '80 g riso o farro',
-            '150 g pollo oppure legumi',
-            '200 g verdure'
+            'Opzione 1',
+            '80 g farro',
+            '120 g ceci',
+            'verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 2',
+            '2 uova',
+            '80 g riso integrale',
+            'verdure',
+            '1 cucchiaio olio EVO',
+            'Opzione 3',
+            '120 g tonno',
+            '70 g riso',
+            'pomodorini',
+            '1 cucchiaio olio EVO'
           ],
           cena: [
-            '180 g pesce',
-            '250 g verdure',
-            '40 g pane'
+            '1 orata media (circa 300 g intera)',
+            '200 g patate',
+            'verdure',
+            '1 cucchiaio olio EVO'
           ]
         },
         sab: {
@@ -735,49 +670,63 @@
             'latte',
             'caffè',
             'fette biscottate',
-            'marmellata'
+            'marmellata',
+            'frutto'
           ],
-          spuntino: [
-            'frutta'
-          ],
+          spuntino: ['frutta secca'],
           pranzo: [
-            'insalatona con',
-            '120-150 g proteine (pollo o tonno)'
+            'Opzione 1',
+            '80 g riso integrale',
+            '120 g ceci',
+            'verdure',
+            'Opzione 2',
+            '2 uova',
+            '60 g pane',
+            'insalata',
+            'Opzione 3',
+            '120 g tonno',
+            '70 g farro',
+            'verdure'
           ],
           cena: [
-            'pizza'
+            '80 g pasta',
+            'sugo di pomodoro',
+            '20 g parmigiano',
+            '1 cucchiaino olio EVO'
           ]
         },
         dom: {
           colazione: [
-            'colazione normale'
+            'latte',
+            'caffè',
+            'fette biscottate',
+            'marmellata'
           ],
-          spuntino: [
-            'frutta'
-          ],
+          spuntino: ['frutto'],
           pranzo: [
-            'pranzo in famiglia'
+            'Pranzo leggero',
+            'Opzione 1',
+            'insalatona',
+            '120 g tonno',
+            '40 g pane',
+            'Opzione 2',
+            '2 uova',
+            'insalata',
+            '40 g pane',
+            'Opzione 3',
+            '100 g ricotta',
+            'pomodori',
+            '40 g pane'
           ],
           cena: [
-            'proteine leggere',
-            'verdure'
+            'pizza margherita oppure verdure'
           ]
         }
       };
 
       var defaultState = {
-        peso: 85.6,
-        obiettivo: 80,
-        target: 2000,
-        kcalIn: 0,
-        kcalOut: 2500,
         selectedDay: null,
-        meals: {
-          // verrà inizializzato per giorno
-        },
-        planChecks: {
-          // es: lun: { colazione: {0:true}, ... }
-        }
+        notes: {}
       };
 
       function loadState() {
@@ -786,23 +735,7 @@
           if (!raw) return Object.assign({}, defaultState);
           var s = JSON.parse(raw);
           var merged = Object.assign({}, defaultState, s);
-
-          // migrazione vecchia struttura meals (solo per pasto, senza giorno)
-          if (merged.meals && Array.isArray(merged.meals.colazione)) {
-            var wrapped = {};
-            var dayKey = merged.selectedDay || getTodayKey();
-            wrapped[dayKey] = {
-              colazione: merged.meals.colazione || [],
-              spuntino: merged.meals.spuntino || [],
-              pranzo: merged.meals.pranzo || [],
-              cena: merged.meals.cena || []
-            };
-            merged.meals = wrapped;
-          }
-
-          if (!merged.meals) merged.meals = {};
-          if (!merged.planChecks) merged.planChecks = {};
-
+          if (!merged.notes) merged.notes = {};
           return merged;
         } catch (e) {
           return Object.assign({}, defaultState);
@@ -831,40 +764,10 @@
         }
       }
 
-      function ensureDayMeals(state, dayKey) {
-        if (!state.meals[dayKey]) {
-          state.meals[dayKey] = {
-            colazione: [],
-            spuntino: [],
-            pranzo: [],
-            cena: []
-          };
-        }
-      }
-
-      function ensurePlanChecks(state, dayKey) {
-        if (!state.planChecks[dayKey]) {
-          state.planChecks[dayKey] = {
-            colazione: {},
-            spuntino: {},
-            pranzo: {},
-            cena: {}
-          };
-        }
-      }
-
-      function calcTotalKcalInFromMeals(meals, dayKey) {
-        var total = 0;
-        var perDay = meals[dayKey];
-        if (!perDay) return 0;
-        MEAL_KEYS.forEach(function(key) {
-          var list = perDay[key] || [];
-          for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            total += Number(item.kcal) || 0;
-          }
-        });
-        return total;
+      function getNextDayKey(dayKey) {
+        var i = DAY_KEYS.indexOf(dayKey);
+        if (i === -1) return DAY_KEYS[0];
+        return DAY_KEYS[(i + 1) % DAY_KEYS.length];
       }
 
       var state = loadState();
@@ -872,30 +775,19 @@
         state.selectedDay = getTodayKey();
       }
       DAY_KEYS.forEach(function(d) {
-        ensureDayMeals(state, d);
-        ensurePlanChecks(state, d);
+        if (!state.notes[d]) state.notes[d] = '';
       });
-      // ricalcola le calorie assunte per il giorno selezionato
-      state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
 
-      var elKcalIn = document.getElementById('kcal-in');
-      var elKcalOut = document.getElementById('kcal-out');
-      var elKcalLeft = document.getElementById('kcal-left');
-      var inputKcalOut = document.getElementById('input-kcal-out');
-      var inputKcalTarget = document.getElementById('input-kcal-target');
-      var btnSetKcalOut = document.getElementById('btn-set-kcal-out');
-      var btnSetKcalTarget = document.getElementById('btn-set-kcal-target');
-      var headerWeight = document.getElementById('header-weight');
-      var kgMancanti = document.getElementById('kg-mancanti');
       var daySelect = document.getElementById('day-select');
       var dayCurrentLabel = document.getElementById('day-current-label');
+      var tomorrowList = document.getElementById('tomorrow-list');
+      var tomorrowDayLabel = document.getElementById('tomorrow-day-label');
+      var notesTextarea = document.getElementById('notes-textarea');
+      var mealTimeIds = { colazione: 'time-colazione', spuntino: 'time-spuntino', pranzo: 'time-pranzo', cena: 'time-cena' };
 
-      var mealLists = {
-        colazione: document.getElementById('meal-list-colazione'),
-        spuntino: document.getElementById('meal-list-spuntino'),
-        pranzo: document.getElementById('meal-list-pranzo'),
-        cena: document.getElementById('meal-list-cena')
-      };
+      function isOptionHeader(text) {
+        return text === 'Opzione 1' || text === 'Opzione 2' || text === 'Opzione 3' || text === 'Pranzo leggero';
+      }
 
       var planLists = {
         colazione: document.getElementById('plan-list-colazione'),
@@ -903,70 +795,6 @@
         pranzo: document.getElementById('plan-list-pranzo'),
         cena: document.getElementById('plan-list-cena')
       };
-
-      var mealForms = {};
-
-      MEAL_KEYS.forEach(function(key) {
-        var form = document.querySelector('[data-meal-form=\"' + key + '\"]');
-        var addBtn = document.querySelector('[data-meal-add=\"' + key + '\"]');
-        var saveBtn = document.querySelector('[data-meal-save=\"' + key + '\"]');
-        if (!form || !addBtn || !saveBtn) return;
-
-        var nameInput = form.querySelector('.meal-name');
-        var gramsInput = form.querySelector('.meal-grams');
-        var kcal100Input = form.querySelector('.meal-kcal100');
-
-        mealForms[key] = {
-          form: form,
-          addBtn: addBtn,
-          saveBtn: saveBtn,
-          nameInput: nameInput,
-          gramsInput: gramsInput,
-          kcal100Input: kcal100Input
-        };
-
-        addBtn.addEventListener('click', function() {
-          if (form.style.display === 'flex') {
-            form.style.display = 'none';
-          } else {
-            form.style.display = 'flex';
-            if (nameInput) nameInput.focus();
-          }
-        });
-
-        saveBtn.addEventListener('click', function() {
-          var nome = (nameInput && nameInput.value.trim()) || '';
-          var grammi = parseFloat(gramsInput && gramsInput.value);
-          var kcal100 = parseFloat(kcal100Input && kcal100Input.value);
-
-          if (!nome || isNaN(grammi) || grammi <= 0 || isNaN(kcal100) || kcal100 <= 0) {
-            return;
-          }
-
-          var kcal = grammi * kcal100 / 100;
-          var dayKey = state.selectedDay;
-          ensureDayMeals(state, dayKey);
-          var mealArr = state.meals[dayKey][key] || [];
-          mealArr.push({
-            name: nome,
-            grams: grammi,
-            kcal100: kcal100,
-            kcal: kcal
-          });
-          state.meals[dayKey][key] = mealArr;
-
-          // aggiorna totale calorie assunte
-          state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
-
-          if (nameInput) nameInput.value = '';
-          if (gramsInput) gramsInput.value = '';
-          if (kcal100Input) kcal100Input.value = '';
-
-          saveState(state);
-          renderMeals();
-          updateDom();
-        });
-      });
 
       function renderMeals() {
         var dayKey = state.selectedDay;
@@ -979,100 +807,96 @@
             dayCurrentLabel.textContent = label;
           }
         }
-
+        MEAL_KEYS.forEach(function(key) {
+          var timeId = mealTimeIds[key];
+          var timeEl = timeId ? document.getElementById(timeId) : null;
+          if (timeEl && mealTimes[dayKey] && mealTimes[dayKey][key]) {
+            timeEl.textContent = mealTimes[dayKey][key];
+          } else if (timeEl) {
+            timeEl.textContent = '';
+          }
+        });
         if (daySelect) {
           daySelect.value = dayKey;
         }
-
-        ensureDayMeals(state, dayKey);
-        ensurePlanChecks(state, dayKey);
-
         MEAL_KEYS.forEach(function(key) {
-          var listEl = mealLists[key];
           var planEl = planLists[key];
-          if (!listEl) return;
-          if (planEl) {
-            planEl.innerHTML = '';
-            var dayPlan = weeklyPlan[dayKey] && weeklyPlan[dayKey][key] ? weeklyPlan[dayKey][key] : [];
-            var checks = state.planChecks[dayKey][key] || {};
-            dayPlan.forEach(function(text, idx) {
-              var liPlan = document.createElement('li');
-              liPlan.className = 'plan-item';
-              var checkbox = document.createElement('input');
-              checkbox.type = 'checkbox';
-              checkbox.checked = !!checks[idx];
-              checkbox.addEventListener('change', function() {
-                state.planChecks[dayKey][key][idx] = checkbox.checked;
-                saveState(state);
-              });
-              var spanText = document.createElement('span');
-              spanText.textContent = text;
-              liPlan.appendChild(checkbox);
-              liPlan.appendChild(spanText);
-              planEl.appendChild(liPlan);
-            });
-          }
-
-          listEl.innerHTML = '';
-          var perDay = state.meals[dayKey] || {};
-          var items = perDay[key] || [];
-          items.forEach(function(item) {
-            var li = document.createElement('li');
-            li.className = 'meal-list-item';
-            var left = document.createElement('span');
-            left.textContent = item.name + ' (' + (item.grams || 0) + ' g)';
-            var right = document.createElement('span');
-            right.textContent = Math.round(item.kcal || 0) + ' kcal';
-            li.appendChild(left);
-            li.appendChild(right);
-            listEl.appendChild(li);
+          if (!planEl) return;
+          planEl.innerHTML = '';
+          var dayPlan = weeklyPlan[dayKey] && weeklyPlan[dayKey][key] ? weeklyPlan[dayKey][key] : [];
+          dayPlan.forEach(function(text) {
+            if (isOptionHeader(text)) {
+              var liHeader = document.createElement('li');
+              liHeader.className = 'pranzo-option-header';
+              liHeader.textContent = text;
+              planEl.appendChild(liHeader);
+              return;
+            }
+            var liPlan = document.createElement('li');
+            liPlan.className = 'plan-item';
+            liPlan.textContent = text;
+            planEl.appendChild(liPlan);
           });
         });
-      }
 
-      function updateDom() {
-        elKcalIn.textContent = Math.round(state.kcalIn);
-        elKcalOut.textContent = Math.round(state.kcalOut);
-        var residue = state.target - state.kcalIn + state.kcalOut;
-        elKcalLeft.textContent = Math.round(residue);
-        headerWeight.textContent = state.peso.toFixed(1) + ' kg';
-        var diff = state.peso - state.obiettivo;
-        if (diff < 0) diff = 0;
-        kgMancanti.textContent = diff.toFixed(1) + ' kg';
+        var nextKey = getNextDayKey(dayKey);
+        if (tomorrowDayLabel) {
+          tomorrowDayLabel.textContent = 'Per ' + (DAY_LABELS[nextKey] || nextKey) + ':';
+        }
+        if (tomorrowList) {
+          tomorrowList.innerHTML = '';
+          var nextPlan = weeklyPlan[nextKey] || {};
+          MEAL_KEYS.forEach(function(key) {
+            var items = nextPlan[key] || [];
+            var mealLabel = key === 'colazione' ? 'Colazione' : key === 'spuntino' ? 'Spuntino' : key === 'pranzo' ? 'Pranzo' : 'Cena';
+            var subTag = '';
+            items.forEach(function(text) {
+              if (isOptionHeader(text)) {
+                subTag = text === 'Opzione 1' ? ' Opz.1' : text === 'Opzione 2' ? ' Opz.2' : text === 'Opzione 3' ? ' Opz.3' : '';
+                return;
+              }
+              var li = document.createElement('li');
+              li.innerHTML = '<span class="meal-tag">' + mealLabel + subTag + '</span><span>' + text + '</span>';
+              tomorrowList.appendChild(li);
+            });
+          });
+        }
+
+        if (notesTextarea) {
+          notesTextarea.value = state.notes[dayKey] || '';
+        }
       }
 
       renderMeals();
-      updateDom();
+
+      function saveNotesForCurrentDay() {
+        if (!notesTextarea) return;
+        var dayKey = state.selectedDay;
+        if (!dayKey) return;
+        if (typeof state.notes !== 'object') state.notes = {};
+        state.notes[dayKey] = notesTextarea.value;
+        saveState(state);
+      }
 
       if (daySelect) {
         daySelect.addEventListener('change', function() {
           var newDay = daySelect.value;
           if (DAY_KEYS.indexOf(newDay) === -1) return;
+          saveNotesForCurrentDay();
           state.selectedDay = newDay;
-          state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
           saveState(state);
           renderMeals();
-          updateDom();
         });
       }
 
-      btnSetKcalOut.addEventListener('click', function() {
-        var v = parseFloat(inputKcalOut.value);
-        if (isNaN(v) || v < 0) return;
-        state.kcalOut = v;
-        inputKcalOut.value = '';
-        saveState(state);
-        updateDom();
-      });
-
-      btnSetKcalTarget.addEventListener('click', function() {
-        var v = parseFloat(inputKcalTarget.value);
-        if (isNaN(v) || v < 800) return;
-        state.target = v;
-        inputKcalTarget.value = '';
-        saveState(state);
-        updateDom();
-      });
+      if (notesTextarea) {
+        notesTextarea.addEventListener('input', function() {
+          saveNotesForCurrentDay();
+        });
+        notesTextarea.addEventListener('blur', function() {
+          saveNotesForCurrentDay();
+        });
+      }
     })();
   </script>
 </body>
