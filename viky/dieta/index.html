@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dieta - Obiettivo 80kg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #0b1220;
+      --surface-soft: #111827;
+      --indigo: #4f46e5;
+      --indigo-soft: #6366f1;
+      --orange: #f97316;
+      --orange-soft: #fed7aa;
+      --emerald: #10b981;
+      --emerald-soft: #bbf7d0;
+      --slate: #1f2937;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --radius-lg: 32px;
+      --radius-md: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #1d2538 0, #020617 40%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .app-shell {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 16px 80px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .header-titles h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .header-titles p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .header-weight {
+      background: linear-gradient(135deg, #1d283a, #020617);
+      border-radius: 999px;
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #1e293b;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.6);
+      font-size: 0.8rem;
+    }
+    .header-weight span.value { font-weight: 800; }
+    main { flex: 1; overflow-y: auto; padding-top: 8px; }
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      border-radius: var(--radius-md);
+      padding: 10px 8px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card small {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      opacity: 0.85;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .stat-card strong {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .stat-card .icon {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: 0.7rem;
+      opacity: 0.6;
+    }
+    .stat-card.indigo { background: linear-gradient(135deg, #3730a3, #4f46e5); }
+    .stat-card.orange { background: linear-gradient(135deg, #ea580c, #f97316); }
+    .stat-card.emerald { background: linear-gradient(135deg, #059669, #10b981); }
+    .section-card {
+      background: linear-gradient(145deg, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.7);
+      margin-bottom: 14px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+    .section-header span.label-icon {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.9);
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+    .diary-placeholder,
+    .weight-placeholder {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+    .nav-bottom {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 14px 18px;
+      background: rgba(15,23,42,0.96);
+      border-top: 1px solid #1e293b;
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.8);
+    }
+    .nav-inner-bottom {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+    }
+    .nav-item span.label { font-weight: 700; }
+    .nav-item.active {
+      color: white;
+    }
+    .nav-item.active .icon {
+      color: white;
+    }
+    .nav-center {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 18px 40px rgba(79,70,229,0.8);
+      transform: translateY(-12px);
+      border: 3px solid #020617;
+      font-size: 1.2rem;
+    }
+    .chips-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .chip {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.8);
+      color: var(--text-soft);
+    }
+    .day-selector {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+    .day-selector-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+    }
+    .day-selector select {
+      flex: 1;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      font-size: 0.75rem;
+      outline: none;
+    }
+    .plan-label {
+      margin-top: 6px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+    }
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 4px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+    .plan-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 3px 0;
+    }
+    .plan-item input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: #4f46e5;
+    }
+    .meal-block {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid #1e293b;
+    }
+    .meal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .meal-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .meal-title-badge {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+    .meal-add-btn {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #1d4ed8;
+      background: rgba(37,99,235,0.12);
+      color: #bfdbfe;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .meal-form {
+      margin-top: 6px;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.7rem;
+    }
+    .meal-form-row {
+      display: flex;
+      gap: 4px;
+    }
+    .meal-form input {
+      flex: 1;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      font-size: 0.7rem;
+      outline: none;
+    }
+    .meal-save-btn {
+      align-self: flex-end;
+      margin-top: 2px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #16a34a;
+      background: rgba(22,163,74,0.12);
+      color: #bbf7d0;
+      font-size: 0.7rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .meal-list {
+      margin-top: 6px;
+      list-style: none;
+      padding: 0;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      max-height: 110px;
+      overflow-y: auto;
+    }
+    .meal-list-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 3px 0;
+      border-bottom: 1px dashed rgba(148,163,184,0.25);
+    }
+    .meal-list-item:last-child {
+      border-bottom: none;
+    }
+    /* piccoli controlli inline per target e bruciate */
+    .inline-edit {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+    .inline-edit label { display: flex; align-items: center; gap: 4px; }
+    .inline-edit input {
+      width: 100%;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      font-size: 0.7rem;
+      outline: none;
+    }
+    .inline-edit button {
+      align-self: flex-end;
+      margin-top: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #1e293b;
+      background: rgba(15,23,42,0.95);
+      color: var(--text-soft);
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <div class="header-titles">
+        <h1>Obiettivo 80kg</h1>
+        <p>Gestione dieta e calorie</p>
+      </div>
+      <div class="header-weight">
+        <i class="fas fa-weight-scale"></i>
+        <span class="value" id="header-weight">85.6 kg</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="cards-row">
+        <div class="stat-card indigo">
+          <small>Calorie assunte</small>
+          <strong id="kcal-in">0</strong>
+          <span class="icon"><i class="fas fa-utensils"></i></span>
+        </div>
+        <div class="stat-card orange">
+          <small>Calorie bruciate</small>
+          <strong id="kcal-out">2500</strong>
+          <span class="icon"><i class="fas fa-fire"></i></span>
+          <div class="inline-edit">
+            <label for="input-kcal-out">
+              <span>Imposta bruciate</span>
+            </label>
+            <input id="input-kcal-out" type="number" min="0" step="10" placeholder="Es. 2800" />
+            <button type="button" id="btn-set-kcal-out">Salva</button>
+          </div>
+        </div>
+        <div class="stat-card emerald">
+          <small>Calorie residue</small>
+          <strong id="kcal-left">2000</strong>
+          <span class="icon"><i class="fas fa-bolt"></i></span>
+          <div class="inline-edit">
+            <label for="input-kcal-target">
+              <span>Target giornaliero</span>
+            </label>
+            <input id="input-kcal-target" type="number" min="800" step="50" placeholder="Es. 2000" />
+            <button type="button" id="btn-set-kcal-target">Salva target</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card" aria-labelledby="diario-title">
+        <div class="section-header">
+          <h2 id="diario-title">Diario pasti</h2>
+          <span class="label-icon"><i class="fas fa-list-ul"></i></span>
+        </div>
+        <div class="day-selector">
+          <div>
+            <div class="day-selector-label">Giorno</div>
+            <div id="day-current-label">Oggi</div>
+          </div>
+          <select id="day-select" aria-label="Seleziona giorno della settimana">
+            <option value="lun">Lunedì</option>
+            <option value="mar">Martedì</option>
+            <option value="mer">Mercoledì</option>
+            <option value="gio">Giovedì</option>
+            <option value="ven">Venerdì</option>
+            <option value="sab">Sabato</option>
+            <option value="dom">Domenica</option>
+          </select>
+        </div>
+        <p class="diary-placeholder">
+          Aggiungi gli alimenti per ogni pasto. Le calorie verranno sommate in automatico nelle card
+          in alto e salvate sul dispositivo.
+        </p>
+
+        <div class="meal-block" data-meal="colazione">
+          <div class="meal-header">
+            <div class="meal-title">
+              <span>Colazione</span>
+              <span class="meal-title-badge">inizio giornata</span>
+            </div>
+            <button type="button" class="meal-add-btn" data-meal-add="colazione">
+              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
+            </button>
+          </div>
+          <div class="meal-form" data-meal-form="colazione">
+            <div class="meal-form-row">
+              <input type="text" class="meal-name" placeholder="Alimento (es. yogurt)" />
+            </div>
+            <div class="meal-form-row">
+              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
+              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
+            </div>
+            <button type="button" class="meal-save-btn" data-meal-save="colazione">
+              <i class="fas fa-check"></i><span>Aggiungi alla colazione</span>
+            </button>
+          </div>
+          <div class="plan-label">Piano di oggi</div>
+          <ul class="plan-list" id="plan-list-colazione"></ul>
+          <ul class="meal-list" id="meal-list-colazione"></ul>
+        </div>
+
+        <div class="meal-block" data-meal="spuntino">
+          <div class="meal-header">
+            <div class="meal-title">
+              <span>Spuntino</span>
+              <span class="meal-title-badge">metà mattina</span>
+            </div>
+            <button type="button" class="meal-add-btn" data-meal-add="spuntino">
+              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
+            </button>
+          </div>
+          <div class="meal-form" data-meal-form="spuntino">
+            <div class="meal-form-row">
+              <input type="text" class="meal-name" placeholder="Alimento (es. frutta)" />
+            </div>
+            <div class="meal-form-row">
+              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
+              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
+            </div>
+            <button type="button" class="meal-save-btn" data-meal-save="spuntino">
+              <i class="fas fa-check"></i><span>Aggiungi allo spuntino</span>
+            </button>
+          </div>
+          <div class="plan-label">Piano di oggi</div>
+          <ul class="plan-list" id="plan-list-spuntino"></ul>
+          <ul class="meal-list" id="meal-list-spuntino"></ul>
+        </div>
+
+        <div class="meal-block" data-meal="pranzo">
+          <div class="meal-header">
+            <div class="meal-title">
+              <span>Pranzo</span>
+              <span class="meal-title-badge">metà giornata</span>
+            </div>
+            <button type="button" class="meal-add-btn" data-meal-add="pranzo">
+              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
+            </button>
+          </div>
+          <div class="meal-form" data-meal-form="pranzo">
+            <div class="meal-form-row">
+              <input type="text" class="meal-name" placeholder="Alimento (es. pasta)" />
+            </div>
+            <div class="meal-form-row">
+              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
+              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
+            </div>
+            <button type="button" class="meal-save-btn" data-meal-save="pranzo">
+              <i class="fas fa-check"></i><span>Aggiungi al pranzo</span>
+            </button>
+          </div>
+          <div class="plan-label">Piano di oggi</div>
+          <ul class="plan-list" id="plan-list-pranzo"></ul>
+          <ul class="meal-list" id="meal-list-pranzo"></ul>
+        </div>
+
+        <div class="meal-block" data-meal="cena">
+          <div class="meal-header">
+            <div class="meal-title">
+              <span>Cena</span>
+              <span class="meal-title-badge">fine giornata</span>
+            </div>
+            <button type="button" class="meal-add-btn" data-meal-add="cena">
+              <i class="fas fa-plus"></i><span>Aggiungi alimento</span>
+            </button>
+          </div>
+          <div class="meal-form" data-meal-form="cena">
+            <div class="meal-form-row">
+              <input type="text" class="meal-name" placeholder="Alimento (es. pesce)" />
+            </div>
+            <div class="meal-form-row">
+              <input type="number" class="meal-grams" min="0" step="5" placeholder="Grammi" />
+              <input type="number" class="meal-kcal100" min="0" step="5" placeholder="kcal / 100g" />
+            </div>
+            <button type="button" class="meal-save-btn" data-meal-save="cena">
+              <i class="fas fa-check"></i><span>Aggiungi alla cena</span>
+            </button>
+          </div>
+          <div class="plan-label">Piano di oggi</div>
+          <ul class="plan-list" id="plan-list-cena"></ul>
+          <ul class="meal-list" id="meal-list-cena"></ul>
+        </div>
+      </section>
+
+      <section class="section-card" aria-labelledby="peso-title">
+        <div class="section-header">
+          <h2 id="peso-title">Peso</h2>
+          <span class="label-icon"><i class="fas fa-chart-line"></i></span>
+        </div>
+        <p class="weight-placeholder" id="peso-info">
+          Peso attuale: <strong>85.6 kg</strong>. Mancano <strong id="kg-mancanti">5.6 kg</strong> all'obiettivo di 80 kg.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <nav class="nav-bottom" aria-label="Navigazione dieta">
+    <div class="nav-inner-bottom">
+      <button class="nav-item active" type="button">
+        <span class="icon"><i class="fas fa-home"></i></span>
+        <span class="label">Oggi</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+        <span class="label">Programma</span>
+      </button>
+      <button class="nav-center" type="button" aria-label="Aggiungi">
+        <i class="fas fa-plus"></i>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="icon"><i class="fas fa-shopping-basket"></i></span>
+        <span class="label">Spesa</span>
+      </button>
+      <button class="nav-item" type="button">
+        <span class="icon"><i class="fas fa-weight"></i></span>
+        <span class="label">Peso</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    (function() {
+      var STORAGE_KEY = 'dieta80-state';
+      var MEAL_KEYS = ['colazione', 'spuntino', 'pranzo', 'cena'];
+      var DAY_KEYS = ['lun', 'mar', 'mer', 'gio', 'ven', 'sab', 'dom'];
+      var DAY_LABELS = {
+        lun: 'Lunedì',
+        mar: 'Martedì',
+        mer: 'Mercoledì',
+        gio: 'Giovedì',
+        ven: 'Venerdì',
+        sab: 'Sabato',
+        dom: 'Domenica'
+      };
+
+      var weeklyPlan = {
+        lun: {
+          colazione: [
+            '250 ml latte parzialmente scremato',
+            'caffè',
+            '2 fette biscottate',
+            '30 g marmellata di fragole',
+            '100 g uva'
+          ],
+          spuntino: [
+            '25 g frutta secca'
+          ],
+          pranzo: [
+            '80 g riso integrale',
+            '120 g legumi (ceci o lenticchie)',
+            '200 g verdure'
+          ],
+          cena: [
+            '3 uova',
+            '250 g verdure'
+          ]
+        },
+        mar: {
+          colazione: [
+            '250 ml latte',
+            'caffè',
+            '2 fette biscottate',
+            '30 g marmellata',
+            '150 g frutta'
+          ],
+          spuntino: [
+            '25 g frutta secca'
+          ],
+          pranzo: [
+            '80 g riso o farro',
+            '150 g pollo',
+            '200 g verdure'
+          ],
+          cena: [
+            '180 g petto di pollo',
+            '250 g verdure'
+          ]
+        },
+        mer: {
+          colazione: [
+            '250 ml latte',
+            'caffè',
+            '2 fette biscottate',
+            '30 g marmellata'
+          ],
+          spuntino: [
+            'yogurt greco 150 g'
+          ],
+          pranzo: [
+            '80 g riso',
+            '120 g legumi',
+            '200 g verdure'
+          ],
+          cena: [
+            '70 g pasta',
+            'sugo di pomodoro',
+            '30 g parmigiano',
+            'verdure'
+          ]
+        },
+        gio: {
+          colazione: [
+            '250 ml latte',
+            'caffè',
+            '2 fette biscottate',
+            '30 g marmellata',
+            'frutta'
+          ],
+          spuntino: [
+            '25 g frutta secca'
+          ],
+          pranzo: [
+            '80 g riso',
+            '120 g tonno oppure legumi',
+            '200 g verdure'
+          ],
+          cena: [
+            'insalatona con',
+            '150 g pollo oppure tonno',
+            'verdure',
+            '40 g pane'
+          ]
+        },
+        ven: {
+          colazione: [
+            '250 ml latte',
+            'caffè',
+            '2 fette biscottate',
+            'marmellata'
+          ],
+          spuntino: [
+            '25 g frutta secca'
+          ],
+          pranzo: [
+            '80 g riso o farro',
+            '150 g pollo oppure legumi',
+            '200 g verdure'
+          ],
+          cena: [
+            '180 g pesce',
+            '250 g verdure',
+            '40 g pane'
+          ]
+        },
+        sab: {
+          colazione: [
+            'latte',
+            'caffè',
+            'fette biscottate',
+            'marmellata'
+          ],
+          spuntino: [
+            'frutta'
+          ],
+          pranzo: [
+            'insalatona con',
+            '120-150 g proteine (pollo o tonno)'
+          ],
+          cena: [
+            'pizza'
+          ]
+        },
+        dom: {
+          colazione: [
+            'colazione normale'
+          ],
+          spuntino: [
+            'frutta'
+          ],
+          pranzo: [
+            'pranzo in famiglia'
+          ],
+          cena: [
+            'proteine leggere',
+            'verdure'
+          ]
+        }
+      };
+
+      var defaultState = {
+        peso: 85.6,
+        obiettivo: 80,
+        target: 2000,
+        kcalIn: 0,
+        kcalOut: 2500,
+        selectedDay: null,
+        meals: {
+          // verrà inizializzato per giorno
+        },
+        planChecks: {
+          // es: lun: { colazione: {0:true}, ... }
+        }
+      };
+
+      function loadState() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return Object.assign({}, defaultState);
+          var s = JSON.parse(raw);
+          var merged = Object.assign({}, defaultState, s);
+
+          // migrazione vecchia struttura meals (solo per pasto, senza giorno)
+          if (merged.meals && Array.isArray(merged.meals.colazione)) {
+            var wrapped = {};
+            var dayKey = merged.selectedDay || getTodayKey();
+            wrapped[dayKey] = {
+              colazione: merged.meals.colazione || [],
+              spuntino: merged.meals.spuntino || [],
+              pranzo: merged.meals.pranzo || [],
+              cena: merged.meals.cena || []
+            };
+            merged.meals = wrapped;
+          }
+
+          if (!merged.meals) merged.meals = {};
+          if (!merged.planChecks) merged.planChecks = {};
+
+          return merged;
+        } catch (e) {
+          return Object.assign({}, defaultState);
+        }
+      }
+
+      function saveState(s) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+        } catch (e) {
+          console.warn('Impossibile salvare localStorage', e);
+        }
+      }
+
+      function getTodayKey() {
+        var d = new Date().getDay(); // 0 domenica, 1 lun...
+        switch (d) {
+          case 0: return 'dom';
+          case 1: return 'lun';
+          case 2: return 'mar';
+          case 3: return 'mer';
+          case 4: return 'gio';
+          case 5: return 'ven';
+          case 6: return 'sab';
+          default: return 'lun';
+        }
+      }
+
+      function ensureDayMeals(state, dayKey) {
+        if (!state.meals[dayKey]) {
+          state.meals[dayKey] = {
+            colazione: [],
+            spuntino: [],
+            pranzo: [],
+            cena: []
+          };
+        }
+      }
+
+      function ensurePlanChecks(state, dayKey) {
+        if (!state.planChecks[dayKey]) {
+          state.planChecks[dayKey] = {
+            colazione: {},
+            spuntino: {},
+            pranzo: {},
+            cena: {}
+          };
+        }
+      }
+
+      function calcTotalKcalInFromMeals(meals, dayKey) {
+        var total = 0;
+        var perDay = meals[dayKey];
+        if (!perDay) return 0;
+        MEAL_KEYS.forEach(function(key) {
+          var list = perDay[key] || [];
+          for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            total += Number(item.kcal) || 0;
+          }
+        });
+        return total;
+      }
+
+      var state = loadState();
+      if (!state.selectedDay) {
+        state.selectedDay = getTodayKey();
+      }
+      DAY_KEYS.forEach(function(d) {
+        ensureDayMeals(state, d);
+        ensurePlanChecks(state, d);
+      });
+      // ricalcola le calorie assunte per il giorno selezionato
+      state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
+
+      var elKcalIn = document.getElementById('kcal-in');
+      var elKcalOut = document.getElementById('kcal-out');
+      var elKcalLeft = document.getElementById('kcal-left');
+      var inputKcalOut = document.getElementById('input-kcal-out');
+      var inputKcalTarget = document.getElementById('input-kcal-target');
+      var btnSetKcalOut = document.getElementById('btn-set-kcal-out');
+      var btnSetKcalTarget = document.getElementById('btn-set-kcal-target');
+      var headerWeight = document.getElementById('header-weight');
+      var kgMancanti = document.getElementById('kg-mancanti');
+      var daySelect = document.getElementById('day-select');
+      var dayCurrentLabel = document.getElementById('day-current-label');
+
+      var mealLists = {
+        colazione: document.getElementById('meal-list-colazione'),
+        spuntino: document.getElementById('meal-list-spuntino'),
+        pranzo: document.getElementById('meal-list-pranzo'),
+        cena: document.getElementById('meal-list-cena')
+      };
+
+      var planLists = {
+        colazione: document.getElementById('plan-list-colazione'),
+        spuntino: document.getElementById('plan-list-spuntino'),
+        pranzo: document.getElementById('plan-list-pranzo'),
+        cena: document.getElementById('plan-list-cena')
+      };
+
+      var mealForms = {};
+
+      MEAL_KEYS.forEach(function(key) {
+        var form = document.querySelector('[data-meal-form=\"' + key + '\"]');
+        var addBtn = document.querySelector('[data-meal-add=\"' + key + '\"]');
+        var saveBtn = document.querySelector('[data-meal-save=\"' + key + '\"]');
+        if (!form || !addBtn || !saveBtn) return;
+
+        var nameInput = form.querySelector('.meal-name');
+        var gramsInput = form.querySelector('.meal-grams');
+        var kcal100Input = form.querySelector('.meal-kcal100');
+
+        mealForms[key] = {
+          form: form,
+          addBtn: addBtn,
+          saveBtn: saveBtn,
+          nameInput: nameInput,
+          gramsInput: gramsInput,
+          kcal100Input: kcal100Input
+        };
+
+        addBtn.addEventListener('click', function() {
+          if (form.style.display === 'flex') {
+            form.style.display = 'none';
+          } else {
+            form.style.display = 'flex';
+            if (nameInput) nameInput.focus();
+          }
+        });
+
+        saveBtn.addEventListener('click', function() {
+          var nome = (nameInput && nameInput.value.trim()) || '';
+          var grammi = parseFloat(gramsInput && gramsInput.value);
+          var kcal100 = parseFloat(kcal100Input && kcal100Input.value);
+
+          if (!nome || isNaN(grammi) || grammi <= 0 || isNaN(kcal100) || kcal100 <= 0) {
+            return;
+          }
+
+          var kcal = grammi * kcal100 / 100;
+          var dayKey = state.selectedDay;
+          ensureDayMeals(state, dayKey);
+          var mealArr = state.meals[dayKey][key] || [];
+          mealArr.push({
+            name: nome,
+            grams: grammi,
+            kcal100: kcal100,
+            kcal: kcal
+          });
+          state.meals[dayKey][key] = mealArr;
+
+          // aggiorna totale calorie assunte
+          state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
+
+          if (nameInput) nameInput.value = '';
+          if (gramsInput) gramsInput.value = '';
+          if (kcal100Input) kcal100Input.value = '';
+
+          saveState(state);
+          renderMeals();
+          updateDom();
+        });
+      });
+
+      function renderMeals() {
+        var dayKey = state.selectedDay;
+        var todayKey = getTodayKey();
+        if (dayCurrentLabel) {
+          var label = DAY_LABELS[dayKey] || '';
+          if (dayKey === todayKey) {
+            dayCurrentLabel.textContent = 'Oggi · ' + label;
+          } else {
+            dayCurrentLabel.textContent = label;
+          }
+        }
+
+        if (daySelect) {
+          daySelect.value = dayKey;
+        }
+
+        ensureDayMeals(state, dayKey);
+        ensurePlanChecks(state, dayKey);
+
+        MEAL_KEYS.forEach(function(key) {
+          var listEl = mealLists[key];
+          var planEl = planLists[key];
+          if (!listEl) return;
+          if (planEl) {
+            planEl.innerHTML = '';
+            var dayPlan = weeklyPlan[dayKey] && weeklyPlan[dayKey][key] ? weeklyPlan[dayKey][key] : [];
+            var checks = state.planChecks[dayKey][key] || {};
+            dayPlan.forEach(function(text, idx) {
+              var liPlan = document.createElement('li');
+              liPlan.className = 'plan-item';
+              var checkbox = document.createElement('input');
+              checkbox.type = 'checkbox';
+              checkbox.checked = !!checks[idx];
+              checkbox.addEventListener('change', function() {
+                state.planChecks[dayKey][key][idx] = checkbox.checked;
+                saveState(state);
+              });
+              var spanText = document.createElement('span');
+              spanText.textContent = text;
+              liPlan.appendChild(checkbox);
+              liPlan.appendChild(spanText);
+              planEl.appendChild(liPlan);
+            });
+          }
+
+          listEl.innerHTML = '';
+          var perDay = state.meals[dayKey] || {};
+          var items = perDay[key] || [];
+          items.forEach(function(item) {
+            var li = document.createElement('li');
+            li.className = 'meal-list-item';
+            var left = document.createElement('span');
+            left.textContent = item.name + ' (' + (item.grams || 0) + ' g)';
+            var right = document.createElement('span');
+            right.textContent = Math.round(item.kcal || 0) + ' kcal';
+            li.appendChild(left);
+            li.appendChild(right);
+            listEl.appendChild(li);
+          });
+        });
+      }
+
+      function updateDom() {
+        elKcalIn.textContent = Math.round(state.kcalIn);
+        elKcalOut.textContent = Math.round(state.kcalOut);
+        var residue = state.target - state.kcalIn + state.kcalOut;
+        elKcalLeft.textContent = Math.round(residue);
+        headerWeight.textContent = state.peso.toFixed(1) + ' kg';
+        var diff = state.peso - state.obiettivo;
+        if (diff < 0) diff = 0;
+        kgMancanti.textContent = diff.toFixed(1) + ' kg';
+      }
+
+      renderMeals();
+      updateDom();
+
+      if (daySelect) {
+        daySelect.addEventListener('change', function() {
+          var newDay = daySelect.value;
+          if (DAY_KEYS.indexOf(newDay) === -1) return;
+          state.selectedDay = newDay;
+          state.kcalIn = calcTotalKcalInFromMeals(state.meals, state.selectedDay);
+          saveState(state);
+          renderMeals();
+          updateDom();
+        });
+      }
+
+      btnSetKcalOut.addEventListener('click', function() {
+        var v = parseFloat(inputKcalOut.value);
+        if (isNaN(v) || v < 0) return;
+        state.kcalOut = v;
+        inputKcalOut.value = '';
+        saveState(state);
+        updateDom();
+      });
+
+      btnSetKcalTarget.addEventListener('click', function() {
+        var v = parseFloat(inputKcalTarget.value);
+        if (isNaN(v) || v < 800) return;
+        state.target = v;
+        inputKcalTarget.value = '';
+        saveState(state);
+        updateDom();
+      });
+    })();
+  </script>
+</body>
+</html>
