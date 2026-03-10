@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favole da leggere – Spazio Noah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --cream: #fef9f3;
+      --warm-white: #fffbf7;
+      --coral: #e07a5f;
+      --coral-soft: rgba(224,122,95,0.2);
+      --mustard: #f2cc8f;
+      --text: #3d405b;
+      --text-soft: #6b6d7a;
+      --shadow: rgba(61,64,91,0.12);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", system-ui, sans-serif;
+      background: linear-gradient(160deg, #fef9f3 0%, #f5e6d8 40%, #ede0d4 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 1rem;
+      background: rgba(255,251,247,0.95);
+      border-bottom: 2px solid var(--coral-soft);
+    }
+    .top-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--warm-white);
+      border: 2px solid rgba(224,122,95,0.25);
+      transition: all 0.2s;
+    }
+    .top-nav a:hover { color: var(--coral); border-color: var(--coral); }
+    main { max-width: 700px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .page-header { text-align: center; margin-bottom: 2rem; }
+    .page-header h1 { font-family: "Nunito", system-ui, sans-serif; font-size: 2.2rem; color: var(--text); margin-bottom: 0.5rem; }
+    .page-header p { font-size: 1.1rem; color: var(--text-soft); }
+    .storie-list { list-style: none; }
+    .storie-list li { margin-bottom: 0.75rem; }
+    .storie-list a {
+      display: block;
+      padding: 1rem 1.25rem;
+      background: var(--warm-white);
+      border: 2px solid rgba(224,122,95,0.25);
+      border-radius: var(--radius);
+      color: var(--text);
+      text-decoration: none;
+      font-family: "Nunito", system-ui, sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: all 0.25s;
+    }
+    .storie-list a:hover {
+      border-color: var(--coral);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(224,122,95,0.2);
+    }
+    .storie-list a::before { content: "📖 "; }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Navigazione">
+    <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html"><i class="fas fa-user"></i> Spazio Noah</a>
+  </nav>
+  <main>
+    <header class="page-header">
+      <h1>Favole da leggere</h1>
+      <p>Storie semplici per allenare la lettura. Scegli una storia!</p>
+    </header>
+    <ol class="storie-list" start="1">
+      <li><a href="storia.html?id=1">Noah e la super car rossa</a></li>
+      <li><a href="storia.html?id=2">Il diamante magico della montagna</a></li>
+      <li><a href="storia.html?id=3">Noah e la grotta dei cristalli</a></li>
+      <li><a href="storia.html?id=4">La gara delle super car</a></li>
+      <li><a href="storia.html?id=5">Il piccolo rubino brillante</a></li>
+      <li><a href="storia.html?id=6">Noah trova una pietra misteriosa</a></li>
+      <li><a href="storia.html?id=7">Il quarzo parlante</a></li>
+      <li><a href="storia.html?id=8">La corsa verso il tesoro</a></li>
+      <li><a href="storia.html?id=9">Il diamante che brillava di notte</a></li>
+      <li><a href="storia.html?id=10">Noah e la miniera segreta</a></li>
+      <li><a href="storia.html?id=11">Il sasso che diventò una gemma</a></li>
+      <li><a href="storia.html?id=12">Il cristallo della luce blu</a></li>
+      <li><a href="storia.html?id=13">Noah e la macchina velocissima</a></li>
+      <li><a href="storia.html?id=14">La collina delle pietre preziose</a></li>
+      <li><a href="storia.html?id=15">Il piccolo smeraldo verde</a></li>
+      <li><a href="storia.html?id=16">Noah e il tunnel dei minerali</a></li>
+      <li><a href="storia.html?id=17">La super car nel deserto</a></li>
+      <li><a href="storia.html?id=18">Il diamante che rideva</a></li>
+      <li><a href="storia.html?id=19">Noah e il gigante di quarzo</a></li>
+      <li><a href="storia.html?id=20">Il tesoro delle cento pietre</a></li>
+    </ol>
+  </main>
+</body>
+</html>
