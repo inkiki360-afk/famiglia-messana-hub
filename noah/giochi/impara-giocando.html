@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impara giocando - Spazio Noah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --cream: #fef9f3;
+      --warm-white: #fffbf7;
+      --coral: #e07a5f;
+      --coral-soft: rgba(224, 122, 95, 0.2);
+      --mustard: #f2cc8f;
+      --text: #3d405b;
+      --text-soft: #6b6d7a;
+      --shadow: rgba(61,64,91,0.12);
+      --radius: 24px;
+      --radius-sm: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", system-ui, sans-serif;
+      background: linear-gradient(160deg, #fef9f3 0%, #f5e6d8 40%, #ede0d4 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,251,247,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(224,122,95,0.2);
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--coral); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      padding: 0.5rem;
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+    .nav-menu-mobile {
+      display: none;
+      background: var(--warm-white);
+      border-top: 2px solid rgba(224,122,95,0.2);
+      padding: 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .nav-menu-mobile a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nav-menu-mobile.show { display: flex; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      font-size: 1.05rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--coral);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    .back-link:hover { opacity: 0.85; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .game-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--warm-white);
+      border-radius: var(--radius);
+      border: 2px solid rgba(224,122,95,0.25);
+      box-shadow: 0 10px 28px var(--shadow);
+      padding: 1.25rem 1.5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .game-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #7b5eb8, #e07a5f);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--coral);
+      box-shadow: 0 16px 40px rgba(224,122,95,0.25);
+    }
+    .game-card:hover::before { opacity: 1; }
+    .game-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      font-size: 1.6rem;
+      color: #fff;
+      background: linear-gradient(135deg, #7b5eb8, #6a4d9e);
+    }
+    .game-card h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+    .game-card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 0.75rem;
+    }
+    .game-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(123,94,184,0.08);
+      color: #5b4a99;
+    }
+    .open-btn {
+      margin-top: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--coral);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .open-btn i { font-size: 0.9rem; }
+    .open-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .game-layout {
+      margin-top: 2.5rem;
+      display: none;
+    }
+    .game-card-full {
+      background: var(--warm-white);
+      border-radius: var(--radius);
+      border: 2px solid rgba(224,122,95,0.25);
+      box-shadow: 0 14px 36px var(--shadow);
+      padding: 1.75rem 1.5rem 2rem;
+    }
+    .game-header-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+    .game-header-row strong { color: var(--coral); }
+    .big-word {
+      text-align: center;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0.5rem 0 1.5rem;
+    }
+    .piece-label {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .choice-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .choice-btn {
+      border-radius: 28px;
+      padding: 1.5rem 1.25rem;
+      border: 2px solid rgba(224,122,95,0.18);
+      background: #f7f7fb;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .choice-btn span.shape {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+    .choice-btn span.label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .choice-btn.nome span.shape { background: #111827; }
+    .choice-btn.nome span.label { color: #111827; }
+    .choice-btn.verbo span.shape {
+      background: radial-gradient(circle at 30% 20%, #fee2e2, #dc2626);
+    }
+    .choice-btn.verbo span.label { color: #b91c1c; }
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(15,23,42,0.12);
+      border-color: var(--coral-soft);
+    }
+    .choice-btn.correct {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.3);
+    }
+    .choice-btn.wrong {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 2px rgba(239,68,68,0.25);
+    }
+    .feedback {
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .feedback.ok { color: #16a34a; }
+    .feedback.no { color: #dc2626; }
+    .game-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .pill-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .pill-btn.next {
+      background: var(--coral);
+      color: #fff;
+    }
+    .pill-btn.back {
+      background: rgba(148,163,184,0.1);
+      color: var(--text-soft);
+    }
+    .pill-btn.reset {
+      background: rgba(248,250,252,0.9);
+      color: #0f172a;
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+    .rewards {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+    .rewards strong { color: var(--coral); }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/famiglia-messana-hub/index.html" class="nav-logo">Famiglia <span>Messana</span></a>
+      <div class="nav-links">
+        <a href="/famiglia-messana-hub/index.html">Home</a>
+        <a href="/viaggi/index.html">Viaggi</a>
+        <a href="/creativita/index.html">Creatività</a>
+      </div>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Apri menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="nav-menu-mobile" id="nav-menu">
+      <a href="/famiglia-messana-hub/index.html">Home</a>
+      <a href="/viaggi/index.html">Viaggi</a>
+      <a href="/creativita/index.html">Creatività</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="page-header">
+      <h1>Impara giocando</h1>
+      <p>Piccole sfide e giochi pensati per Noah.</p>
+      <a href="/famiglia-messana-hub/noah/index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Torna a Spazio Noah
+      </a>
+    </header>
+
+    <section class="cards-grid" aria-label="Giochi educativi" id="games-grid">
+      <article class="game-card">
+        <div class="game-icon">
+          <i class="fas fa-flag-checkered"></i>
+        </div>
+        <h2>Noah Racer Club</h2>
+        <p>Un grande gioco scuola con lettura, matematica, nomi/verbi e supercar da collezionare.</p>
+        <div class="game-pill">
+          <i class="fas fa-gamepad"></i>
+          <span>Gioco-scuola completo</span>
+        </div>
+        <button class="open-btn" type="button" onclick="window.location.href='gioco-scuola.html'">
+          Apri il gioco <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
+      <article class="game-card">
+        <div class="game-icon">
+          <i class="fas fa-font"></i>
+        </div>
+        <h2>Nome o verbo</h2>
+        <p>Guarda la parola e scegli se è un nome oppure un verbo. Ogni 20 risposte giuste vinci una supercar.</p>
+        <div class="game-pill">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Grammatica + premio auto</span>
+        </div>
+        <button class="open-btn" type="button" onclick="startNomeVerboGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
+    </section>
+
+    <section class="game-layout" id="nome-verbo-section" aria-label="Gioco nome o verbo">
+      <div class="game-card-full">
+        <div class="game-header-row">
+          <span>Pezzo <strong id="nv-piece">1</strong> di <span id="nv-total">200</span></span>
+          <span>Corrette: <strong id="nv-correct">0</strong></span>
+          <span>Supercar: <strong id="nv-cars-count">0</strong></span>
+        </div>
+        <div class="piece-label">Osserva la parola e scegli la categoria giusta.</div>
+        <div class="big-word" id="nv-word">frena</div>
+        <div class="choice-buttons">
+          <button type="button" class="choice-btn nome" id="nv-btn-nome" onclick="answerNomeVerbo('NOME')">
+            <span class="shape"><span style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:16px solid #f9fafb;"></span></span>
+            <span class="label">NOME</span>
+          </button>
+          <button type="button" class="choice-btn verbo" id="nv-btn-verbo" onclick="answerNomeVerbo('VERBO')">
+            <span class="shape"></span>
+            <span class="label">VERBO</span>
+          </button>
+        </div>
+        <div class="feedback" id="nv-feedback"></div>
+        <div class="game-actions">
+          <button type="button" class="pill-btn next" id="nv-next" onclick="nextNomeVerbo()">
+            Prossima parola <i class="fas fa-arrow-right"></i>
+          </button>
+          <button type="button" class="pill-btn reset" onclick="resetNomeVerbo()">
+            Ricomincia partita <i class="fas fa-redo"></i>
+          </button>
+          <button type="button" class="pill-btn back" onclick="backToGames()">
+            <i class="fas fa-arrow-left"></i> Torna ai giochi
+          </button>
+        </div>
+        <div class="rewards" id="nv-rewards"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    var t = document.getElementById('nav-toggle');
+    var m = document.getElementById('nav-menu');
+    if (t && m) {
+      t.addEventListener('click', function () { m.classList.toggle('show'); });
+      m.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { m.classList.remove('show'); });
+      });
+    }
+
+    // --- Gioco "Nome o verbo" ---
+    var NV_WORDS = [
+      { w: "auto", t: "NOME" }, { w: "frena", t: "VERBO" }, { w: "motore", t: "NOME" }, { w: "guida", t: "VERBO" },
+      { w: "scuola", t: "NOME" }, { w: "corre", t: "VERBO" }, { w: "pedale", t: "NOME" }, { w: "salta", t: "VERBO" },
+      { w: "pista", t: "NOME" }, { w: "sterza", t: "VERBO" }, { w: "curva", t: "NOME" }, { w: "accelera", t: "VERBO" },
+      { w: "semaforo", t: "NOME" }, { w: "parte", t: "VERBO" }, { w: "strada", t: "NOME" }, { w: "sorpassa", t: "VERBO" },
+      { w: "casco", t: "NOME" }, { w: "fischia", t: "VERBO" }, { w: "gara", t: "NOME" }, { w: "vince", t: "VERBO" },
+      { w: "squadra", t: "NOME" }, { w: "segna", t: "VERBO" }, { w: "porta", t: "NOME" }, { w: "para", t: "VERBO" },
+      { w: "panchina", t: "NOME" }, { w: "allena", t: "VERBO" }, { w: "campo", t: "NOME" }, { w: "tira", t: "VERBO" },
+      { w: "pallone", t: "NOME" }, { w: "rimbalza", t: "VERBO" }, { w: "bicicletta", t: "NOME" }, { w: "pedala", t: "VERBO" },
+      { w: "finestrino", t: "NOME" }, { w: "apre", t: "VERBO" }, { w: "clacson", t: "NOME" }, { w: "suona", t: "VERBO" },
+      { w: "volante", t: "NOME" }, { w: "gira", t: "VERBO" }, { w: "cintura", t: "NOME" }, { w: "aggancia", t: "VERBO" },
+      { w: "benzina", t: "NOME" }, { w: "riempie", t: "VERBO" }, { w: "garage", t: "NOME" }, { w: "parcheggia", t: "VERBO" },
+      { w: "meccanico", t: "NOME" }, { w: "ripara", t: "VERBO" }, { w: "chiave", t: "NOME" }, { w: "accende", t: "VERBO" },
+      { w: "tuta", t: "NOME" }, { w: "indossa", t: "VERBO" }, { w: "guanto", t: "NOME" }, { w: "stringe", t: "VERBO" },
+      { w: "curva", t: "NOME" }, { w: "derapa", t: "VERBO" }, { w: "fondo", t: "NOME" }, { w: "scivola", t: "VERBO" },
+      { w: "neve", t: "NOME" }, { w: "cadono", t: "VERBO" }, { w: "pioggia", t: "NOME" }, { w: "bagna", t: "VERBO" },
+      { w: "asciugamano", t: "NOME" }, { w: "asciuga", t: "VERBO" }, { w: "tetto", t: "NOME" }, { w: "copre", t: "VERBO" },
+      { w: "specchietto", t: "NOME" }, { w: "controlla", t: "VERBO" }, { w: "faro", t: "NOME" }, { w: "illumina", t: "VERBO" },
+      { w: "coda", t: "NOME" }, { w: "aspetta", t: "VERBO" }, { w: "rotatoria", t: "NOME" }, { w: "entra", t: "VERBO" },
+      { w: "striscia", t: "NOME" }, { w: "segna", t: "VERBO" }, { w: "cartello", t: "NOME" }, { w: "indica", t: "VERBO" },
+      { w: "tunnel", t: "NOME" }, { w: "attraversa", t: "VERBO" }, { w: "ponte", t: "NOME" }, { w: "passa", t: "VERBO" },
+      { w: "uscita", t: "NOME" }, { w: "svolta", t: "VERBO" }, { w: "furgone", t: "NOME" }, { w: "carica", t: "VERBO" },
+      { w: "carico", t: "NOME" }, { w: "scarica", t: "VERBO" }, { w: "officina", t: "NOME" }, { w: "controlla", t: "VERBO" },
+      { w: "circuito", t: "NOME" }, { w: "gira", t: "VERBO" }, { w: "parabrezza", t: "NOME" }, { w: "pulisce", t: "VERBO" },
+      { w: "tergicristallo", t: "NOME" }, { w: "muove", t: "VERBO" }, { w: "pneumatico", t: "NOME" }, { w: "gonfia", t: "VERBO" },
+      { w: "ingresso", t: "NOME" }, { w: "entra", t: "VERBO" }, { w: "uscita", t: "NOME" }, { w: "esce", t: "VERBO" },
+      { w: "banco", t: "NOME" }, { w: "studia", t: "VERBO" }, { w: "quaderno", t: "NOME" }, { w: "scrive", t: "VERBO" },
+      { w: "penna", t: "NOME" }, { w: "colora", t: "VERBO" }, { w: "libro", t: "NOME" }, { w: "legge", t: "VERBO" },
+      { w: "maestra", t: "NOME" }, { w: "spiega", t: "VERBO" }, { w: "campanella", t: "NOME" }, { w: "suona", t: "VERBO" },
+      { w: "zaino", t: "NOME" }, { w: "riempie", t: "VERBO" }, { w: "finestra", t: "NOME" }, { w: "guarda", t: "VERBO" },
+      { w: "lavagna", t: "NOME" }, { w: "cancella", t: "VERBO" }, { w: "sedia", t: "NOME" }, { w: "siede", t: "VERBO" },
+      { w: "compito", t: "NOME" }, { w: "risolve", t: "VERBO" }, { w: "figura", t: "NOME" }, { w: "disegna", t: "VERBO" },
+      { w: "domanda", t: "NOME" }, { w: "risponde", t: "VERBO" }, { w: "squadra", t: "NOME" }, { w: "misura", t: "VERBO" },
+      { w: "numero", t: "NOME" }, { w: "conta", t: "VERBO" }, { w: "risultato", t: "NOME" }, { w: "controlla", t: "VERBO" },
+      { w: "matita", t: "NOME" }, { w: "temperare", t: "VERBO" }, { w: "temperino", t: "NOME" }, { w: "taglia", t: "VERBO" },
+      { w: "festa", t: "NOME" }, { w: "balla", t: "VERBO" }, { w: "canzone", t: "NOME" }, { w: "canta", t: "VERBO" },
+      { w: "lampada", t: "NOME" }, { w: "illumina", t: "VERBO" }, { w: "cielo", t: "NOME" }, { w: "brilla", t: "VERBO" },
+      { w: "stella", t: "NOME" }, { w: "cade", t: "VERBO" }, { w: "nuvola", t: "NOME" }, { w: "copre", t: "VERBO" }
+    ];
+    // assicuriamoci di avere almeno 200 elementi
+    while (NV_WORDS.length < 200) {
+      NV_WORDS = NV_WORDS.concat(NV_WORDS.slice(0, 200 - NV_WORDS.length));
+    }
+    var NV_CARS = [
+      "Supercar Rossa Turbo", "Lampo Giallo GP", "Fulmine Blu GT", "Drago Verde Rally",
+      "Cometa Viola Sprint", "Tigre Arancione RS", "Aquila Bianca Race", "Pantera Nera Sport",
+      "Fulmine Elettrico", "Meteorite Argento"
+    ];
+    var nvOrder = [];
+    var nvIndex = 0;
+    var nvCorrect = 0;
+    var nvCarsWon = [];
+    var nvLocked = false;
+
+    function shuffleArray(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    function initNomeVerboOrder() {
+      nvOrder = [];
+      for (var i = 0; i < NV_WORDS.length; i++) nvOrder.push(i);
+      shuffleArray(nvOrder);
+      nvIndex = 0;
+    }
+
+    function renderNomeVerbo() {
+      if (!nvOrder.length) initNomeVerboOrder();
+      var currentIdx = nvOrder[nvIndex];
+      var current = NV_WORDS[currentIdx];
+      document.getElementById("nv-word").textContent = current.w;
+      document.getElementById("nv-piece").textContent = (nvIndex + 1);
+      document.getElementById("nv-total").textContent = NV_WORDS.length;
+      document.getElementById("nv-correct").textContent = nvCorrect;
+      document.getElementById("nv-cars-count").textContent = nvCarsWon.length;
+      document.getElementById("nv-feedback").textContent = "";
+      document.getElementById("nv-feedback").className = "feedback";
+      document.getElementById("nv-btn-nome").classList.remove("correct","wrong");
+      document.getElementById("nv-btn-verbo").classList.remove("correct","wrong");
+      nvLocked = false;
+      if (nvCarsWon.length) {
+        document.getElementById("nv-rewards").innerHTML =
+          "Supercar vinte: <strong>" + nvCarsWon.length + "</strong> – " + nvCarsWon.join(", ");
+      } else {
+        document.getElementById("nv-rewards").textContent = "Ogni 20 risposte corrette vinci una nuova supercar.";
+      }
+    }
+
+    function awardCarIfNeeded() {
+      if (nvCorrect > 0 && nvCorrect % 20 === 0) {
+        var available = NV_CARS.filter(function(c) { return nvCarsWon.indexOf(c) === -1; });
+        var car;
+        if (available.length > 0) {
+          car = available[Math.floor(Math.random()*available.length)];
+        } else {
+          car = NV_CARS[Math.floor(Math.random()*NV_CARS.length)];
+        }
+        nvCarsWon.push(car);
+        document.getElementById("nv-feedback").textContent = "Bravissimo! Hai vinto: " + car + "!";
+        document.getElementById("nv-feedback").className = "feedback ok";
+      }
+    }
+
+    function answerNomeVerbo(type) {
+      if (nvLocked) return;
+      nvLocked = true;
+      var current = NV_WORDS[nvOrder[nvIndex]];
+      var btnNome = document.getElementById("nv-btn-nome");
+      var btnVerbo = document.getElementById("nv-btn-verbo");
+      var fb = document.getElementById("nv-feedback");
+      if (current.t === "NOME") {
+        btnNome.classList.add("correct");
+        if (type === "NOME") {
+          nvCorrect++;
+          fb.textContent = "Bravissimo, è un nome!";
+          fb.className = "feedback ok";
+          awardCarIfNeeded();
+        } else {
+          btnVerbo.classList.add("wrong");
+          fb.textContent = "Questa parola è un NOME.";
+          fb.className = "feedback no";
+        }
+      } else {
+        btnVerbo.classList.add("correct");
+        if (type === "VERBO") {
+          nvCorrect++;
+          fb.textContent = "Ottimo, è un verbo!";
+          fb.className = "feedback ok";
+          awardCarIfNeeded();
+        } else {
+          btnNome.classList.add("wrong");
+          fb.textContent = "Questa parola è un VERBO.";
+          fb.className = "feedback no";
+        }
+      }
+      document.getElementById("nv-correct").textContent = nvCorrect;
+      document.getElementById("nv-cars-count").textContent = nvCarsWon.length;
+    }
+
+    function nextNomeVerbo() {
+      nvIndex++;
+      if (nvIndex >= nvOrder.length) {
+        initNomeVerboOrder();
+      }
+      renderNomeVerbo();
+    }
+
+    function resetNomeVerbo() {
+      nvCorrect = 0;
+      nvCarsWon = [];
+      initNomeVerboOrder();
+      renderNomeVerbo();
+    }
+
+    function startNomeVerboGame() {
+      var grid = document.getElementById("games-grid");
+      var section = document.getElementById("nome-verbo-section");
+      grid.style.display = "none";
+      section.style.display = "block";
+      if (!nvOrder.length) {
+        initNomeVerboOrder();
+      }
+      renderNomeVerbo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function backToGames() {
+      document.getElementById("nome-verbo-section").style.display = "none";
+      document.getElementById("games-grid").style.display = "grid";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
+
