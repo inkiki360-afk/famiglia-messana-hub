@@ -65,8 +65,8 @@
     }
     .story-text {
       font-family: "Nunito", system-ui, sans-serif;
-      font-size: 1.25rem;
-      line-height: 2;
+      font-size: 3.2rem;
+      line-height: 1.5;
       margin-bottom: 2rem;
       white-space: pre-line;
     }
@@ -146,6 +146,34 @@
     .feedback-bravo { background: rgba(16,185,129,0.2); color: #059669; }
     .feedback-ok { background: rgba(251,191,36,0.3); color: #b45309; }
     .feedback-rilegere { background: rgba(224,122,95,0.2); color: var(--coral); }
+    .story-illustrations {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .story-illustration-card {
+      background: var(--warm-white);
+      border-radius: 20px;
+      border: 2px solid rgba(224,122,95,0.25);
+      box-shadow: 0 6px 18px var(--shadow);
+      padding: 0.9rem 0.7rem 1rem;
+      text-align: center;
+    }
+    .story-illustration-emoji {
+      font-size: 2.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .story-illustration-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+    @media (min-width: 768px) {
+      .story-text {
+        font-size: 2.6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -157,6 +185,7 @@
   <main>
     <h1 class="story-title" id="story-title"></h1>
     <div class="story-text" id="story-text"></div>
+    <div class="story-illustrations" id="story-illustrations"></div>
 
     <section class="section-box" id="timer-section">
       <h2>⏱ Misura la tua lettura</h2>
@@ -215,6 +244,57 @@
       document.title = story.title + ' – Favole da leggere';
 
       var wordCount = story.text.trim().split(/\s+/).length;
+
+      // Illustrazioni in stile cartone, legate al tema della storia
+      var illContainer = document.getElementById('story-illustrations');
+      var theme = 'default';
+      var textLower = (story.title + ' ' + story.text).toLowerCase();
+      if (textLower.indexOf('super car') !== -1 || textLower.indexOf('macchina') !== -1 || textLower.indexOf('gara') !== -1) {
+        theme = 'car';
+      } else if (textLower.indexOf('diamante') !== -1 || textLower.indexOf('rubino') !== -1 || textLower.indexOf('smeraldo') !== -1 || textLower.indexOf('gemma') !== -1) {
+        theme = 'gems';
+      } else if (textLower.indexOf('grotta') !== -1 || textLower.indexOf('miniera') !== -1 || textLower.indexOf('cristallo') !== -1 || textLower.indexOf('tunnel') !== -1) {
+        theme = 'cave';
+      } else if (textLower.indexOf('bosco') !== -1 || textLower.indexOf('collina') !== -1 || textLower.indexOf('prato') !== -1 || textLower.indexOf('animali') !== -1) {
+        theme = 'nature';
+      }
+
+      var illSets = {
+        car: [
+          { e: '🏎️', l: 'Super car in pista' },
+          { e: '🏁', l: 'Bandiera di arrivo' },
+          { e: '⛽', l: 'Box e benzina' }
+        ],
+        gems: [
+          { e: '💎', l: 'Diamante brillante' },
+          { e: '🔴', l: 'Rubino rosso' },
+          { e: '💚', l: 'Smeraldo della fortuna' }
+        ],
+        cave: [
+          { e: '⛰️', l: 'Montagna e grotte' },
+          { e: '🪨', l: 'Rocce e minerali' },
+          { e: '🔦', l: 'Torcia dell’esploratore' }
+        ],
+        nature: [
+          { e: '🌳', l: 'Albero del bosco' },
+          { e: '🏞️', l: 'Collina e sentieri' },
+          { e: '🦊', l: 'Animali curiosi' }
+        ],
+        default: [
+          { e: '📖', l: 'Pagina di racconto' },
+          { e: '✨', l: 'Magia della storia' },
+          { e: '😊', l: 'Noah felice' }
+        ]
+      };
+      var cards = illSets[theme] || illSets.default;
+      cards.forEach(function(card) {
+        var div = document.createElement('div');
+        div.className = 'story-illustration-card';
+        div.innerHTML =
+          '<div class="story-illustration-emoji">' + card.e + '</div>' +
+          '<div class="story-illustration-label">' + card.l + '</div>';
+        illContainer.appendChild(div);
+      });
 
       var timerStart = null;
       var timerInterval = null;
