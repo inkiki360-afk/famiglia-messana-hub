@@ -398,6 +398,34 @@
           Gioca ora <i class="fas fa-arrow-right"></i>
         </button>
       </article>
+      <article class="game-card">
+        <div class="game-icon">
+          <i class="fas fa-divide"></i>
+        </div>
+        <h2>Pari o dispari</h2>
+        <p>Guarda il numero gigante e scegli se è pari oppure dispari. Perfetto per allenare i numeri veloci.</p>
+        <div class="game-pill">
+          <i class="fas fa-bolt"></i>
+          <span>Numeri fino a 100</span>
+        </div>
+        <button class="open-btn" type="button" onclick="startPariDispariGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
+      <article class="game-card">
+        <div class="game-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <h2>Calcoli veloci</h2>
+        <p>Operazioni con addizioni e sottrazioni. Scegli il risultato giusto tra le risposte possibili.</p>
+        <div class="game-pill">
+          <i class="fas fa-plus-minus"></i>
+          <span>Allenamento di matematica</span>
+        </div>
+        <button class="open-btn" type="button" onclick="startCalcoliGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
     </section>
 
     <section class="game-layout" id="nome-verbo-section" aria-label="Gioco nome o verbo">
@@ -432,6 +460,67 @@
           </button>
         </div>
         <div class="rewards" id="nv-rewards"></div>
+      </div>
+    </section>
+
+    <section class="game-layout" id="pari-dispari-section" aria-label="Gioco pari o dispari">
+      <div class="game-card-full">
+        <div class="game-header-row">
+          <span>Numero <strong id="pd-round">1</strong></span>
+          <span>Corrette: <strong id="pd-correct">0</strong></span>
+          <span>Supercar: <strong id="pd-cars-count">0</strong></span>
+        </div>
+        <div class="piece-label">Guarda il numero e scegli se è pari o dispari.</div>
+        <div class="big-word" id="pd-number">40</div>
+        <div class="choice-buttons">
+          <button type="button" class="choice-btn" id="pd-btn-pari" onclick="answerPariDispari(true)">
+            <span class="shape" style="background:#10b981;"></span>
+            <span class="label" style="color:#047857;">PARI</span>
+          </button>
+          <button type="button" class="choice-btn" id="pd-btn-dispari" onclick="answerPariDispari(false)">
+            <span class="shape" style="background:#fb923c;"></span>
+            <span class="label" style="color:#ea580c;">DISPARI</span>
+          </button>
+        </div>
+        <div class="feedback" id="pd-feedback"></div>
+        <div class="game-actions">
+          <button type="button" class="pill-btn next" onclick="nextPariDispari()">
+            Prossimo numero <i class="fas fa-arrow-right"></i>
+          </button>
+          <button type="button" class="pill-btn reset" onclick="resetPariDispari()">
+            Ricomincia partita <i class="fas fa-redo"></i>
+          </button>
+          <button type="button" class="pill-btn back" onclick="backToGames()">
+            <i class="fas fa-arrow-left"></i> Torna ai giochi
+          </button>
+        </div>
+        <div class="rewards" id="pd-rewards"></div>
+      </div>
+    </section>
+
+    <section class="game-layout" id="calcoli-section" aria-label="Gioco calcoli veloci">
+      <div class="game-card-full">
+        <div class="game-header-row">
+          <span>Calcolo <strong id="mc-round">1</strong></span>
+          <span>Corrette: <strong id="mc-correct">0</strong></span>
+          <span>Supercar: <strong id="mc-cars-count">0</strong></span>
+        </div>
+        <div class="piece-label">Risolvi l'operazione e tocca il risultato corretto.</div>
+        <div class="big-word" id="mc-expression">13 - 7</div>
+        <div class="choice-buttons" id="mc-options"></div>
+        <div class="feedback" id="mc-feedback"></div>
+        <div class="game-actions">
+          <button type="button" class="pill-btn next" onclick="nextCalcolo()">
+            Nuovo calcolo <i class="fas fa-arrow-right"></i>
+          </button>
+          <button type="button" class="pill-btn reset" onclick="resetCalcoli()">
+            Ricomincia partita <i class="fas fa-redo"></i>
+          </button>
+          <button type="button" class="pill-btn back" onclick="backToGames()">
+            <i class="fas fa-arrow-left"></i> Torna ai giochi
+          </button>
+        </div>
+        <div class="rewards" id="mc-rewards"></div>
       </div>
     </section>
   </main>
@@ -606,8 +695,14 @@
       renderNomeVerbo();
     }
 
+    function hideAllGameSections() {
+      var sections = document.querySelectorAll(".game-layout");
+      sections.forEach(function (s) { s.style.display = "none"; });
+    }
+
     function startNomeVerboGame() {
       var grid = document.getElementById("games-grid");
+      hideAllGameSections();
       var section = document.getElementById("nome-verbo-section");
       grid.style.display = "none";
       section.style.display = "block";
@@ -619,8 +714,218 @@
     }
 
     function backToGames() {
-      document.getElementById("nome-verbo-section").style.display = "none";
+      hideAllGameSections();
       document.getElementById("games-grid").style.display = "grid";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // --- Gioco "Pari o dispari" ---
+    var pdNumber = 0;
+    var pdCorrect = 0;
+    var pdRound = 0;
+    var pdCarsWon = [];
+
+    function renderPariDispari() {
+      pdRound++;
+      pdNumber = Math.floor(Math.random() * 100) + 1;
+      document.getElementById("pd-number").textContent = pdNumber;
+      document.getElementById("pd-round").textContent = pdRound;
+      document.getElementById("pd-correct").textContent = pdCorrect;
+      document.getElementById("pd-cars-count").textContent = pdCarsWon.length;
+      document.getElementById("pd-feedback").textContent = "";
+      document.getElementById("pd-feedback").className = "feedback";
+      document.getElementById("pd-btn-pari").classList.remove("correct","wrong");
+      document.getElementById("pd-btn-dispari").classList.remove("correct","wrong");
+      if (pdCarsWon.length) {
+        document.getElementById("pd-rewards").innerHTML =
+          "Supercar vinte: <strong>" + pdCarsWon.length + "</strong> – " + pdCarsWon.join(", ");
+      } else {
+        document.getElementById("pd-rewards").textContent =
+          "Ogni 20 risposte corrette vinci una nuova supercar.";
+      }
+    }
+
+    function awardPariDispariCarIfNeeded() {
+      if (pdCorrect > 0 && pdCorrect % 20 === 0) {
+        var available = NV_CARS.filter(function (c) { return pdCarsWon.indexOf(c) === -1; });
+        var car = available.length
+          ? available[Math.floor(Math.random() * available.length)]
+          : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
+        pdCarsWon.push(car);
+        var fb = document.getElementById("pd-feedback");
+        fb.textContent = "Bravissimo! Hai vinto: " + car + "!";
+        fb.className = "feedback ok";
+      }
+    }
+
+    function answerPariDispari(isEvenChoice) {
+      var isEven = pdNumber % 2 === 0;
+      var btnPari = document.getElementById("pd-btn-pari");
+      var btnDispari = document.getElementById("pd-btn-dispari");
+      var fb = document.getElementById("pd-feedback");
+      btnPari.classList.remove("correct","wrong");
+      btnDispari.classList.remove("correct","wrong");
+      if (isEven) {
+        btnPari.classList.add("correct");
+        if (isEvenChoice) {
+          pdCorrect++;
+          fb.textContent = "Perfetto, " + pdNumber + " è un numero pari.";
+          fb.className = "feedback ok";
+          awardPariDispariCarIfNeeded();
+        } else {
+          btnDispari.classList.add("wrong");
+          fb.textContent = pdNumber + " è un numero PARI.";
+          fb.className = "feedback no";
+        }
+      } else {
+        btnDispari.classList.add("correct");
+        if (!isEvenChoice) {
+          pdCorrect++;
+          fb.textContent = "Ottimo, " + pdNumber + " è dispari.";
+          fb.className = "feedback ok";
+          awardPariDispariCarIfNeeded();
+        } else {
+          btnPari.classList.add("wrong");
+          fb.textContent = pdNumber + " è un numero DISPARI.";
+          fb.className = "feedback no";
+        }
+      }
+      document.getElementById("pd-correct").textContent = pdCorrect;
+      document.getElementById("pd-cars-count").textContent = pdCarsWon.length;
+    }
+
+    function nextPariDispari() {
+      renderPariDispari();
+    }
+
+    function resetPariDispari() {
+      pdCorrect = 0;
+      pdRound = 0;
+      pdCarsWon = [];
+      renderPariDispari();
+    }
+
+    function startPariDispariGame() {
+      var grid = document.getElementById("games-grid");
+      hideAllGameSections();
+      var section = document.getElementById("pari-dispari-section");
+      grid.style.display = "none";
+      section.style.display = "block";
+      if (!pdRound) {
+        pdCorrect = 0;
+        pdRound = 0;
+      }
+      renderPariDispari();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // --- Gioco "Calcoli veloci" ---
+    var mcCorrect = 0;
+    var mcRound = 0;
+    var mcCarsWon = [];
+    var mcCurrent = null;
+
+    function generateCalcolo() {
+      mcRound++;
+      var type = Math.random() > 0.5 ? "+" : "-";
+      var a, b, res;
+      if (type === "+") {
+        a = Math.floor(Math.random() * 11) + 2;
+        b = Math.floor(Math.random() * 9) + 1;
+        res = a + b;
+      } else {
+        a = Math.floor(Math.random() * 11) + 10;
+        b = Math.floor(Math.random() * 10) + 1;
+        res = a - b;
+      }
+      mcCurrent = { q: a + " " + type + " " + b, res: res };
+      document.getElementById("mc-expression").textContent = mcCurrent.q;
+      document.getElementById("mc-round").textContent = mcRound;
+      document.getElementById("mc-correct").textContent = mcCorrect;
+      document.getElementById("mc-cars-count").textContent = mcCarsWon.length;
+      var fb = document.getElementById("mc-feedback");
+      fb.textContent = "";
+      fb.className = "feedback";
+      var container = document.getElementById("mc-options");
+      container.innerHTML = "";
+      var options = [mcCurrent.res, mcCurrent.res + 1, mcCurrent.res - 1, mcCurrent.res + 2, mcCurrent.res - 2, mcCurrent.res + 3];
+      options = options.filter(function (v, i, arr) { return arr.indexOf(v) === i && v >= 0; });
+      while (options.length < 6) {
+        var extra = Math.floor(Math.random() * 21);
+        if (options.indexOf(extra) === -1) options.push(extra);
+      }
+      shuffleArray(options);
+      options.slice(0, 6).forEach(function (val) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "choice-btn";
+        btn.textContent = val;
+        btn.onclick = function () { answerCalcolo(val, btn); };
+        container.appendChild(btn);
+      });
+      if (mcCarsWon.length) {
+        document.getElementById("mc-rewards").innerHTML =
+          "Supercar vinte: <strong>" + mcCarsWon.length + "</strong> – " + mcCarsWon.join(", ");
+      } else {
+        document.getElementById("mc-rewards").textContent =
+          "Ogni 20 risposte corrette vinci una nuova supercar.";
+      }
+    }
+
+    function awardCalcoloCarIfNeeded() {
+      if (mcCorrect > 0 && mcCorrect % 20 === 0) {
+        var available = NV_CARS.filter(function (c) { return mcCarsWon.indexOf(c) === -1; });
+        var car = available.length
+          ? available[Math.floor(Math.random() * available.length)]
+          : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
+        mcCarsWon.push(car);
+        var fb = document.getElementById("mc-feedback");
+        fb.textContent = "Super premio! Hai vinto: " + car + "!";
+        fb.className = "feedback ok";
+      }
+    }
+
+    function answerCalcolo(val, btn) {
+      var fb = document.getElementById("mc-feedback");
+      var buttons = document.querySelectorAll("#mc-options .choice-btn");
+      buttons.forEach(function (b) { b.disabled = true; });
+      if (val === mcCurrent.res) {
+        btn.classList.add("correct");
+        mcCorrect++;
+        fb.textContent = "Bravissimo, il risultato è " + mcCurrent.res + "!";
+        fb.className = "feedback ok";
+        awardCalcoloCarIfNeeded();
+      } else {
+        btn.classList.add("wrong");
+        fb.textContent = "Il risultato giusto è " + mcCurrent.res + ".";
+        fb.className = "feedback no";
+      }
+      document.getElementById("mc-correct").textContent = mcCorrect;
+      document.getElementById("mc-cars-count").textContent = mcCarsWon.length;
+    }
+
+    function nextCalcolo() {
+      generateCalcolo();
+    }
+
+    function resetCalcoli() {
+      mcCorrect = 0;
+      mcRound = 0;
+      mcCarsWon = [];
+      generateCalcolo();
+    }
+
+    function startCalcoliGame() {
+      var grid = document.getElementById("games-grid");
+      hideAllGameSections();
+      var section = document.getElementById("calcoli-section");
+      grid.style.display = "none";
+      section.style.display = "block";
+      if (!mcRound) {
+        mcCorrect = 0;
+        mcRound = 0;
+      }
+      generateCalcolo();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
