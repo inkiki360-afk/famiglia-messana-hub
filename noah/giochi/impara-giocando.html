@@ -372,16 +372,16 @@
     <section class="cards-grid" aria-label="Giochi educativi" id="games-grid">
       <article class="game-card">
         <div class="game-icon">
-          <i class="fas fa-flag-checkered"></i>
+          <i class="fas fa-layer-group"></i>
         </div>
-        <h2>Noah Racer Club</h2>
-        <p>Un grande gioco scuola con lettura, matematica, nomi/verbi e supercar da collezionare.</p>
+        <h2>Singolare Plurale</h2>
+        <p>Guarda la parola e scegli se indica una cosa sola (singolare) o più cose (plurale). Ogni 20 risposte giuste vinci una supercar.</p>
         <div class="game-pill">
-          <i class="fas fa-gamepad"></i>
-          <span>Gioco-scuola completo</span>
+          <i class="fas fa-graduation-cap"></i>
+          <span>Grammatica + premio auto</span>
         </div>
-        <button class="open-btn" type="button" onclick="window.location.href='gioco-scuola.html'">
-          Apri il gioco <i class="fas fa-arrow-right"></i>
+        <button class="open-btn" type="button" onclick="startSingolarePluraleGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
         </button>
       </article>
       <article class="game-card">
@@ -521,6 +521,43 @@
           </button>
         </div>
         <div class="rewards" id="mc-rewards"></div>
+      </div>
+    </section>
+
+    <section class="game-layout" id="singolare-plurale-section" aria-label="Gioco singolare plurale">
+      <div class="game-card-full">
+        <div class="game-header-row">
+          <span>Parola <strong id="sp-piece">1</strong> di <span id="sp-total">10</span></span>
+          <span>Corrette: <strong id="sp-correct">0</strong></span>
+          <span>Supercar: <strong id="sp-cars-count">0</strong></span>
+        </div>
+        <div class="piece-label">È singolare (una cosa) o plurale (tante cose)?</div>
+        <div class="big-word" id="sp-word">macchina</div>
+        <div class="choice-buttons">
+          <button type="button" class="choice-btn" id="sp-btn-sing" onclick="answerSingolarePlurale('SINGOLARE')">
+            <span class="shape" style="background:#7c3aed;"></span>
+            <span class="label" style="color:#5b21b6;">SINGOLARE</span>
+            <span style="font-size:0.75rem;color:var(--text-soft);">una cosa</span>
+          </button>
+          <button type="button" class="choice-btn" id="sp-btn-plur" onclick="answerSingolarePlurale('PLURALE')">
+            <span class="shape" style="background:#059669;"></span>
+            <span class="label" style="color:#047857;">PLURALE</span>
+            <span style="font-size:0.75rem;color:var(--text-soft);">tante cose</span>
+          </button>
+        </div>
+        <div class="feedback" id="sp-feedback"></div>
+        <div class="game-actions">
+          <button type="button" class="pill-btn next" id="sp-next" onclick="nextSingolarePlurale()">
+            Prossima parola <i class="fas fa-arrow-right"></i>
+          </button>
+          <button type="button" class="pill-btn reset" onclick="resetSingolarePlurale()">
+            Ricomincia partita <i class="fas fa-redo"></i>
+          </button>
+          <button type="button" class="pill-btn back" onclick="backToGames()">
+            <i class="fas fa-arrow-left"></i> Torna ai giochi
+          </button>
+        </div>
+        <div class="rewards" id="sp-rewards"></div>
       </div>
     </section>
   </main>
@@ -926,6 +963,137 @@
         mcRound = 0;
       }
       generateCalcolo();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // --- Gioco "Singolare Plurale" ---
+    var SP_WORDS = [
+      { w: "macchina", t: "SINGOLARE" }, { w: "macchine", t: "PLURALE" },
+      { w: "bimbo", t: "SINGOLARE" }, { w: "bimbi", t: "PLURALE" },
+      { w: "libro", t: "SINGOLARE" }, { w: "libri", t: "PLURALE" },
+      { w: "mela", t: "SINGOLARE" }, { w: "mele", t: "PLURALE" },
+      { w: "cane", t: "SINGOLARE" }, { w: "cani", t: "PLURALE" },
+      { w: "gatto", t: "SINGOLARE" }, { w: "gatti", t: "PLURALE" },
+      { w: "motore", t: "SINGOLARE" }, { w: "motori", t: "PLURALE" },
+      { w: "pista", t: "SINGOLARE" }, { w: "piste", t: "PLURALE" },
+      { w: "casa", t: "SINGOLARE" }, { w: "case", t: "PLURALE" },
+      { w: "stella", t: "SINGOLARE" }, { w: "stelle", t: "PLURALE" },
+      { w: "fiore", t: "SINGOLARE" }, { w: "fiori", t: "PLURALE" },
+      { w: "albero", t: "SINGOLARE" }, { w: "alberi", t: "PLURALE" },
+      { w: "amico", t: "SINGOLARE" }, { w: "amici", t: "PLURALE" },
+      { w: "gioco", t: "SINGOLARE" }, { w: "giochi", t: "PLURALE" },
+      { w: "pallone", t: "SINGOLARE" }, { w: "palloni", t: "PLURALE" },
+      { w: "matita", t: "SINGOLARE" }, { w: "matite", t: "PLURALE" },
+      { w: "penna", t: "SINGOLARE" }, { w: "penne", t: "PLURALE" },
+      { w: "quaderno", t: "SINGOLARE" }, { w: "quaderni", t: "PLURALE" },
+      { w: "pilota", t: "SINGOLARE" }, { w: "piloti", t: "PLURALE" },
+      { w: "bandiera", t: "SINGOLARE" }, { w: "bandiere", t: "PLURALE" },
+      { w: "ruota", t: "SINGOLARE" }, { w: "ruote", t: "PLURALE" }
+    ];
+    var spOrder = [];
+    var spIndex = 0;
+    var spCorrect = 0;
+    var spCarsWon = [];
+    var spLocked = false;
+
+    function initSPOrder() {
+      spOrder = [];
+      for (var i = 0; i < SP_WORDS.length; i++) spOrder.push(i);
+      shuffleArray(spOrder);
+      spIndex = 0;
+    }
+
+    function renderSingolarePlurale() {
+      if (!spOrder.length) initSPOrder();
+      var currentIdx = spOrder[spIndex];
+      var current = SP_WORDS[currentIdx];
+      document.getElementById("sp-word").textContent = current.w;
+      document.getElementById("sp-piece").textContent = (spIndex + 1);
+      document.getElementById("sp-total").textContent = SP_WORDS.length;
+      document.getElementById("sp-correct").textContent = spCorrect;
+      document.getElementById("sp-cars-count").textContent = spCarsWon.length;
+      document.getElementById("sp-feedback").textContent = "";
+      document.getElementById("sp-feedback").className = "feedback";
+      document.getElementById("sp-btn-sing").classList.remove("correct", "wrong");
+      document.getElementById("sp-btn-plur").classList.remove("correct", "wrong");
+      spLocked = false;
+      if (spCarsWon.length) {
+        document.getElementById("sp-rewards").innerHTML =
+          "Supercar vinte: <strong>" + spCarsWon.length + "</strong> – " + spCarsWon.join(", ");
+      } else {
+        document.getElementById("sp-rewards").textContent =
+          "Ogni 20 risposte corrette vinci una nuova supercar.";
+      }
+    }
+
+    function awardSPCarIfNeeded() {
+      if (spCorrect > 0 && spCorrect % 20 === 0) {
+        var available = NV_CARS.filter(function (c) { return spCarsWon.indexOf(c) === -1; });
+        var car = available.length
+          ? available[Math.floor(Math.random() * available.length)]
+          : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
+        spCarsWon.push(car);
+        document.getElementById("sp-feedback").textContent = "Bravissimo! Hai vinto: " + car + "!";
+        document.getElementById("sp-feedback").className = "feedback ok";
+      }
+    }
+
+    function answerSingolarePlurale(choice) {
+      if (spLocked) return;
+      spLocked = true;
+      var current = SP_WORDS[spOrder[spIndex]];
+      var btnSing = document.getElementById("sp-btn-sing");
+      var btnPlur = document.getElementById("sp-btn-plur");
+      var fb = document.getElementById("sp-feedback");
+      if (current.t === "SINGOLARE") {
+        btnSing.classList.add("correct");
+        if (choice === "SINGOLARE") {
+          spCorrect++;
+          fb.textContent = "Perfetto, è singolare (una sola cosa)!";
+          fb.className = "feedback ok";
+          awardSPCarIfNeeded();
+        } else {
+          btnPlur.classList.add("wrong");
+          fb.textContent = "Questa parola è SINGOLARE.";
+          fb.className = "feedback no";
+        }
+      } else {
+        btnPlur.classList.add("correct");
+        if (choice === "PLURALE") {
+          spCorrect++;
+          fb.textContent = "Ottimo, è plurale (tante cose)!";
+          fb.className = "feedback ok";
+          awardSPCarIfNeeded();
+        } else {
+          btnSing.classList.add("wrong");
+          fb.textContent = "Questa parola è PLURALE.";
+          fb.className = "feedback no";
+        }
+      }
+      document.getElementById("sp-correct").textContent = spCorrect;
+      document.getElementById("sp-cars-count").textContent = spCarsWon.length;
+    }
+
+    function nextSingolarePlurale() {
+      spIndex++;
+      if (spIndex >= spOrder.length) initSPOrder();
+      renderSingolarePlurale();
+    }
+
+    function resetSingolarePlurale() {
+      spCorrect = 0;
+      spCarsWon = [];
+      initSPOrder();
+      renderSingolarePlurale();
+    }
+
+    function startSingolarePluraleGame() {
+      var grid = document.getElementById("games-grid");
+      hideAllGameSections();
+      document.getElementById("singolare-plurale-section").style.display = "block";
+      grid.style.display = "none";
+      if (!spOrder.length) initSPOrder();
+      renderSingolarePlurale();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   </script>
