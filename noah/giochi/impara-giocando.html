@@ -299,8 +299,15 @@
       font-size: 1.2rem;
       margin-bottom: 0.75rem;
     }
+    .feedback .feedback-icon {
+      display: block;
+      font-size: 3rem;
+      margin-bottom: 0.35rem;
+    }
     .feedback.ok { color: #16a34a; }
+    .feedback.ok .feedback-icon { color: #16a34a; }
     .feedback.no { color: #dc2626; }
+    .feedback.no .feedback-icon { color: #dc2626; }
     .game-actions {
       display: flex;
       flex-wrap: wrap;
@@ -449,9 +456,6 @@
         </div>
         <div class="feedback" id="nv-feedback"></div>
         <div class="game-actions">
-          <button type="button" class="pill-btn next" id="nv-next" onclick="nextNomeVerbo()">
-            Prossima parola <i class="fas fa-arrow-right"></i>
-          </button>
           <button type="button" class="pill-btn reset" onclick="resetNomeVerbo()">
             Ricomincia partita <i class="fas fa-redo"></i>
           </button>
@@ -484,9 +488,6 @@
         </div>
         <div class="feedback" id="pd-feedback"></div>
         <div class="game-actions">
-          <button type="button" class="pill-btn next" onclick="nextPariDispari()">
-            Prossimo numero <i class="fas fa-arrow-right"></i>
-          </button>
           <button type="button" class="pill-btn reset" onclick="resetPariDispari()">
             Ricomincia partita <i class="fas fa-redo"></i>
           </button>
@@ -510,9 +511,6 @@
         <div class="choice-buttons" id="mc-options"></div>
         <div class="feedback" id="mc-feedback"></div>
         <div class="game-actions">
-          <button type="button" class="pill-btn next" onclick="nextCalcolo()">
-            Nuovo calcolo <i class="fas fa-arrow-right"></i>
-          </button>
           <button type="button" class="pill-btn reset" onclick="resetCalcoli()">
             Ricomincia partita <i class="fas fa-redo"></i>
           </button>
@@ -547,9 +545,6 @@
         </div>
         <div class="feedback" id="sp-feedback"></div>
         <div class="game-actions">
-          <button type="button" class="pill-btn next" id="sp-next" onclick="nextSingolarePlurale()">
-            Prossima parola <i class="fas fa-arrow-right"></i>
-          </button>
           <button type="button" class="pill-btn reset" onclick="resetSingolarePlurale()">
             Ricomincia partita <i class="fas fa-redo"></i>
           </button>
@@ -676,8 +671,9 @@
           car = NV_CARS[Math.floor(Math.random()*NV_CARS.length)];
         }
         nvCarsWon.push(car);
-        document.getElementById("nv-feedback").textContent = "Bravissimo! Hai vinto: " + car + "!";
-        document.getElementById("nv-feedback").className = "feedback ok";
+        var fb = document.getElementById("nv-feedback");
+        fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Bravissimo! Hai vinto: ' + car + '!';
+        fb.className = "feedback ok";
       }
     }
 
@@ -692,25 +688,33 @@
         btnNome.classList.add("correct");
         if (type === "NOME") {
           nvCorrect++;
-          fb.textContent = "Bravissimo, è un nome!";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Bravissimo, è un nome!';
           fb.className = "feedback ok";
           awardCarIfNeeded();
+          document.getElementById("nv-correct").textContent = nvCorrect;
+          document.getElementById("nv-cars-count").textContent = nvCarsWon.length;
+          setTimeout(nextNomeVerbo, 1000);
         } else {
           btnVerbo.classList.add("wrong");
-          fb.textContent = "Questa parola è un NOME.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È un NOME.';
           fb.className = "feedback no";
+          nvLocked = false;
         }
       } else {
         btnVerbo.classList.add("correct");
         if (type === "VERBO") {
           nvCorrect++;
-          fb.textContent = "Ottimo, è un verbo!";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Ottimo, è un verbo!';
           fb.className = "feedback ok";
           awardCarIfNeeded();
+          document.getElementById("nv-correct").textContent = nvCorrect;
+          document.getElementById("nv-cars-count").textContent = nvCarsWon.length;
+          setTimeout(nextNomeVerbo, 1000);
         } else {
           btnNome.classList.add("wrong");
-          fb.textContent = "Questa parola è un VERBO.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È un VERBO.';
           fb.className = "feedback no";
+          nvLocked = false;
         }
       }
       document.getElementById("nv-correct").textContent = nvCorrect;
@@ -761,8 +765,10 @@
     var pdCorrect = 0;
     var pdRound = 0;
     var pdCarsWon = [];
+    var pdLocked = false;
 
     function renderPariDispari() {
+      pdLocked = false;
       pdRound++;
       pdNumber = Math.floor(Math.random() * 100) + 1;
       document.getElementById("pd-number").textContent = pdNumber;
@@ -790,12 +796,14 @@
           : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
         pdCarsWon.push(car);
         var fb = document.getElementById("pd-feedback");
-        fb.textContent = "Bravissimo! Hai vinto: " + car + "!";
+        fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Bravissimo! Hai vinto: ' + car + '!';
         fb.className = "feedback ok";
       }
     }
 
     function answerPariDispari(isEvenChoice) {
+      if (pdLocked) return;
+      pdLocked = true;
       var isEven = pdNumber % 2 === 0;
       var btnPari = document.getElementById("pd-btn-pari");
       var btnDispari = document.getElementById("pd-btn-dispari");
@@ -806,25 +814,33 @@
         btnPari.classList.add("correct");
         if (isEvenChoice) {
           pdCorrect++;
-          fb.textContent = "Perfetto, " + pdNumber + " è un numero pari.";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Perfetto, ' + pdNumber + ' è pari!';
           fb.className = "feedback ok";
           awardPariDispariCarIfNeeded();
+          document.getElementById("pd-correct").textContent = pdCorrect;
+          document.getElementById("pd-cars-count").textContent = pdCarsWon.length;
+          setTimeout(nextPariDispari, 1000);
         } else {
           btnDispari.classList.add("wrong");
-          fb.textContent = pdNumber + " è un numero PARI.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È PARI.';
           fb.className = "feedback no";
+          pdLocked = false;
         }
       } else {
         btnDispari.classList.add("correct");
         if (!isEvenChoice) {
           pdCorrect++;
-          fb.textContent = "Ottimo, " + pdNumber + " è dispari.";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Ottimo, ' + pdNumber + ' è dispari!';
           fb.className = "feedback ok";
           awardPariDispariCarIfNeeded();
+          document.getElementById("pd-correct").textContent = pdCorrect;
+          document.getElementById("pd-cars-count").textContent = pdCarsWon.length;
+          setTimeout(nextPariDispari, 1000);
         } else {
           btnPari.classList.add("wrong");
-          fb.textContent = pdNumber + " è un numero DISPARI.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È DISPARI.';
           fb.className = "feedback no";
+          pdLocked = false;
         }
       }
       document.getElementById("pd-correct").textContent = pdCorrect;
@@ -861,8 +877,10 @@
     var mcRound = 0;
     var mcCarsWon = [];
     var mcCurrent = null;
+    var mcLocked = false;
 
     function generateCalcolo() {
+      mcLocked = false;
       mcRound++;
       var type = Math.random() > 0.5 ? "+" : "-";
       var a, b, res;
@@ -917,25 +935,32 @@
           : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
         mcCarsWon.push(car);
         var fb = document.getElementById("mc-feedback");
-        fb.textContent = "Super premio! Hai vinto: " + car + "!";
+        fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Super premio! Hai vinto: ' + car + '!';
         fb.className = "feedback ok";
       }
     }
 
     function answerCalcolo(val, btn) {
+      if (mcLocked) return;
+      mcLocked = true;
       var fb = document.getElementById("mc-feedback");
       var buttons = document.querySelectorAll("#mc-options .choice-btn");
       buttons.forEach(function (b) { b.disabled = true; });
       if (val === mcCurrent.res) {
         btn.classList.add("correct");
         mcCorrect++;
-        fb.textContent = "Bravissimo, il risultato è " + mcCurrent.res + "!";
+        fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Bravissimo, il risultato è ' + mcCurrent.res + '!';
         fb.className = "feedback ok";
         awardCalcoloCarIfNeeded();
+        document.getElementById("mc-correct").textContent = mcCorrect;
+        document.getElementById("mc-cars-count").textContent = mcCarsWon.length;
+        setTimeout(nextCalcolo, 1000);
       } else {
         btn.classList.add("wrong");
-        fb.textContent = "Il risultato giusto è " + mcCurrent.res + ".";
+        fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! Il risultato è ' + mcCurrent.res + '.';
         fb.className = "feedback no";
+        mcLocked = false;
+        buttons.forEach(function (b) { b.disabled = false; });
       }
       document.getElementById("mc-correct").textContent = mcCorrect;
       document.getElementById("mc-cars-count").textContent = mcCarsWon.length;
@@ -1033,8 +1058,9 @@
           ? available[Math.floor(Math.random() * available.length)]
           : NV_CARS[Math.floor(Math.random() * NV_CARS.length)];
         spCarsWon.push(car);
-        document.getElementById("sp-feedback").textContent = "Bravissimo! Hai vinto: " + car + "!";
-        document.getElementById("sp-feedback").className = "feedback ok";
+        var fb = document.getElementById("sp-feedback");
+        fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Bravissimo! Hai vinto: ' + car + '!';
+        fb.className = "feedback ok";
       }
     }
 
@@ -1049,25 +1075,33 @@
         btnSing.classList.add("correct");
         if (choice === "SINGOLARE") {
           spCorrect++;
-          fb.textContent = "Perfetto, è singolare (una sola cosa)!";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Perfetto, è singolare!';
           fb.className = "feedback ok";
           awardSPCarIfNeeded();
+          document.getElementById("sp-correct").textContent = spCorrect;
+          document.getElementById("sp-cars-count").textContent = spCarsWon.length;
+          setTimeout(nextSingolarePlurale, 1000);
         } else {
           btnPlur.classList.add("wrong");
-          fb.textContent = "Questa parola è SINGOLARE.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È SINGOLARE.';
           fb.className = "feedback no";
+          spLocked = false;
         }
       } else {
         btnPlur.classList.add("correct");
         if (choice === "PLURALE") {
           spCorrect++;
-          fb.textContent = "Ottimo, è plurale (tante cose)!";
+          fb.innerHTML = '<i class="fas fa-check-circle feedback-icon"></i> Ottimo, è plurale!';
           fb.className = "feedback ok";
           awardSPCarIfNeeded();
+          document.getElementById("sp-correct").textContent = spCorrect;
+          document.getElementById("sp-cars-count").textContent = spCarsWon.length;
+          setTimeout(nextSingolarePlurale, 1000);
         } else {
           btnSing.classList.add("wrong");
-          fb.textContent = "Questa parola è PLURALE.";
+          fb.innerHTML = '<i class="fas fa-times-circle feedback-icon"></i> Riprova! È PLURALE.';
           fb.className = "feedback no";
+          spLocked = false;
         }
       }
       document.getElementById("sp-correct").textContent = spCorrect;
