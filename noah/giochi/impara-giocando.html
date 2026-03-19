@@ -345,6 +345,672 @@
       color: var(--text-soft);
     }
     .rewards strong { color: var(--coral); }
+
+    /* --- Maschile / Femminile (stile Mago Noah) --- */
+    #maschile-femminile-section.game-layout {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin-top: 0;
+    }
+    .mf-root {
+      font-family: "Nunito", system-ui, sans-serif;
+      min-height: 70vh;
+      background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+      border-radius: var(--radius);
+      padding: 1rem 1rem 1.5rem;
+      user-select: none;
+      overflow: hidden;
+    }
+    .mf-header {
+      max-width: 36rem;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fff;
+      padding: 1rem 1.25rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 24px var(--shadow);
+      border-bottom: 4px solid #bae6fd;
+    }
+    .mf-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mf-trophy {
+      background: #facc15;
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.75rem;
+      color: #fff;
+      font-size: 1.4rem;
+    }
+    .mf-score-num {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .mf-title-block {
+      text-align: center;
+    }
+    .mf-title-block h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0284c7;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .mf-title-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-top: 0.25rem;
+    }
+    .mf-title-dots span:nth-child(1),
+    .mf-title-dots span:nth-child(3) {
+      width: 2rem;
+      height: 0.35rem;
+      background: #60a5fa;
+      border-radius: 999px;
+    }
+    .mf-title-dots span:nth-child(2) {
+      width: 1rem;
+      height: 0.35rem;
+      background: #f472b6;
+      border-radius: 999px;
+    }
+    .mf-progress-pill {
+      background: #e0f2fe;
+      padding: 0.4rem 0.85rem;
+      border-radius: 1rem;
+      font-weight: 800;
+      color: #0369a1;
+      font-size: 1rem;
+    }
+    .mf-body {
+      max-width: 28rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .mf-word-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 20rem;
+      background: #fff;
+      border-radius: 4rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      border: 16px solid #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .mf-word-card.mf-correct {
+      border-color: #4ade80;
+      transform: scale(1.05) rotate(3deg);
+    }
+    .mf-word-card.mf-wrong {
+      border-color: #f87171;
+      animation: mf-shake 0.15s ease-in-out 0s 2;
+    }
+    @keyframes mf-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-12px); }
+      75% { transform: translateX(12px); }
+    }
+    .mf-star-overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: 3rem;
+      z-index: 2;
+    }
+    .mf-star-overlay.show {
+      display: flex;
+    }
+    .mf-star-overlay i {
+      font-size: 7rem;
+      color: #22c55e;
+      animation: mf-spin 1s linear infinite;
+    }
+    @keyframes mf-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .mf-emoji {
+      font-size: 5.5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    }
+    .mf-word-text {
+      font-size: clamp(2rem, 8vw, 3.25rem);
+      font-weight: 800;
+      color: #1e293b;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      padding: 0 0.5rem;
+      line-height: 1.1;
+    }
+    .mf-btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 28rem;
+      margin-bottom: 1rem;
+    }
+    .mf-btn-m,
+    .mf-btn-f {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      padding: 1.75rem 1rem;
+      border-radius: 3rem;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      border-bottom: 10px solid;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+    .mf-btn-m:active:not(:disabled),
+    .mf-btn-f:active:not(:disabled) {
+      transform: scale(0.95);
+      border-bottom-width: 4px;
+    }
+    .mf-btn-m:disabled,
+    .mf-btn-f:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .mf-btn-m {
+      background: #3b82f6;
+      border-color: #1e40af;
+      color: #fff;
+    }
+    .mf-btn-m span:first-child {
+      font-size: 2rem;
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+    .mf-btn-m span:last-child {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #dbeafe;
+    }
+    .mf-btn-f {
+      background: #ec4899;
+      border-color: #9d174d;
+      color: #fff;
+    }
+    .mf-btn-f span:first-child {
+      font-size: 2rem;
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+    .mf-btn-f span:last-child {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #fce7f3;
+    }
+    .mf-footer-hint {
+      max-width: 28rem;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--text-soft);
+    }
+    .mf-finish {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: linear-gradient(180deg, #fffbeb 0%, #ffedd5 100%);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .mf-finish .mf-party {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+    .mf-finish h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .mf-finish p {
+      font-size: 1.15rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+    }
+    .mf-score-box {
+      background: #fef9c3;
+      border-radius: 1.5rem;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #fde047;
+    }
+    .mf-score-box .big {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #a16207;
+    }
+    .mf-score-box .sub {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #ca8a04;
+      margin-top: 0.25rem;
+    }
+    .mf-btn-restart {
+      width: 100%;
+      max-width: 22rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: linear-gradient(90deg, #3b82f6, #4f46e5);
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 800;
+      padding: 1.1rem 1.5rem;
+      border-radius: 2rem;
+      border: none;
+      border-bottom: 8px solid #312e81;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.35);
+    }
+    .mf-btn-restart:active {
+      border-bottom-width: 4px;
+      transform: translateY(2px);
+    }
+    .mf-hidden { display: none !important; }
+
+    /* --- Analisi grammaticale (Laboratorio Montessori) --- */
+    #analisi-grammaticale-section.game-layout {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    .ag-root {
+      font-family: "Nunito", system-ui, sans-serif;
+      min-height: 70vh;
+      background: #fafafa;
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .ag-hidden { display: none !important; }
+    .ag-menu {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .ag-menu h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+    .ag-menu .sub {
+      color: var(--text-soft);
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+    .ag-menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 36rem;
+    }
+    @media (max-width: 640px) {
+      .ag-menu-grid { grid-template-columns: 1fr; }
+    }
+    .ag-menu-btn {
+      background: #fff;
+      padding: 1.75rem 1rem;
+      border-radius: 3rem;
+      box-shadow: 0 12px 30px var(--shadow);
+      border: none;
+      border-bottom: 8px solid #e0e7ff;
+      cursor: pointer;
+      transition: transform 0.2s;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+    .ag-menu-btn:hover { transform: scale(1.03); }
+    .ag-menu-btn:active { transform: scale(0.98); border-bottom-width: 4px; }
+    .ag-menu-btn.purple { border-bottom-color: #e9d5ff; }
+    .ag-menu-btn .icon-wrap {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .ag-menu-btn.blue .icon-wrap { background: #dbeafe; color: #2563eb; }
+    .ag-menu-btn.purple .icon-wrap { background: #f3e8ff; color: #9333ea; }
+    .ag-menu-btn h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text);
+      margin: 0;
+    }
+    .ag-menu-btn p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      margin: 0;
+    }
+    .ag-menu-back {
+      margin-top: 1.5rem;
+    }
+    .ag-game-header {
+      max-width: 42rem;
+      margin: 0 auto 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fff;
+      padding: 1rem 1.25rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 24px var(--shadow);
+      border: 2px solid #f5f5f5;
+    }
+    .ag-btn-icon {
+      background: #f5f5f5;
+      border: none;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 1.1rem;
+    }
+    .ag-btn-icon:hover { color: #000; }
+    .ag-trophy-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fffbeb;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid #fef3c7;
+    }
+    .ag-trophy-wrap i { color: #eab308; font-size: 1.35rem; }
+    .ag-trophy-wrap span { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+    .ag-progress-pill {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: #fafafa;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #f5f5f5;
+    }
+    .ag-card-wrap {
+      max-width: 42rem;
+      margin: 0 auto 1rem;
+    }
+    .ag-card {
+      position: relative;
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+      background: #fff;
+      border-radius: 4rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      border: 12px solid #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .ag-card.ag-correct { border-color: #4ade80; transform: scale(1.03); }
+    .ag-card.ag-wrong { border-color: #f87171; animation: ag-shake 0.15s ease-in-out 0s 2; }
+    @keyframes ag-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    .ag-word-emoji { font-size: 5rem; line-height: 1; margin-bottom: 0.75rem; }
+    .ag-word-text {
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      color: #1e293b;
+      text-align: center;
+      text-transform: uppercase;
+      font-style: italic;
+      letter-spacing: -0.03em;
+    }
+    .ag-sentence-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: flex-end;
+      min-height: 140px;
+      width: 100%;
+    }
+    .ag-sentence-word {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .ag-sentence-word .sym-slot {
+      height: 5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .ag-sentence-word .wtxt {
+      font-size: clamp(1.5rem, 5vw, 2.25rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+    .ag-sentence-word.done .wtxt { color: #cbd5e1; }
+    .ag-sentence-word.current .wtxt { color: #2563eb; transform: scale(1.2); }
+    .ag-sentence-word.future .wtxt { color: #1e293b; }
+    .ag-spinner {
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 4px dashed #60a5fa;
+      border-radius: 999px;
+      animation: ag-spin 0.8s linear infinite;
+    }
+    @keyframes ag-spin { to { transform: rotate(360deg); } }
+    .ag-hint-sentence {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      animation: ag-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes ag-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .ag-sym { width: 2rem; height: 2rem; }
+    .ag-sym.nome { width: 4rem; height: 4rem; }
+    .ag-sym.verbo { width: 4rem; height: 4rem; }
+    .ag-sym.agg { width: 3rem; height: 3rem; }
+    .ag-cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-width: 48rem;
+      margin: 0 auto 1rem;
+    }
+    @media (min-width: 768px) {
+      .ag-cat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .ag-cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fff;
+      padding: 1.25rem;
+      border-radius: 2.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: none;
+      border-bottom: 8px solid #e0f2fe;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s;
+    }
+    .ag-cat-btn:active:not(:disabled) { transform: translateY(2px); border-bottom-width: 4px; }
+    .ag-cat-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ag-cat-btn.art { border-bottom-color: #e0f2fe; }
+    .ag-cat-btn.nom { border-bottom-color: #f5f5f5; }
+    .ag-cat-btn.agg { border-bottom-color: #fef3c7; }
+    .ag-cat-btn.verb { border-bottom-color: #fee2e2; }
+    .ag-cat-btn span.lbl {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ag-cat-btn.art span.lbl { color: #0ea5e9; }
+    .ag-cat-btn.nom span.lbl { color: #1e293b; }
+    .ag-cat-btn.agg span.lbl { color: #92400e; }
+    .ag-cat-btn.verb span.lbl { color: #dc2626; }
+    .ag-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.8);
+      max-width: 42rem;
+      margin: 0 auto;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .ag-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .ag-legend .dot { width: 0.75rem; height: 0.75rem; }
+    .ag-legend .dot.art { background: #87ceeb; transform: rotate(45deg); }
+    .ag-legend .dot.nom { background: #000; }
+    .ag-legend .dot.agg { background: #8b4513; }
+    .ag-legend .dot.verb { background: #f00; border-radius: 999px; }
+    .ag-finish {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .ag-finish-inner {
+      background: #fff;
+      border-radius: 4rem;
+      box-shadow: 0 24px 50px rgba(0,0,0,0.12);
+      padding: 2.5rem 1.75rem;
+      max-width: 24rem;
+      width: 100%;
+      border: 8px solid #000;
+    }
+    .ag-finish-inner .party { font-size: 4rem; margin-bottom: 1rem; color: #3b82f6; }
+    .ag-finish-inner h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .ag-finish-inner p { color: var(--text-soft); font-weight: 700; margin-bottom: 1.5rem; }
+    .ag-score-box {
+      background: #fafafa;
+      border-radius: 1.5rem;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #e5e5e5;
+    }
+    .ag-score-box .big { font-size: 2.25rem; font-weight: 800; letter-spacing: 0.08em; }
+    .ag-score-box .sub {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #94a3b8;
+      margin-top: 0.35rem;
+    }
+    .ag-btn-black {
+      width: 100%;
+      background: #000;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      padding: 1.25rem;
+      border-radius: 1.5rem;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-family: inherit;
+    }
+    .ag-btn-black:active { transform: scale(0.98); }
   </style>
 </head>
 <body>
@@ -430,6 +1096,34 @@
           <span>Allenamento di matematica</span>
         </div>
         <button class="open-btn" type="button" onclick="startCalcoliGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
+      <article class="game-card">
+        <div class="game-icon" style="background:linear-gradient(135deg,#0ea5e9,#6366f1);">
+          <i class="fas fa-venus-mars"></i>
+        </div>
+        <h2>Maschile femminile</h2>
+        <p>Indovina se la parola è maschile (LUI) o femminile (LEI). 25 parole a sessione: supercar, minerali, quad e trabocchetti!</p>
+        <div class="game-pill">
+          <i class="fas fa-hat-wizard"></i>
+          <span>Mago Noah</span>
+        </div>
+        <button class="open-btn" type="button" onclick="startMaschileFemminileGame()">
+          Gioca ora <i class="fas fa-arrow-right"></i>
+        </button>
+      </article>
+      <article class="game-card">
+        <div class="game-icon" style="background:linear-gradient(135deg,#64748b,#0f172a);">
+          <i class="fas fa-shapes"></i>
+        </div>
+        <h2>Analisi grammaticale</h2>
+        <p>Articolo, nome, aggettivo o verbo? Parole singole o frasi con i simboli Montessori.</p>
+        <div class="game-pill">
+          <i class="fas fa-flask"></i>
+          <span>Laboratorio Montessori</span>
+        </div>
+        <button class="open-btn" type="button" onclick="startAnalisiGrammaticaleGame()">
           Gioca ora <i class="fas fa-arrow-right"></i>
         </button>
       </article>
@@ -553,6 +1247,164 @@
           </button>
         </div>
         <div class="rewards" id="sp-rewards"></div>
+      </div>
+    </section>
+
+    <section class="game-layout" id="maschile-femminile-section" aria-label="Gioco maschile femminile">
+      <div id="mf-play-wrap">
+        <div class="mf-root">
+          <div class="mf-header">
+            <div class="mf-score-wrap">
+              <div class="mf-trophy"><i class="fas fa-trophy"></i></div>
+              <span class="mf-score-num" id="mf-score">0</span>
+            </div>
+            <div class="mf-title-block">
+              <h2>Mago Noah</h2>
+              <div class="mf-title-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="mf-progress-pill" id="mf-progress">1 / 25</div>
+          </div>
+          <div class="mf-body">
+            <div class="mf-word-card" id="mf-word-card">
+              <div class="mf-star-overlay" id="mf-star-overlay" aria-hidden="true">
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="mf-emoji" id="mf-emoji">🏎️</span>
+              <h3 class="mf-word-text" id="mf-word-text">Ferrari</h3>
+            </div>
+            <div class="mf-btn-row">
+              <button type="button" class="mf-btn-m" id="mf-btn-masch" onclick="mfHandleChoice('maschile')">
+                <span>LUI</span>
+                <span>Maschile</span>
+              </button>
+              <button type="button" class="mf-btn-f" id="mf-btn-femm" onclick="mfHandleChoice('femminile')">
+                <span>LEI</span>
+                <span>Femminile</span>
+              </button>
+            </div>
+          </div>
+          <div class="mf-footer-hint">
+            🏁 Vai Noah! Pensa al motore o allo squalo... è un LUI o una LEI? 🏎️🦈
+          </div>
+        </div>
+      </div>
+      <div id="mf-finish-wrap" class="mf-hidden">
+        <div class="mf-finish">
+          <div class="mf-party" aria-hidden="true">🎉</div>
+          <h2>Grande Noah!</h2>
+          <p>Hai domato le parole più difficili!</p>
+          <div class="mf-score-box">
+            <div class="big" id="mf-final-score">0 / 25</div>
+            <div class="sub">Punteggio Mago</div>
+          </div>
+          <button type="button" class="mf-btn-restart" onclick="mfRestartGame()">
+            <i class="fas fa-redo"></i> NUOVA SFIDA
+          </button>
+          <div style="margin-top:1.25rem;">
+            <button type="button" class="pill-btn back" onclick="backToGames()">
+              <i class="fas fa-arrow-left"></i> Torna ai giochi
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-layout" id="analisi-grammaticale-section" aria-label="Analisi grammaticale">
+      <div class="ag-root">
+        <div id="ag-menu-view">
+          <div class="ag-menu">
+            <h1>Laboratorio Montessori</h1>
+            <p class="sub">Per il Mago Noah 🧙‍♂️</p>
+            <div class="ag-menu-grid">
+              <button type="button" class="ag-menu-btn blue" onclick="agStartMode('words')">
+                <div class="icon-wrap"><i class="fas fa-font"></i></div>
+                <div>
+                  <h3>Parole singole</h3>
+                  <p>Trova il simbolo per una parola</p>
+                </div>
+              </button>
+              <button type="button" class="ag-menu-btn purple" onclick="agStartMode('sentences')">
+                <div class="icon-wrap"><i class="fas fa-th-large"></i></div>
+                <div>
+                  <h3>Analisi frasi</h3>
+                  <p>Metti in ordine i simboli</p>
+                </div>
+              </button>
+            </div>
+            <button type="button" class="pill-btn back ag-menu-back" onclick="backToGames()">
+              <i class="fas fa-arrow-left"></i> Torna ai giochi
+            </button>
+          </div>
+        </div>
+
+        <div id="ag-game-view" class="ag-hidden">
+          <div class="ag-game-header">
+            <button type="button" class="ag-btn-icon" onclick="agRestartToMenu()" title="Menu" aria-label="Torna al menu">
+              <i class="fas fa-redo"></i>
+            </button>
+            <div class="ag-trophy-wrap">
+              <i class="fas fa-trophy"></i>
+              <span id="ag-score">0</span>
+            </div>
+            <div class="ag-progress-pill" id="ag-progress">1 / 20</div>
+          </div>
+          <div class="ag-card-wrap">
+            <div class="ag-card" id="ag-card">
+              <div id="ag-panel-words">
+                <div class="ag-word-emoji" id="ag-word-emoji">📎</div>
+                <h2 class="ag-word-text" id="ag-word-text">Il</h2>
+              </div>
+              <div id="ag-panel-sentences" class="ag-hidden">
+                <div class="ag-sentence-row" id="ag-sentence-row"></div>
+                <p class="ag-hint-sentence">Qual è il simbolo per la parola blu?</p>
+              </div>
+            </div>
+          </div>
+          <div class="ag-cat-grid">
+            <button type="button" class="ag-cat-btn art" onclick="agHandleChoice('articolo')" id="ag-cat-art">
+              <span class="ag-sym-wrap" data-sym="articolo"></span>
+              <span class="lbl">Articolo</span>
+            </button>
+            <button type="button" class="ag-cat-btn nom" onclick="agHandleChoice('nome')" id="ag-cat-nom">
+              <span class="ag-sym-wrap" data-sym="nome"></span>
+              <span class="lbl">Nome</span>
+            </button>
+            <button type="button" class="ag-cat-btn agg" onclick="agHandleChoice('aggettivo')" id="ag-cat-agg">
+              <span class="ag-sym-wrap" data-sym="aggettivo"></span>
+              <span class="lbl">Aggettivo</span>
+            </button>
+            <button type="button" class="ag-cat-btn verb" onclick="agHandleChoice('verbo')" id="ag-cat-verb">
+              <span class="ag-sym-wrap" data-sym="verbo"></span>
+              <span class="lbl">Verbo</span>
+            </button>
+          </div>
+          <div class="ag-legend">
+            <span><span class="dot art"></span> ART.</span>
+            <span><span class="dot nom"></span> NOME</span>
+            <span><span class="dot agg"></span> AGG.</span>
+            <span><span class="dot verb"></span> VERBO</span>
+          </div>
+        </div>
+
+        <div id="ag-finish-view" class="ag-hidden">
+          <div class="ag-finish">
+            <div class="ag-finish-inner">
+              <div class="party" aria-hidden="true"><i class="fas fa-wand-magic-sparkles"></i></div>
+              <h2>SUPER NOAH!</h2>
+              <p>Analisi completata con successo!</p>
+              <div class="ag-score-box">
+                <div class="big" id="ag-final-score">0 / 20</div>
+                <div class="sub">Punteggio totale</div>
+              </div>
+              <button type="button" class="ag-btn-black" onclick="agRestartToMenu()">Torna al menu</button>
+              <div style="margin-top:1rem;">
+                <button type="button" class="pill-btn back" onclick="backToGames()">
+                  <i class="fas fa-arrow-left"></i> Torna ai giochi
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1129,6 +1981,453 @@
       if (!spOrder.length) initSPOrder();
       renderSingolarePlurale();
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // --- Gioco "Maschile femminile" (Mago Noah) ---
+    var MF_WORDS = [
+      { id: 101, text: "Ferrari", gender: "femminile", emoji: "🏎️" },
+      { id: 102, text: "Lamborghini", gender: "femminile", emoji: "🐂" },
+      { id: 103, text: "Motore", gender: "maschile", emoji: "⚙️" },
+      { id: 104, text: "Volante", gender: "maschile", emoji: "🎡" },
+      { id: 105, text: "Pista", gender: "femminile", emoji: "🛣️" },
+      { id: 106, text: "Spoiler", gender: "maschile", emoji: "🏎️" },
+      { id: 107, text: "Benzina", gender: "femminile", emoji: "⛽" },
+      { id: 108, text: "Meccanico", gender: "maschile", emoji: "👨‍🔧" },
+      { id: 201, text: "Cristallo", gender: "maschile", emoji: "💎" },
+      { id: 202, text: "Pietra", gender: "femminile", emoji: "🪨" },
+      { id: 203, text: "Diamante", gender: "maschile", emoji: "💍" },
+      { id: 204, text: "Rubino", gender: "maschile", emoji: "🔴" },
+      { id: 205, text: "Smeraldo", gender: "maschile", emoji: "🟢" },
+      { id: 206, text: "Roccia", gender: "femminile", emoji: "🏔️" },
+      { id: 207, text: "Oro", gender: "maschile", emoji: "🥇" },
+      { id: 208, text: "Geode", gender: "maschile", emoji: "🔮" },
+      { id: 209, text: "Amatista", gender: "femminile", emoji: "💜" },
+      { id: 301, text: "Quad", gender: "maschile", emoji: "🚜" },
+      { id: 302, text: "Casco", gender: "maschile", emoji: "🪖" },
+      { id: 303, text: "Fango", gender: "maschile", emoji: "💩" },
+      { id: 304, text: "Ruota", gender: "femminile", emoji: "⭕" },
+      { id: 305, text: "Salto", gender: "maschile", emoji: "🦘" },
+      { id: 306, text: "Marmitta", gender: "femminile", emoji: "💨" },
+      { id: 307, text: "Tuta", gender: "femminile", emoji: "🧥" },
+      { id: 401, text: "Squalo", gender: "maschile", emoji: "🦈" },
+      { id: 402, text: "Pinna", gender: "femminile", emoji: "🐬" },
+      { id: 403, text: "Dente", gender: "maschile", emoji: "🦷" },
+      { id: 404, text: "Oceano", gender: "maschile", emoji: "🌊" },
+      { id: 405, text: "Balena", gender: "femminile", emoji: "🐋" },
+      { id: 406, text: "Abisso", gender: "maschile", emoji: "🕳️" },
+      { id: 1, text: "Mano", gender: "femminile", emoji: "🖐️" },
+      { id: 2, text: "Cinema", gender: "maschile", emoji: "🎬" },
+      { id: 3, text: "Radio", gender: "femminile", emoji: "📻" },
+      { id: 4, text: "Problema", gender: "maschile", emoji: "❓" },
+      { id: 5, text: "Sole", gender: "maschile", emoji: "☀️" },
+      { id: 6, text: "Luna", gender: "femminile", emoji: "🌙" },
+      { id: 7, text: "Fiore", gender: "maschile", emoji: "🌻" },
+      { id: 8, text: "Chiave", gender: "femminile", emoji: "🔑" },
+      { id: 9, text: "Leone", gender: "maschile", emoji: "🦁" },
+      { id: 10, text: "Nave", gender: "femminile", emoji: "🚢" },
+      { id: 11, text: "Zaino", gender: "maschile", emoji: "🎒" },
+      { id: 12, text: "Scuola", gender: "femminile", emoji: "🏫" },
+      { id: 13, text: "Pigiama", gender: "maschile", emoji: "🛌" },
+      { id: 14, text: "Auto", gender: "femminile", emoji: "🚗" },
+      { id: 15, text: "Uovo", gender: "maschile", emoji: "🥚" },
+      { id: 16, text: "Bici", gender: "femminile", emoji: "🚲" },
+      { id: 17, text: "Dinosauro", gender: "maschile", emoji: "🦖" },
+      { id: 18, text: "Farfalla", gender: "femminile", emoji: "🦋" },
+      { id: 19, text: "Pirata", gender: "maschile", emoji: "🏴‍☠️" },
+      { id: 20, text: "Sirena", gender: "femminile", emoji: "🧜‍♀️" },
+      { id: 21, text: "Robot", gender: "maschile", emoji: "🤖" },
+      { id: 22, text: "Computer", gender: "maschile", emoji: "💻" },
+      { id: 23, text: "Pizza", gender: "femminile", emoji: "🍕" },
+      { id: 24, text: "Treno", gender: "maschile", emoji: "🚂" },
+      { id: 25, text: "Gomma", gender: "femminile", emoji: "🛞" }
+    ];
+    var mfShuffled = [];
+    var mfIndex = 0;
+    var mfScore = 0;
+    var mfLocked = false;
+
+    function mfShuffleSession() {
+      var copy = MF_WORDS.slice();
+      shuffleArray(copy);
+      mfShuffled = copy.slice(0, 25);
+      mfIndex = 0;
+      mfScore = 0;
+      mfLocked = false;
+    }
+
+    function mfClearCardFeedback() {
+      var card = document.getElementById("mf-word-card");
+      card.classList.remove("mf-correct", "mf-wrong");
+      document.getElementById("mf-star-overlay").classList.remove("show");
+    }
+
+    function mfRenderWord() {
+      if (!mfShuffled.length) return;
+      var w = mfShuffled[mfIndex];
+      document.getElementById("mf-score").textContent = mfScore;
+      document.getElementById("mf-progress").textContent = (mfIndex + 1) + " / " + mfShuffled.length;
+      document.getElementById("mf-emoji").textContent = w.emoji;
+      document.getElementById("mf-word-text").textContent = w.text;
+      mfClearCardFeedback();
+      document.getElementById("mf-btn-masch").disabled = false;
+      document.getElementById("mf-btn-femm").disabled = false;
+      mfLocked = false;
+    }
+
+    function mfHandleChoice(selectedGender) {
+      if (mfLocked) return;
+      var current = mfShuffled[mfIndex];
+      mfLocked = true;
+      document.getElementById("mf-btn-masch").disabled = true;
+      document.getElementById("mf-btn-femm").disabled = true;
+      var card = document.getElementById("mf-word-card");
+      if (selectedGender === current.gender) {
+        mfScore++;
+        document.getElementById("mf-score").textContent = mfScore;
+        card.classList.add("mf-correct");
+        document.getElementById("mf-star-overlay").classList.add("show");
+      } else {
+        card.classList.add("mf-wrong");
+      }
+      setTimeout(function () {
+        mfClearCardFeedback();
+        if (mfIndex < mfShuffled.length - 1) {
+          mfIndex++;
+          mfRenderWord();
+        } else {
+          mfShowFinish();
+        }
+      }, 1200);
+    }
+
+    function mfShowFinish() {
+      document.getElementById("mf-play-wrap").classList.add("mf-hidden");
+      document.getElementById("mf-finish-wrap").classList.remove("mf-hidden");
+      document.getElementById("mf-final-score").textContent = mfScore + " / " + mfShuffled.length;
+    }
+
+    function mfRestartGame() {
+      mfShuffleSession();
+      document.getElementById("mf-finish-wrap").classList.add("mf-hidden");
+      document.getElementById("mf-play-wrap").classList.remove("mf-hidden");
+      mfRenderWord();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function startMaschileFemminileGame() {
+      hideAllGameSections();
+      document.getElementById("games-grid").style.display = "none";
+      document.getElementById("maschile-femminile-section").style.display = "block";
+      document.getElementById("mf-finish-wrap").classList.add("mf-hidden");
+      document.getElementById("mf-play-wrap").classList.remove("mf-hidden");
+      mfShuffleSession();
+      mfRenderWord();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // --- Gioco "Analisi grammaticale" (Laboratorio Montessori) ---
+    var AG_GRAMMAR_DATA = [
+      { id: 1, text: "Il", category: "articolo", emoji: "📎" },
+      { id: 2, text: "Lo", category: "articolo", emoji: "📎" },
+      { id: 3, text: "La", category: "articolo", emoji: "📎" },
+      { id: 4, text: "I", category: "articolo", emoji: "📎" },
+      { id: 5, text: "Gli", category: "articolo", emoji: "📎" },
+      { id: 6, text: "Le", category: "articolo", emoji: "📎" },
+      { id: 7, text: "Un", category: "articolo", emoji: "📎" },
+      { id: 8, text: "Uno", category: "articolo", emoji: "📎" },
+      { id: 9, text: "Una", category: "articolo", emoji: "📎" },
+      { id: 10, text: "Ferrari", category: "nome", emoji: "🏎️" },
+      { id: 11, text: "Squalo", category: "nome", emoji: "🦈" },
+      { id: 12, text: "Quad", category: "nome", emoji: "🚜" },
+      { id: 13, text: "Cristallo", category: "nome", emoji: "💎" },
+      { id: 14, text: "Motore", category: "nome", emoji: "⚙️" },
+      { id: 15, text: "Diamante", category: "nome", emoji: "💍" },
+      { id: 16, text: "Meccanico", category: "nome", emoji: "👨‍🔧" },
+      { id: 17, text: "Pista", category: "nome", emoji: "🏁" },
+      { id: 18, text: "Casco", category: "nome", emoji: "🪖" },
+      { id: 19, text: "Oro", category: "nome", emoji: "🥇" },
+      { id: 20, text: "Vulcano", category: "nome", emoji: "🌋" },
+      { id: 21, text: "Dinosauro", category: "nome", emoji: "🦖" },
+      { id: 22, text: "Oceano", category: "nome", emoji: "🌊" },
+      { id: 23, text: "Pirata", category: "nome", emoji: "🏴‍☠️" },
+      { id: 24, text: "Robot", category: "nome", emoji: "🤖" },
+      { id: 25, text: "Zaino", category: "nome", emoji: "🎒" },
+      { id: 26, text: "Marmorizzata", category: "nome", emoji: "🪨" },
+      { id: 27, text: "Pilota", category: "nome", emoji: "👨‍🚀" },
+      { id: 28, text: "Scoglio", category: "nome", emoji: "⛰️" },
+      { id: 29, text: "Balena", category: "nome", emoji: "🐋" },
+      { id: 30, text: "Veloce", category: "aggettivo", emoji: "⚡" },
+      { id: 31, text: "Potente", category: "aggettivo", emoji: "🔋" },
+      { id: 32, text: "Lucido", category: "aggettivo", emoji: "✨" },
+      { id: 33, text: "Grande", category: "aggettivo", emoji: "🐘" },
+      { id: 34, text: "Rosso", category: "aggettivo", emoji: "🔴" },
+      { id: 35, text: "Forte", category: "aggettivo", emoji: "💪" },
+      { id: 36, text: "Duro", category: "aggettivo", emoji: "🧱" },
+      { id: 37, text: "Cattivo", category: "aggettivo", emoji: "👿" },
+      { id: 38, text: "Bello", category: "aggettivo", emoji: "🤩" },
+      { id: 39, text: "Nuovo", category: "aggettivo", emoji: "🆕" },
+      { id: 51, text: "Prezioso", category: "aggettivo", emoji: "💎" },
+      { id: 52, text: "Sporco", category: "aggettivo", emoji: "💩" },
+      { id: 53, text: "Luminoso", category: "aggettivo", emoji: "💡" },
+      { id: 40, text: "Corre", category: "verbo", emoji: "🏃" },
+      { id: 41, text: "Sfreccia", category: "verbo", emoji: "🏎️" },
+      { id: 42, text: "Brilla", category: "verbo", emoji: "🌟" },
+      { id: 43, text: "Morde", category: "verbo", emoji: "🦷" },
+      { id: 44, text: "Salta", category: "verbo", emoji: "🦘" },
+      { id: 45, text: "Nuota", category: "verbo", emoji: "🏊" },
+      { id: 46, text: "Guida", category: "verbo", emoji: "🕹️" },
+      { id: 47, text: "Scava", category: "verbo", emoji: "⛏️" },
+      { id: 48, text: "Ruggisce", category: "verbo", emoji: "🦁" },
+      { id: 49, text: "Frena", category: "verbo", emoji: "🛑" },
+      { id: 54, text: "Esplora", category: "verbo", emoji: "🧭" },
+      { id: 55, text: "Sogna", category: "verbo", emoji: "😴" }
+    ];
+
+    var AG_SENTENCES_DATA = [
+      { id: 1, words: [{ text: "Il", category: "articolo" }, { text: "quad", category: "nome" }, { text: "corre", category: "verbo" }] },
+      { id: 2, words: [{ text: "La", category: "articolo" }, { text: "Ferrari", category: "nome" }, { text: "sfreccia", category: "verbo" }] },
+      { id: 3, words: [{ text: "Lo", category: "articolo" }, { text: "squalo", category: "nome" }, { text: "nuota", category: "verbo" }] },
+      { id: 4, words: [{ text: "Il", category: "articolo" }, { text: "diamante", category: "nome" }, { text: "brilla", category: "verbo" }] },
+      { id: 5, words: [{ text: "Uno", category: "articolo" }, { text: "squalo", category: "nome" }, { text: "grande", category: "aggettivo" }] },
+      { id: 6, words: [{ text: "Un", category: "articolo" }, { text: "motore", category: "nome" }, { text: "potente", category: "aggettivo" }] },
+      { id: 7, words: [{ text: "Il", category: "articolo" }, { text: "meccanico", category: "nome" }, { text: "guida", category: "verbo" }] },
+      { id: 8, words: [{ text: "La", category: "articolo" }, { text: "pista", category: "nome" }, { text: "veloce", category: "aggettivo" }] },
+      { id: 9, words: [{ text: "Il", category: "articolo" }, { text: "pirata", category: "nome" }, { text: "salta", category: "verbo" }] },
+      { id: 10, words: [{ text: "La", category: "articolo" }, { text: "pietra", category: "nome" }, { text: "dura", category: "aggettivo" }] },
+      { id: 11, words: [{ text: "Il", category: "articolo" }, { text: "cristallo", category: "nome" }, { text: "luccica", category: "verbo" }] },
+      { id: 12, words: [{ text: "Un", category: "articolo" }, { text: "robot", category: "nome" }, { text: "nuovo", category: "aggettivo" }] },
+      { id: 13, words: [{ text: "La", category: "articolo" }, { text: "balena", category: "nome" }, { text: "nuota", category: "verbo" }] },
+      { id: 14, words: [{ text: "Lo", category: "articolo" }, { text: "zaino", category: "nome" }, { text: "rosso", category: "aggettivo" }] },
+      { id: 15, words: [{ text: "Il", category: "articolo" }, { text: "vulcano", category: "nome" }, { text: "fuma", category: "verbo" }] }
+    ];
+
+    var agMode = null;
+    var agShuffled = [];
+    var agIndex = 0;
+    var agWordIdx = 0;
+    var agScore = 0;
+    var agFeedback = null;
+    var agTimer = null;
+    var agSymbolsInited = false;
+
+    function agSymSvg(type, isCorrect) {
+      var st = "";
+      if (isCorrect === true) {
+        st = ' style="filter:drop-shadow(0 0 8px rgba(74,222,128,0.8));transform:scale(1.1)"';
+      } else if (isCorrect === false) {
+        st = ' style="opacity:0.5;filter:grayscale(1)"';
+      }
+      var cls = "ag-sym";
+      if (type === "nome" || type === "verbo") cls += " " + type;
+      else if (type === "aggettivo") cls += " agg";
+      if (type === "articolo") {
+        return '<svg class="' + cls + '"' + st + ' viewBox="0 0 100 100"><path d="M 50 25 L 80 75 L 20 75 Z" fill="#87CEEB"/></svg>';
+      }
+      if (type === "nome") {
+        return '<svg class="' + cls + '"' + st + ' viewBox="0 0 100 100"><path d="M 50 10 L 95 90 L 5 90 Z" fill="black"/></svg>';
+      }
+      if (type === "aggettivo") {
+        return '<svg class="' + cls + '"' + st + ' viewBox="0 0 100 100"><path d="M 50 15 L 90 85 L 10 85 Z" fill="#8B4513"/></svg>';
+      }
+      if (type === "verbo") {
+        return '<svg class="' + cls + '"' + st + ' viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#FF0000"/></svg>';
+      }
+      return "";
+    }
+
+    function agInitSymbols() {
+      if (agSymbolsInited) return;
+      document.querySelectorAll("#analisi-grammaticale-section .ag-sym-wrap[data-sym]").forEach(function (w) {
+        var t = w.getAttribute("data-sym");
+        w.innerHTML = agSymSvg(t, null);
+      });
+      agSymbolsInited = true;
+    }
+
+    function agClearTimer() {
+      if (agTimer) {
+        clearTimeout(agTimer);
+        agTimer = null;
+      }
+    }
+
+    function agSetCatButtonsDisabled(disabled) {
+      ["ag-cat-art", "ag-cat-nom", "ag-cat-agg", "ag-cat-verb"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.disabled = disabled;
+      });
+    }
+
+    function agShowMenuOnly() {
+      document.getElementById("ag-menu-view").classList.remove("ag-hidden");
+      document.getElementById("ag-game-view").classList.add("ag-hidden");
+      document.getElementById("ag-finish-view").classList.add("ag-hidden");
+    }
+
+    function agRestartToMenu() {
+      agClearTimer();
+      agMode = null;
+      agFeedback = null;
+      agSetCatButtonsDisabled(false);
+      var card = document.getElementById("ag-card");
+      if (card) {
+        card.classList.remove("ag-correct", "ag-wrong");
+      }
+      agShowMenuOnly();
+    }
+
+    function startAnalisiGrammaticaleGame() {
+      hideAllGameSections();
+      document.getElementById("games-grid").style.display = "none";
+      document.getElementById("analisi-grammaticale-section").style.display = "block";
+      agInitSymbols();
+      agRestartToMenu();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function agStartMode(mode) {
+      agClearTimer();
+      agMode = mode;
+      agIndex = 0;
+      agWordIdx = 0;
+      agScore = 0;
+      agFeedback = null;
+      if (mode === "words") {
+        agShuffled = shuffleArray(AG_GRAMMAR_DATA.slice()).slice(0, 20);
+      } else {
+        agShuffled = shuffleArray(AG_SENTENCES_DATA.slice()).slice(0, 5);
+      }
+      document.getElementById("ag-menu-view").classList.add("ag-hidden");
+      document.getElementById("ag-finish-view").classList.add("ag-hidden");
+      document.getElementById("ag-game-view").classList.remove("ag-hidden");
+      agSetCatButtonsDisabled(false);
+      agRender();
+    }
+
+    function agShowFinish() {
+      document.getElementById("ag-game-view").classList.add("ag-hidden");
+      document.getElementById("ag-finish-view").classList.remove("ag-hidden");
+      document.getElementById("ag-final-score").textContent = agScore + " / " + agShuffled.length;
+    }
+
+    function agRender() {
+      var card = document.getElementById("ag-card");
+      card.classList.remove("ag-correct", "ag-wrong");
+      if (agFeedback === "correct") card.classList.add("ag-correct");
+      else if (agFeedback === "wrong") card.classList.add("ag-wrong");
+
+      document.getElementById("ag-score").textContent = agScore;
+      var total = agShuffled.length;
+      document.getElementById("ag-progress").textContent = agIndex + 1 + " / " + total;
+
+      if (!agShuffled.length || agIndex >= agShuffled.length) {
+        return;
+      }
+
+      if (agMode === "words") {
+        document.getElementById("ag-panel-words").classList.remove("ag-hidden");
+        document.getElementById("ag-panel-sentences").classList.add("ag-hidden");
+        var item = agShuffled[agIndex];
+        document.getElementById("ag-word-emoji").textContent = item.emoji;
+        document.getElementById("ag-word-text").textContent = item.text;
+      } else {
+        document.getElementById("ag-panel-words").classList.add("ag-hidden");
+        document.getElementById("ag-panel-sentences").classList.remove("ag-hidden");
+        var sent = agShuffled[agIndex];
+        var row = document.getElementById("ag-sentence-row");
+        row.innerHTML = "";
+        sent.words.forEach(function (w, idx) {
+          var wrap = document.createElement("div");
+          wrap.className = "ag-sentence-word";
+          if (idx < agWordIdx) wrap.classList.add("done");
+          else if (idx === agWordIdx) wrap.classList.add("current");
+          else wrap.classList.add("future");
+          var slot = document.createElement("div");
+          slot.className = "sym-slot";
+          if (idx < agWordIdx) {
+            slot.innerHTML = agSymSvg(w.category, true);
+          } else if (idx === agWordIdx) {
+            slot.innerHTML = '<div class="ag-spinner" aria-hidden="true"></div>';
+          }
+          wrap.appendChild(slot);
+          var txt = document.createElement("span");
+          txt.className = "wtxt";
+          txt.textContent = w.text;
+          wrap.appendChild(txt);
+          row.appendChild(wrap);
+        });
+        var cur = sent.words[agWordIdx];
+        var hint = document.querySelector(".ag-hint-sentence");
+        if (hint && cur) {
+          hint.textContent = "Qual è il simbolo per «" + cur.text + "»?";
+        }
+      }
+    }
+
+    function agHandleChoice(selectedCategory) {
+      if (agFeedback !== null || !agShuffled.length) return;
+      var currentItem = agShuffled[agIndex];
+      if (!currentItem) return;
+
+      if (agMode === "words") {
+        if (selectedCategory === currentItem.category) {
+          agScore++;
+        }
+        agFeedback = selectedCategory === currentItem.category ? "correct" : "wrong";
+        agSetCatButtonsDisabled(true);
+        agRender();
+        agClearTimer();
+        agTimer = setTimeout(function () {
+          agFeedback = null;
+          agSetCatButtonsDisabled(false);
+          if (agIndex < agShuffled.length - 1) {
+            agIndex++;
+            agRender();
+          } else {
+            agShowFinish();
+          }
+        }, 1000);
+        return;
+      }
+
+      // sentences
+      var sent = currentItem;
+      var target = sent.words[agWordIdx];
+      if (!target) return;
+
+      if (selectedCategory === target.category) {
+        agFeedback = "correct";
+        agSetCatButtonsDisabled(true);
+        agRender();
+        agClearTimer();
+        agTimer = setTimeout(function () {
+          agFeedback = null;
+          agSetCatButtonsDisabled(false);
+          if (agWordIdx < sent.words.length - 1) {
+            agWordIdx++;
+            agRender();
+          } else {
+            agScore++;
+            if (agIndex < agShuffled.length - 1) {
+              agIndex++;
+              agWordIdx = 0;
+              agRender();
+            } else {
+              agShowFinish();
+            }
+          }
+        }, 800);
+      } else {
+        agFeedback = "wrong";
+        agSetCatButtonsDisabled(true);
+        agRender();
+        agClearTimer();
+        agTimer = setTimeout(function () {
+          agFeedback = null;
+          agSetCatButtonsDisabled(false);
+          agRender();
+        }, 800);
+      }
     }
   </script>
 </body>

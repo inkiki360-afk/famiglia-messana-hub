@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Giornata Speciale di Nicole</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #fdf2f8 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+        .page-card {
+            background: #fff;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            border: 10px solid #fff;
+            position: relative;
+        }
+        .story-illustration {
+            background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
+            border-radius: 2rem;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 4px dashed #bae6fd;
+        }
+        .option-btn {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .option-btn:hover {
+            transform: scale(1.03) translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .sparkle {
+            animation: twinkle 1.5s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="app" class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="title-font text-5xl md:text-6xl text-pink-500 mb-2 drop-shadow-sm">Nicole's World ✨</h1>
+            <p class="text-xl text-sky-600 font-bold italic">La tua giornata fantastica in inglese!</p>
+            <div class="mt-8 flex justify-center gap-6">
+                <button onclick="showSection('learn')" class="bg-amber-400 hover:bg-amber-500 text-white font-extrabold py-3 px-8 rounded-full shadow-lg transition-all border-b-4 border-amber-600">Dizionario 📖</button>
+                <button onclick="showSection('story')" class="bg-pink-400 hover:bg-pink-500 text-white font-extrabold py-3 px-8 rounded-full shadow-lg transition-all border-b-4 border-pink-600">Il mio Libro 🎭</button>
+            </div>
+        </header>
+
+        <!-- LEARN SECTION -->
+        <section id="learn-section" class="space-y-6">
+            <div class="bg-white/50 p-4 rounded-3xl text-center">
+                <h2 class="title-font text-2xl text-orange-500">Ripassa con le tue carte magiche</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="routine-list">
+                <!-- Cards generated here -->
+            </div>
+        </section>
+
+        <!-- STORY GAME SECTION -->
+        <section id="story-section" class="hidden max-w-2xl mx-auto">
+            <div class="page-card p-6 md:p-10 text-center relative overflow-hidden bg-white">
+                <!-- Progress Bar -->
+                <div class="absolute top-0 left-0 w-full h-3 bg-gray-100">
+                    <div id="story-progress" class="h-full bg-gradient-to-r from-pink-400 to-rose-500 transition-all duration-700" style="width: 0%"></div>
+                </div>
+
+                <div id="story-content" class="mt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span id="page-number" class="text-pink-400 font-black text-lg tracking-widest uppercase">Pagina 1</span>
+                        <div class="flex gap-1">
+                            <span class="sparkle text-yellow-400">⭐</span>
+                            <span class="sparkle text-yellow-400" style="animation-delay: 0.2s">⭐</span>
+                        </div>
+                    </div>
+
+                    <p id="story-text-it" class="text-2xl text-gray-800 mb-6 font-bold leading-tight">"Nicole apre gli occhi..."</p>
+                    
+                    <!-- Colorful Illustration Area -->
+                    <div class="story-illustration relative shadow-inner overflow-hidden">
+                        <div id="illustration-bg" class="absolute inset-0 opacity-20"></div>
+                        <div id="story-emoji" class="text-[120px] z-10 drop-shadow-xl transform transition-transform duration-500 hover:rotate-12">⏰</div>
+                    </div>
+
+                    <p class="text-sky-500 font-bold mb-4 uppercase tracking-tighter">Che azione sta facendo Nicole?</p>
+                    
+                    <!-- Options -->
+                    <div id="options-container" class="grid grid-cols-1 gap-4">
+                        <!-- Buttons generated here -->
+                    </div>
+                </div>
+
+                <div id="story-finish" class="hidden py-10">
+                    <div class="text-[150px] mb-6 animate-bounce">👑</div>
+                    <h2 class="title-font text-5xl text-pink-500 mb-4">Sei una Regina!</h2>
+                    <p class="text-2xl text-gray-700 mb-8 font-bold">Nicole, hai completato la tua storia in inglese alla perfezione!</p>
+                    <button onclick="showSection('learn')" class="bg-sky-500 hover:bg-sky-600 text-white px-12 py-4 rounded-full font-black text-2xl shadow-2xl border-b-8 border-sky-700 active:border-b-0 transition-all">Ricomincia l'avventura</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Alert Modal -->
+        <div id="custom-alert" class="fixed inset-0 flex items-center justify-center bg-black/60 hidden z-50 p-4 backdrop-blur-sm">
+            <div class="bg-white p-8 rounded-[3rem] text-center shadow-2xl max-w-sm w-full border-8 border-pink-100">
+                <div id="alert-emoji" class="text-7xl mb-4">🍬</div>
+                <h3 id="alert-title" class="title-font text-3xl text-pink-500 mb-2">Ops!</h3>
+                <p id="alert-message" class="text-xl text-gray-600 mb-8 font-bold">Riprova, Nicole!</p>
+                <button onclick="closeAlert()" id="alert-btn" class="bg-pink-400 hover:bg-pink-500 text-white px-12 py-3 rounded-full font-black text-xl shadow-lg border-b-4 border-pink-600 transition">Ancora!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const routineData = [
+            { id: 1, phrase: "I wake up", translation: "Mi sveglio", story: "Nicole apre gli occhi, è una bellissima mattina!", emoji: "⏰", color: "bg-orange-100", bg: "linear-gradient(45deg, #fffbeb, #fef3c7)" },
+            { id: 2, phrase: "I get up", translation: "Mi alzo", story: "Nicole fa un grande sbadiglio e scende dal letto!", emoji: "🌅", color: "bg-yellow-100", bg: "linear-gradient(45deg, #fef3c7, #fde68a)" },
+            { id: 3, phrase: "I have a shower", translation: "Faccio la doccia", story: "Tante bollicine e acqua fresca per Nicole!", emoji: "🚿", color: "bg-blue-100", bg: "linear-gradient(45deg, #e0f2fe, #bae6fd)" },
+            { id: 4, phrase: "I get dressed", translation: "Mi vesto", story: "Nicole sceglie il suo outfit preferito oggi.", emoji: "👗", color: "bg-pink-100", bg: "linear-gradient(45deg, #fdf2f8, #fbcfe8)" },
+            { id: 5, phrase: "I have breakfast", translation: "Faccio colazione", story: "Yum! Nicole mangia latte e biscotti golosi.", emoji: "🥣", color: "bg-red-100", bg: "linear-gradient(45deg, #fef2f2, #fecaca)" },
+            { id: 6, phrase: "I brush my teeth", translation: "Mi lavo i denti", story: "Nicole strofina forte: denti bianchi come perle!", emoji: "🪥", color: "bg-teal-100", bg: "linear-gradient(45deg, #f0fdfa, #ccfbf1)" },
+            { id: 7, phrase: "I go to School", translation: "Vado a scuola", story: "Zaino in spalla, Nicole è pronta per la 4ª elementare!", emoji: "🎒", color: "bg-indigo-100", bg: "linear-gradient(45deg, #eef2ff, #e0e7ff)" },
+            { id: 8, phrase: "I start School", translation: "Inizio la scuola", story: "La maestra saluta Nicole: iniziano le lezioni!", emoji: "📚", color: "bg-purple-100", bg: "linear-gradient(45deg, #f5f3ff, #ede9fe)" },
+            { id: 9, phrase: "I go home", translation: "Torno a casa", story: "È finita la scuola, Nicole corre verso casa!", emoji: "🏠", color: "bg-orange-100", bg: "linear-gradient(45deg, #fff7ed, #ffedd5)" },
+            { id: 10, phrase: "I wash my hands", translation: "Mi lavo le mani", story: "Nicole usa tanto sapone profumato.", emoji: "🧼", color: "bg-cyan-100", bg: "linear-gradient(45deg, #ecfeff, #cffafe)" },
+            { id: 11, phrase: "I have lunch", translation: "Pranzo", story: "È ora della pasta! Che fame che ha Nicole!", emoji: "🍝", color: "bg-amber-100", bg: "linear-gradient(45deg, #fffbeb, #fef3c7)" },
+            { id: 12, phrase: "I do my home work", translation: "Faccio i compiti", story: "Nicole è super concentrata sui suoi libri.", emoji: "✍️", color: "bg-slate-100", bg: "linear-gradient(45deg, #f8fafc, #f1f5f9)" },
+            { id: 13, phrase: "I play with my Friends", translation: "Gioco con i miei amici", story: "Quante risate Nicole con i tuoi amici!", emoji: "💃", color: "bg-pink-100", bg: "linear-gradient(45deg, #fdf2f8, #fbcfe8)" },
+            { id: 14, phrase: "I go out to play", translation: "Esco a giocare", story: "Nicole corre veloce nel prato verde!", emoji: "🌳", color: "bg-lime-100", bg: "linear-gradient(45deg, #f7fee7, #ecfccb)" },
+            { id: 15, phrase: "I have dinner", translation: "Ceno", story: "Nicole racconta alla mamma com'è andata la giornata.", emoji: "🍕", color: "bg-orange-100", bg: "linear-gradient(45deg, #fff7ed, #ffedd5)" },
+            { id: 16, phrase: "I put on my pyjamas", translation: "Metto il pigiama", story: "È ora di mettere il pigiama morbido.", emoji: "🦄", color: "bg-blue-200", bg: "linear-gradient(45deg, #eff6ff, #dbeafe)" },
+            { id: 17, phrase: "I go to sleep", translation: "Vado a dormire", story: "Spegni la luce Nicole... sogni d'oro!", emoji: "🌙", color: "bg-indigo-200", bg: "linear-gradient(45deg, #eef2ff, #e0e7ff)" }
+        ];
+
+        let currentStep = 0;
+        let femaleVoice = null;
+
+        function loadVoices() {
+            const voices = window.speechSynthesis.getVoices();
+            femaleVoice = voices.find(voice => 
+                voice.lang.startsWith('en') && 
+                (voice.name.toLowerCase().includes('female') || 
+                 voice.name.toLowerCase().includes('samantha') || 
+                 voice.name.toLowerCase().includes('zira') ||
+                 voice.name.toLowerCase().includes('google uk english female'))
+            );
+            if (!femaleVoice) femaleVoice = voices.find(voice => voice.lang.startsWith('en'));
+        }
+
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            if (femaleVoice) utterance.voice = femaleVoice;
+            utterance.rate = 0.75;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function initLearn() {
+            const list = document.getElementById('routine-list');
+            list.innerHTML = '';
+            routineData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `${item.color} p-6 rounded-3xl shadow-xl card-pop border-4 border-white relative text-center flex flex-col items-center`;
+                card.innerHTML = `
+                    <div class="text-6xl mb-4 cursor-pointer drop-shadow-md" onclick="speak('${item.phrase}')">${item.emoji}</div>
+                    <div class="text-2xl font-black text-gray-800 cursor-pointer mb-2" onclick="speak('${item.phrase}')">${item.phrase}</div>
+                    <div id="trans-${item.id}" class="text-md font-bold text-pink-600 bg-white/80 px-4 py-1 rounded-full mb-3 opacity-0 transition-all scale-75">
+                        🇮🇹 ${item.translation}
+                    </div>
+                    <div class="flex gap-3 mt-auto w-full">
+                        <button onclick="speak('${item.phrase}')" class="flex-1 bg-white hover:bg-gray-50 p-2 rounded-2xl shadow-sm transition-all flex justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </button>
+                        <button onclick="toggleTranslation(${item.id})" class="flex-1 bg-pink-400 text-white text-xs font-black px-2 py-2 rounded-2xl hover:bg-pink-500 transition-all shadow-sm">TRADUCI</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function toggleTranslation(id) {
+            const el = document.getElementById(`trans-${id}`);
+            el.classList.toggle('opacity-0');
+            el.classList.toggle('scale-75');
+            el.classList.toggle('scale-100');
+        }
+
+        function showSection(section) {
+            document.getElementById('learn-section').classList.toggle('hidden', section !== 'learn');
+            document.getElementById('story-section').classList.toggle('hidden', section !== 'story');
+            if (section === 'story') startStory();
+        }
+
+        function startStory() {
+            currentStep = 0;
+            document.getElementById('story-content').classList.remove('hidden');
+            document.getElementById('story-finish').classList.add('hidden');
+            renderStoryPage();
+        }
+
+        function renderStoryPage() {
+            const stepData = routineData[currentStep];
+            const progress = ((currentStep) / routineData.length) * 100;
+            
+            document.getElementById('story-progress').style.width = `${progress}%`;
+            document.getElementById('page-number').innerText = `Pagina ${currentStep + 1} di ${routineData.length}`;
+            document.getElementById('story-text-it').innerHTML = `<span class="text-pink-500">Nicole</span> ${stepData.story.replace('Nicole ', '')}`;
+            document.getElementById('story-emoji').innerText = stepData.emoji;
+            document.getElementById('illustration-bg').style.background = stepData.bg;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const others = routineData.filter(d => d.id !== stepData.id);
+            const shuffledOthers = others.sort(() => 0.5 - Math.random()).slice(0, 2);
+            const choices = [stepData, ...shuffledOthers].sort(() => 0.5 - Math.random());
+
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn bg-white border-4 border-sky-100 p-5 rounded-[2rem] text-2xl font-black text-sky-700 hover:border-pink-300 hover:text-pink-600 text-center shadow-md";
+                btn.innerText = choice.phrase;
+                btn.onclick = () => checkAnswer(choice.id, stepData.id);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedId, correctId) {
+            if (selectedId === correctId) {
+                speak(routineData[currentStep].phrase);
+                currentStep++;
+                if (currentStep < routineData.length) {
+                    setTimeout(renderStoryPage, 1200);
+                } else {
+                    document.getElementById('story-progress').style.width = `100%`;
+                    setTimeout(finishStory, 800);
+                }
+            } else {
+                showAlert("Ops!", "Quella parola non è giusta Nicole. Prova un'altra!", "🍭", "pink");
+            }
+        }
+
+        function finishStory() {
+            document.getElementById('story-content').classList.add('hidden');
+            document.getElementById('story-finish').classList.remove('hidden');
+            showAlert("Fantastica Nicole!", "Hai completato tutto il tuo libro!", "⭐", "green");
+        }
+
+        function showAlert(title, message, emoji, color) {
+            const modal = document.getElementById('custom-alert');
+            const titleEl = document.getElementById('alert-title');
+            const btn = document.getElementById('alert-btn');
+            
+            titleEl.innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            document.getElementById('alert-emoji').innerText = emoji;
+            
+            if (color === "green") {
+                titleEl.className = "title-font text-4xl text-green-500 mb-2";
+                btn.className = "bg-green-400 hover:bg-green-500 text-white px-12 py-3 rounded-full font-black text-xl shadow-lg transition";
+                btn.innerText = "Evviva!";
+            } else {
+                titleEl.className = "title-font text-4xl text-pink-500 mb-2";
+                btn.className = "bg-pink-400 hover:bg-pink-500 text-white px-12 py-3 rounded-full font-black text-xl shadow-lg transition";
+                btn.innerText = "Riprova!";
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeAlert() {
+            document.getElementById('custom-alert').classList.add('hidden');
+        }
+
+        window.onload = () => {
+            initLearn();
+            loadVoices();
+        };
+    </script>
+</body>
+</html>
