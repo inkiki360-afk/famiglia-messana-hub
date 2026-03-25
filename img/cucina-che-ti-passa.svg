@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="Cucina che ti passa">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff7ed"/>
+      <stop offset="50%" style="stop-color:#ffedd5"/>
+      <stop offset="100%" style="stop-color:#fed7aa"/>
+    </linearGradient>
+    <linearGradient id="pot" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e07a5f"/>
+      <stop offset="100%" style="stop-color:#c96a52"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)"/>
+  <ellipse cx="400" cy="320" rx="220" ry="28" fill="#fde68a" opacity="0.35"/>
+  <path d="M280 110c0-40 80-55 120-55s120 15 120 55v140c0 50-54 85-120 85s-120-35-120-85V110z" fill="url(#pot)"/>
+  <ellipse cx="400" cy="110" rx="125" ry="22" fill="#fdba74"/>
+  <path d="M430 75c12-35 45-48 72-40-8 28-35 42-60 38-18 52-95 48-120 8 18-12 38-18 58-15 10-35 40-55 70-48-5 25-20 42-42 47z" fill="#ea580c"/>
+  <path d="M360 140 L400 200 L440 140" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <circle cx="400" cy="165" r="8" fill="#fffbf7"/>
+</svg>
