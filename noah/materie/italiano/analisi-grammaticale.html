@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Grammaticale - Noah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f8fafc;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        .card-home {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-home:hover {
+            transform: translateY(-10px);
+        }
+
+        .option-btn {
+            transition: all 0.2s;
+            border: 3px solid #e2e8f0;
+        }
+        
+        .option-btn.correct {
+            border-color: #15803d !important;
+            background-color: #22c55e !important;
+            color: white !important;
+            transform: scale(1.05);
+        }
+        .option-btn.wrong {
+            border-color: #b91c1c !important;
+            background-color: #ef4444 !important;
+            color: white !important;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Montessori Symbols */
+        .sym-art { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid #00a8e8; display: inline-block; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
+        .sym-nom { width: 0; height: 0; border-left: 25px solid transparent; border-right: 25px solid transparent; border-bottom: 45px solid #222; display: inline-block; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
+        .sym-ver { width: 40px; height: 40px; background-color: #e63946; border-radius: 50%; display: inline-block; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
+
+        .sym-art-lg { border-left-width: 35px; border-right-width: 35px; border-bottom-width: 60px; }
+        .sym-nom-lg { border-left-width: 45px; border-right-width: 45px; border-bottom-width: 80px; }
+        .sym-ver-lg { width: 70px; height: 70px; }
+
+        .btn-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 50;
+        }
+
+        .select-correct { background-color: #22c55e !important; color: white !important; border-color: #15803d !important; }
+        .select-wrong { background-color: #ef4444 !important; color: white !important; border-color: #b91c1c !important; }
+        
+        /* Study page specific */
+        .study-box {
+            border-left: 8px solid;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
+
+    <div id="main-container" class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl p-6 md:p-10 relative overflow-hidden border-b-8 border-slate-200">
+        
+        <!-- HOME -->
+        <div id="view-home" class="view">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">Analisi Grammaticale</h1>
+                <p class="text-slate-500 text-xl font-medium italic">Scegli cosa fare oggi, Noah! ✨</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- CARD RIPASSO -->
+                <div onclick="startMode('ripasso')" class="card-home bg-amber-50 p-6 rounded-3xl border-4 border-amber-200 cursor-pointer text-center shadow-sm lg:col-span-3 mb-4">
+                    <div class="text-4xl mb-2">📚</div>
+                    <h2 class="text-2xl font-black text-amber-700 uppercase tracking-widest">Studia e Ripassa</h2>
+                    <p class="text-amber-600 font-bold">Guarda le regole prima di giocare!</p>
+                </div>
+
+                <div onclick="startMode('articolo')" class="card-home bg-blue-50 p-6 rounded-3xl border-4 border-blue-100 cursor-pointer text-center shadow-sm">
+                    <div class="sym-art mb-4"></div>
+                    <h2 class="text-xl font-black text-blue-700 uppercase tracking-widest">Articolo</h2>
+                </div>
+                <div onclick="startMode('nome')" class="card-home bg-zinc-50 p-6 rounded-3xl border-4 border-zinc-200 cursor-pointer text-center shadow-sm">
+                    <div class="sym-nom mb-4"></div>
+                    <h2 class="text-xl font-black text-zinc-800 uppercase tracking-widest">Nome</h2>
+                </div>
+                <div onclick="startMode('verbo')" class="card-home bg-red-50 p-6 rounded-3xl border-4 border-red-100 cursor-pointer text-center shadow-sm">
+                    <div class="sym-ver mb-4"></div>
+                    <h2 class="text-xl font-black text-red-700 uppercase tracking-widest">Verbo</h2>
+                </div>
+                
+                <div onclick="startMode('analisi')" class="card-home bg-indigo-50 p-6 rounded-3xl border-4 border-indigo-100 cursor-pointer text-center shadow-sm lg:col-span-3 mt-4">
+                    <div class="flex justify-center gap-2 mb-4 items-end scale-90">
+                        <div class="sym-art"></div>
+                        <div class="sym-nom"></div>
+                        <div class="sym-ver"></div>
+                    </div>
+                    <h2 class="text-2xl font-black text-indigo-700 uppercase tracking-widest">Analisi delle Frasi</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA RIPASSO -->
+        <div id="view-ripasso" class="view hidden">
+            <button onclick="showHome()" class="btn-home bg-slate-100 hover:bg-slate-200 text-slate-600 px-5 py-3 rounded-full font-bold transition-colors flex items-center gap-2">
+                🏠 TORNA INDIETRO
+            </button>
+
+            <div class="mt-16 space-y-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-black text-slate-800 uppercase tracking-widest">Le Regole di Noah</h2>
+                </div>
+
+                <!-- SEZIONE NOME -->
+                <div class="study-box border-zinc-800">
+                    <div class="flex items-center gap-6 mb-4">
+                        <div class="sym-nom sym-nom-lg"></div>
+                        <h3 class="text-4xl font-black text-zinc-800 underline decoration-zinc-800">NOME</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-2xl font-bold text-zinc-600">
+                        <div class="flex items-center gap-3">➔ Maschile / Femminile</div>
+                        <div class="flex items-center gap-3">➔ Singolare / Plurale</div>
+                    </div>
+                    <p class="mt-4 text-zinc-400 italic">Esempi: Gatto, Mela, Fiori, Casa...</p>
+                </div>
+
+                <!-- SEZIONE ARTICOLO -->
+                <div class="study-box border-blue-500">
+                    <div class="flex items-center gap-6 mb-4">
+                        <div class="sym-art sym-art-lg"></div>
+                        <h3 class="text-4xl font-black text-blue-500 underline decoration-blue-500">ARTICOLO</h3>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-2xl mb-6 border-2 border-blue-100">
+                        <p class="text-2xl text-blue-600 font-black mb-2">(il lo la i gli le l')</p>
+                        <p class="text-2xl text-blue-600 font-black">(un uno un' una)</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xl font-bold text-blue-800/70">
+                        <div>➔ Indeterminativo / Determinativo</div>
+                        <div>➔ Maschile / Femminile</div>
+                        <div>➔ Singolare / Plurale</div>
+                    </div>
+                </div>
+
+                <!-- SEZIONE VERBO -->
+                <div class="study-box border-red-500">
+                    <div class="flex items-center gap-6 mb-4">
+                        <div class="sym-ver sym-ver-lg"></div>
+                        <h3 class="text-4xl font-black text-red-500 underline decoration-red-500">VERBO</h3>
+                    </div>
+                    <p class="text-3xl font-black text-red-600">➔ È un'azione! Indica cosa si fa.</p>
+                    <p class="mt-2 text-red-400 italic">Esempi: Corre, Mangia, Salta, Dorme...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESERCIZIO SINGOLO -->
+        <div id="view-exercise" class="view hidden">
+            <button onclick="showHome()" class="btn-home bg-slate-100 hover:bg-slate-200 text-slate-600 px-5 py-3 rounded-full font-bold transition-colors flex items-center gap-2">
+                🏠 ESCI
+            </button>
+
+            <div class="text-center mt-12">
+                <div id="exercise-header" class="mb-6">
+                    <h3 id="category-title-text" class="text-3xl font-black mb-2 tracking-[0.3em] uppercase"></h3>
+                    <div id="mode-symbol" class="mb-6"></div>
+                    <h2 id="current-word" class="text-8xl font-black text-slate-800 tracking-tighter mb-8"></h2>
+                </div>
+
+                <div id="options-container" class="space-y-8 max-w-md mx-auto bg-slate-50 p-8 rounded-3xl border-2 border-slate-200 shadow-inner"></div>
+
+                <div class="mt-10 flex justify-center h-20">
+                    <button id="btn-next" onclick="nextQuestion()" class="hidden bg-green-500 text-white px-16 py-5 rounded-2xl font-black text-2xl shadow-lg hover:bg-green-600 transition-all animate-bounce">
+                        BRAVISSIMO! AVANTI ➡️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANALISI COMPLETA -->
+        <div id="view-analysis" class="view hidden">
+            <button onclick="showHome()" class="btn-home bg-slate-100 hover:bg-slate-200 text-slate-600 px-5 py-3 rounded-full font-bold transition-colors">
+                🏠 ESCI
+            </button>
+
+            <div class="mt-16">
+                <div class="text-center mb-10">
+                    <h3 class="text-2xl font-black text-indigo-400 tracking-[0.2em] uppercase underline decoration-4 underline-offset-8">Analisi della Frase</h3>
+                    <h2 id="analysis-sentence" class="text-6xl font-black text-slate-800 italic mt-8"></h2>
+                </div>
+                
+                <div id="analysis-steps" class="space-y-4"></div>
+
+                <div class="mt-12 text-center h-24">
+                    <button id="btn-next-sentence" onclick="nextSentence()" class="hidden bg-green-500 text-white px-16 py-6 rounded-2xl font-black text-2xl shadow-lg animate-bounce mx-auto">
+                        OTTIMO! PROSSIMA ➡️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const data = {
+            articoli: [
+                { word: "il", type: "determinativo", gender: "maschile", number: "singolare" },
+                { word: "la", type: "determinativo", gender: "femminile", number: "singolare" },
+                { word: "un", type: "indeterminativo", gender: "maschile", number: "singolare" },
+                { word: "le", type: "determinativo", gender: "femminile", number: "plurale" },
+                { word: "gli", type: "determinativo", gender: "maschile", number: "plurale" },
+                { word: "una", type: "indeterminativo", gender: "femminile", number: "singolare" },
+                { word: "lo", type: "determinativo", gender: "maschile", number: "singolare" }
+            ],
+            nomi: [
+                { word: "gatto", gender: "maschile", number: "singolare" },
+                { word: "mela", gender: "femminile", number: "singolare" },
+                { word: "fiori", gender: "maschile", number: "plurale" },
+                { word: "bimbe", gender: "femminile", number: "plurale" },
+                { word: "casa", gender: "femminile", number: "singolare" }
+            ],
+            verbi: [
+                { word: "corre" }, { word: "mangia" }, { word: "salta" }, { word: "dorme" }, { word: "vola" }
+            ],
+            frasi: [
+                { 
+                    text: "Il gatto corre", 
+                    analysis: [
+                        { word: "Il", cat: "articolo", type: "determinativo", gender: "maschile", number: "singolare" },
+                        { word: "gatto", cat: "nome", gender: "maschile", number: "singolare" },
+                        { word: "corre", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "La mamma mangia", 
+                    analysis: [
+                        { word: "La", cat: "articolo", type: "determinativo", gender: "femminile", number: "singolare" },
+                        { word: "mamma", cat: "nome", gender: "femminile", number: "singolare" },
+                        { word: "mangia", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "I bambini giocano", 
+                    analysis: [
+                        { word: "I", cat: "articolo", type: "determinativo", gender: "maschile", number: "plurale" },
+                        { word: "bambini", cat: "nome", gender: "maschile", number: "plurale" },
+                        { word: "giocano", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "Un cane dorme", 
+                    analysis: [
+                        { word: "Un", cat: "articolo", type: "indeterminativo", gender: "maschile", number: "singolare" },
+                        { word: "cane", cat: "nome", gender: "maschile", number: "singolare" },
+                        { word: "dorme", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "Una farfalla vola", 
+                    analysis: [
+                        { word: "Una", cat: "articolo", type: "indeterminativo", gender: "femminile", number: "singolare" },
+                        { word: "farfalla", cat: "nome", gender: "femminile", number: "singolare" },
+                        { word: "vola", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "Le api ronzano", 
+                    analysis: [
+                        { word: "Le", cat: "articolo", type: "determinativo", gender: "femminile", number: "plurale" },
+                        { word: "api", cat: "nome", gender: "femminile", number: "plurale" },
+                        { word: "ronzano", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "Gli amici ridono", 
+                    analysis: [
+                        { word: "Gli", cat: "articolo", type: "determinativo", gender: "maschile", number: "plurale" },
+                        { word: "amici", cat: "nome", gender: "maschile", number: "plurale" },
+                        { word: "ridono", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "Lo zaino pesa", 
+                    analysis: [
+                        { word: "Lo", cat: "articolo", type: "determinativo", gender: "maschile", number: "singolare" },
+                        { word: "zaino", cat: "nome", gender: "maschile", number: "singolare" },
+                        { word: "pesa", cat: "verbo" }
+                    ]
+                },
+                { 
+                    text: "La pioggia cade", 
+                    analysis: [
+                        { word: "La", cat: "articolo", type: "determinativo", gender: "femminile", number: "singolare" },
+                        { word: "pioggia", cat: "nome", gender: "femminile", number: "singolare" },
+                        { word: "cade", cat: "verbo" }
+                    ]
+                }
+            ]
+        };
+
+        let currentMode = '';
+        let currentIdx = 0;
+        let correctFields = {};
+
+        function showHome() {
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById('view-home').classList.remove('hidden');
+        }
+
+        function startMode(mode) {
+            currentMode = mode;
+            currentIdx = 0;
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            if (mode === 'analisi') { renderAnalysis(); document.getElementById('view-analysis').classList.remove('hidden'); }
+            else if (mode === 'ripasso') { document.getElementById('view-ripasso').classList.remove('hidden'); }
+            else { renderQuestion(); document.getElementById('view-exercise').classList.remove('hidden'); }
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('options-container');
+            const symbolEl = document.getElementById('mode-symbol');
+            const titleEl = document.getElementById('category-title-text');
+            const btnNext = document.getElementById('btn-next');
+            
+            let list = currentMode === 'articolo' ? data.articoli : (currentMode === 'nome' ? data.nomi : data.verbi);
+            const item = list[currentIdx];
+            
+            titleEl.innerText = currentMode;
+            titleEl.className = "text-3xl font-black mb-2 tracking-[0.3em] " + (currentMode === 'articolo' ? 'text-blue-500' : (currentMode === 'nome' ? 'text-zinc-800' : 'text-red-600'));
+
+            symbolEl.innerHTML = '';
+            const sym = document.createElement('div');
+            sym.className = (currentMode === 'articolo' ? 'sym-art sym-art-lg' : (currentMode === 'nome' ? 'sym-nom sym-nom-lg' : 'sym-ver sym-ver-lg'));
+            symbolEl.appendChild(sym);
+
+            document.getElementById('current-word').innerText = item.word;
+            container.innerHTML = '';
+            btnNext.classList.add('hidden');
+            
+            correctFields = { type: false, gender: false, number: false };
+            if (currentMode === 'nome') correctFields.type = true; 
+            if (currentMode === 'verbo') { correctFields.type = true; correctFields.gender = true; correctFields.number = true; }
+
+            if (currentMode === 'verbo') {
+                container.innerHTML = `<div class="py-10 text-4xl font-black text-red-600 animate-pulse uppercase">AZIONE! ●</div>`;
+                btnNext.classList.remove('hidden');
+            } else {
+                if (currentMode === 'articolo') createOptionGroup(container, 'type', ['determinativo', 'indeterminativo'], 'Scegli il Tipo:', item);
+                createOptionGroup(container, 'gender', ['maschile', 'femminile'], 'È Maschile o Femminile?', item);
+                createOptionGroup(container, 'number', ['singolare', 'plurale'], 'Uno o Tanti?', item);
+            }
+        }
+
+        function createOptionGroup(parent, key, options, labelText, item) {
+            const group = document.createElement('div');
+            group.className = 'flex flex-col gap-3';
+            group.innerHTML = `<span class="text-sm font-black text-slate-400 uppercase tracking-widest text-left ml-2">${labelText}</span>`;
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'grid grid-cols-2 gap-3';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn p-5 rounded-2xl font-black text-slate-700 bg-white shadow-sm text-xl uppercase';
+                btn.innerText = opt;
+                
+                btn.onclick = () => {
+                    if (opt === item[key]) {
+                        btnContainer.querySelectorAll('.option-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+                        btn.classList.add('correct');
+                        correctFields[key] = true;
+                        checkIfFinished();
+                    } else {
+                        btn.classList.add('wrong');
+                        setTimeout(() => btn.classList.remove('wrong'), 500);
+                        correctFields[key] = false;
+                    }
+                };
+                btnContainer.appendChild(btn);
+            });
+            group.appendChild(btnContainer);
+            parent.appendChild(group);
+        }
+
+        function checkIfFinished() {
+            if (Object.values(correctFields).every(v => v === true)) {
+                document.getElementById('btn-next').classList.remove('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            let list = currentMode === 'articolo' ? data.articoli : (currentMode === 'nome' ? data.nomi : data.verbi);
+            if (currentIdx < list.length) renderQuestion(); else { alert("NOAH SEI UN CAMPIONE! 🏆"); showHome(); }
+        }
+
+        function renderAnalysis() {
+            const sentenceObj = data.frasi[currentIdx];
+            document.getElementById('analysis-sentence').innerText = sentenceObj.text;
+            const container = document.getElementById('analysis-steps');
+            container.innerHTML = '';
+            document.getElementById('btn-next-sentence').classList.add('hidden');
+            
+            sentenceObj.analysis.forEach((part, pIdx) => {
+                const row = document.createElement('div');
+                row.className = 'bg-slate-50 p-6 rounded-3xl border-2 border-slate-100 flex flex-col md:flex-row gap-4 items-center';
+                let html = `<div class="min-w-[140px] text-left"><span class="text-4xl font-black text-indigo-600">${part.word}</span></div>`;
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full" id="row-${pIdx}">`;
+                
+                html += createSelect(pIdx, 'cat', ["COSA È?", "articolo", "nome", "verbo"], part);
+
+                if (part.cat !== 'verbo') {
+                    if (part.cat === 'articolo') html += createSelect(pIdx, 'type', ["TIPO?", "determinativo", "indeterminativo"], part);
+                    html += createSelect(pIdx, 'gender', ["GENERE?", "maschile", "femminile"], part);
+                    html += createSelect(pIdx, 'number', ["NUMERO?", "singolare", "plurale"], part);
+                } else {
+                    html += `<div class="p-4 text-red-600 font-black italic text-xl">Azione! ●</div>`;
+                }
+                html += `</div>`;
+                row.innerHTML = html;
+                container.appendChild(row);
+            });
+        }
+
+        function createSelect(pIdx, field, options, part) {
+            let optionsHtml = options.map(o => `<option value="${o === options[0] ? '' : o}">${o.toUpperCase()}</option>`).join('');
+            return `<select class="p-4 rounded-2xl border-4 border-slate-200 font-black text-lg bg-white outline-none transition-colors" 
+                    onchange="checkSelect(this, '${field}', '${part[field]}', ${pIdx})">
+                    ${optionsHtml}
+                    </select>`;
+        }
+
+        function checkSelect(el, field, correctVal, pIdx) {
+            if (el.value === correctVal) {
+                el.classList.remove('select-wrong');
+                el.classList.add('select-correct');
+            } else {
+                el.classList.remove('select-correct');
+                el.classList.add('select-wrong');
+            }
+            checkFullSentence();
+        }
+
+        function checkFullSentence() {
+            const allSelects = document.querySelectorAll('#analysis-steps select');
+            let allCorrect = true;
+            allSelects.forEach(s => {
+                if (!s.classList.contains('select-correct')) allCorrect = false;
+            });
+
+            if (allCorrect) {
+                document.getElementById('btn-next-sentence').classList.remove('hidden');
+            }
+        }
+
+        function nextSentence() {
+            currentIdx++;
+            if (currentIdx < data.frasi.length) renderAnalysis(); else { alert("FANTASTICO NOAH! HAI FINITO TUTTE LE FRASI! 🥇"); showHome(); }
+        }
+
+        window.onload = showHome;
+    </script>
+</body>
+</html>

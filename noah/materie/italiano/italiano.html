@@ -33,6 +33,64 @@
       .content-card h1 { font-size: 1.75rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
       .content-card h1 i { color: var(--coral); }
       .content-card p { font-size: 1.1rem; color: var(--text); line-height: 1.7; }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.75rem;
+      }
+      .tool-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: var(--warm-white);
+        border: 2px solid rgba(224,122,95,0.25);
+        border-radius: var(--radius);
+        box-shadow: 0 8px 24px var(--shadow);
+        overflow: hidden;
+        transition: all 0.25s ease;
+        position: relative;
+      }
+      .tool-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--coral), #6366f1);
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .tool-card:hover {
+        border-color: var(--coral);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(224,122,95,0.2);
+      }
+      .tool-card:hover::before { opacity: 1; }
+      .tool-card-icon {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.75rem;
+        color: #fff;
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+      }
+      .tool-card h2 {
+        padding: 1.1rem 1.25rem 0.35rem;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+      .tool-card p {
+        padding: 0 1.25rem 1.25rem;
+        font-size: 0.9rem;
+        color: var(--text-soft);
+        font-weight: 600;
+        line-height: 1.45;
+      }
+      .tool-card:hover h2 { color: var(--coral); }
     </style>
 </head>
 <body>
@@ -64,6 +122,13 @@
         <article class="content-card">
             <h1><i class="fas fa-book"></i> Italiano</h1>
             <p>Qui troverai appunti, esercizi e materiali didattici di Italiano.</p>
+            <div class="cards-grid">
+                <a class="tool-card" href="analisi-grammaticale.html">
+                    <div class="tool-card-icon" aria-hidden="true"><i class="fas fa-shapes"></i></div>
+                    <h2>Analisi grammaticale</h2>
+                    <p>Ripasso, esercizi su articolo, nome e verbo, analisi delle frasi con i simboli Montessori.</p>
+                </a>
+            </div>
         </article>
     </main>
     <script>
