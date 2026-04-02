@@ -73,9 +73,46 @@
             border-radius: 1.5rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
+
+        .site-nav {
+            width: 100%;
+            max-width: 64rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem 0.75rem;
+        }
+        .site-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-decoration: none;
+            background-color: #fff;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .site-nav a:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex items-center justify-center">
+<body class="p-4 md:p-8 min-h-screen flex flex-col items-center justify-center">
+
+    <nav class="site-nav" aria-label="Navigazione sito">
+        <a href="../../../index.html"><span aria-hidden="true">🏠</span> Home</a>
+        <a href="../../index.html"><span aria-hidden="true">🚀</span> Spazio Noah</a>
+        <a href="italiano.html"><span aria-hidden="true">📖</span> Italiano</a>
+    </nav>
 
     <div id="main-container" class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl p-6 md:p-10 relative overflow-hidden border-b-8 border-slate-200">
         
