@@ -1,508 +1,633 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viaggio in Camper – Pasqua 2026 | Liguria & Toscana</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fraunces:opsz,wght@9..144,700&display=swap');
-
-        :root {
-            --sea: #0ea5e9;
-            --hill: #10b981;
-            --sand: #fef3c7;
-            --ink: #0f172a;
-            --muted: #64748b;
-            --accent: #f59e0b;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc;
-            scroll-behavior: smooth;
-        }
-
-        h1, h2, h3, .font-serif {
-            font-family: 'Fraunces', serif;
-        }
-
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .hero-pattern {
-            background-color: #0f172a;
-            background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1543743336-963399caab5e?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-        }
-
-        .day-number {
-            background: linear-gradient(135deg, var(--sea), var(--hill));
-        }
-
-        .sticky-summary {
-            position: sticky;
-            top: 5rem;
-        }
-
-        details summary::-webkit-details-marker {
-            display:none;
-        }
-
-        details[open] summary i.chevron {
-            transform: rotate(180deg);
-        }
-
-        /* Note area styling */
-        .note-field {
-            width: 100%;
-            min-height: 80px;
-            padding: 12px;
-            border: 1px dashed #cbd5e1;
-            border-radius: 12px;
-            background-color: #fffbeb;
-            font-size: 13px;
-            color: #475569;
-            resize: vertical;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .note-field:focus {
-            border-color: var(--accent);
-            background-color: #fff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Responsive tables for mobile */
-        @media (max-width: 640px) {
-            .hero-title { font-size: 2.25rem !important; line-height: 2.5rem !important; }
-            table.resp-table thead { display: none; }
-            table.resp-table tr { display: block; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; }
-            table.resp-table td { display: block; text-align: left; padding: 0.5rem 0; }
-            table.resp-table td::before { content: attr(data-label); font-weight: bold; display: block; color: var(--ink); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.25rem; }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasqua 2026 – In viaggio! | Famiglia Messana</title>
+  <meta name="description" content="Itinerario camper Pasqua 2026: Liguria e Toscana, giorno per giorno.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+    body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .animate-fade { animation: fadeIn 0.2s ease-out; }
+    /* Font Awesome: dimensioni coerenti (le icone non usano sempre w/h Tailwind) */
+    .icon-box { display: inline-flex; align-items: center; justify-content: center; }
+    .icon-box i { font-size: 1.125rem; line-height: 1; }
+    .icon-box.icon-lg i { font-size: 1.5rem; }
+    .icon-box.icon-sm i { font-size: 0.75rem; }
+    #day-note-field { user-select: text; -webkit-user-select: text; }
+    .trip-shell { max-width: 28rem; margin-left: auto; margin-right: auto; }
+    @media (min-width: 640px) {
+      .trip-shell { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12); }
+    }
+    .safe-area-pb { padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)); }
+  </style>
 </head>
-<body class="text-slate-900 leading-relaxed overflow-x-hidden">
+<body class="min-h-screen bg-slate-200/80 text-slate-900 antialiased pb-28">
 
-    <!-- Site nav (Famiglia Messana) -->
-    <nav class="bg-white border-b border-slate-200 px-4 py-2 flex items-center justify-between text-sm">
-        <div class="flex items-center gap-4">
-            <a href="/famiglia-messana-hub/index.html" class="font-semibold text-slate-700 hover:text-emerald-600 transition-colors">Famiglia Messana</a>
-            <a href="../index.html" class="text-slate-500 hover:text-emerald-600 transition-colors"><i class="fas fa-arrow-left mr-1"></i> Torna a Viaggi</a>
-        </div>
-    </nav>
+  <nav class="bg-white border-b border-slate-200 px-4 py-2.5 flex flex-wrap items-center gap-3 text-sm sticky top-0 z-[70] shadow-sm">
+    <a href="/famiglia-messana-hub/index.html" class="font-semibold text-slate-800 hover:text-blue-600 transition-colors">Famiglia Messana</a>
+    <a href="../index.html" class="text-slate-600 hover:text-blue-600 transition-colors"><i class="fas fa-arrow-left mr-1" aria-hidden="true"></i> Viaggi</a>
+  </nav>
 
-    <!-- Navigation -->
-    <nav class="glass-nav fixed top-10 w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <img src="https://drive.google.com/uc?id=1SC4VNV6I0uHWnazaBwjqwi6UgaN8fdAf" alt="Logo Viaggio" class="h-10 sm:h-12 w-auto object-contain rounded" loading="lazy" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2830/2830305.png';">
-                <span class="font-bold tracking-tight text-sm sm:text-lg uppercase text-slate-700">Pasqua 2026</span>
-            </div>
-            <div class="hidden lg:flex gap-6 text-sm font-semibold text-slate-600 uppercase tracking-wider">
-                <a href="#concept" class="hover:text-emerald-600 transition-colors">Concept</a>
-                <a href="#timeline" class="hover:text-emerald-600 transition-colors">Itinerario</a>
-                <a href="#finale" class="hover:text-emerald-600 transition-colors">Opzioni Finale</a>
-            </div>
-            <button onclick="window.print()" class="bg-emerald-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg hover:bg-emerald-700 transition-all">
-                <i class="fas fa-print mr-1 sm:mr-2"></i>STAMPA
-            </button>
-        </div>
-    </nav>
+  <div id="trip-app-root"></div>
 
-    <!-- Header / Hero -->
-    <header class="hero-pattern pt-28 pb-16 sm:pt-36 sm:pb-24 px-5 text-center text-white">
-        <div class="max-w-4xl mx-auto">
-            <span class="inline-block bg-emerald-500/20 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold mb-4 uppercase tracking-[0.2em]">
-                Road Trip Family Edition
-            </span>
-            <h1 class="hero-title text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-balance text-white">Liguria & Toscana</h1>
-            <p class="text-base sm:text-xl md:text-2xl text-slate-200 font-light max-w-2xl mx-auto mb-10 text-balance">
-                Una vacanza rigenerante di 7 giorni tra mare, colline e acque termali.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-                <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 rounded-2xl border border-white/10">
-                    <p class="text-[10px] text-slate-300 uppercase mb-0.5 tracking-wider font-bold">Partenza</p>
-                    <p class="font-bold text-sm sm:text-base">2 Aprile • Legnano</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 rounded-2xl border border-white/10">
-                    <p class="text-[10px] text-slate-300 uppercase mb-0.5 tracking-wider font-bold">Rientro Base</p>
-                    <p class="font-bold text-sm sm:text-base">8 Aprile • Milano</p>
-                </div>
-            </div>
-        </div>
-    </header>
+  <script>
+    var tripData = [
+      {
+        id: 1,
+        dayOfMonth: 3,
+        date: "Venerdì 3 Aprile",
+        title: "Legnano → Sestri Levante",
+        distance: "220 km",
+        time: "3h 20m",
+        stay: "Camping Fossa Lupara",
+        status: "Confermato",
+        booking: {
+          total: "100,00",
+          deposit: "36,00",
+          balance: "64,00",
+          checkIn: "11:00 - 20:00",
+          checkOut: "10:30"
+        },
+        stayDetails: [
+          "Piazzole ampie e ben delimitate",
+          "Ambiente tranquillo immerso nella natura",
+          "Distanza mare: 1-1.5 km (comoda passeggiata)"
+        ],
+        activities: [
+          "Passeggiata verso la Baia del Silenzio",
+          "Cena in una tipica trattoria sul porto"
+        ],
+        type: "transfer"
+      },
+      {
+        id: 2,
+        dayOfMonth: 4,
+        date: "Sabato 4 Aprile",
+        title: "Sestri Levante",
+        distance: "0 km",
+        time: "Relax",
+        stay: "Camping Fossa Lupara",
+        status: "Confermato",
+        booking: {
+          total: "100,00",
+          deposit: "36,00",
+          balance: "64,00",
+          checkIn: "11:00 - 20:00",
+          checkOut: "10:30"
+        },
+        stayDetails: [
+          "Soggiorno continuato",
+          "Servizi completi (docce, elettricità)"
+        ],
+        activities: [
+          "Giornata di relax in spiaggia",
+          "Escursione panoramica sui sentieri locali",
+          "Aperitivo nel borgo storico"
+        ],
+        type: "relax"
+      },
+      {
+        id: 3,
+        dayOfMonth: 5,
+        date: "Domenica 5 Aprile (Pasqua)",
+        title: "Sestri Levante → San Gimignano",
+        distance: "280 km",
+        time: "3h 40m",
+        status: "Non ancora definito",
+        options: [
+          {
+            name: "Area Sosta Santa Lucia",
+            pros: ["Economica", "Molto vicina al centro a piedi"],
+            cons: ["Servizi minimi (no docce interne)"]
+          },
+          {
+            name: "Camping Il Boschetto di Piemma",
+            pros: ["Bagni e docce calde ottimi", "Ristorante interno", "Piazzole panoramiche"],
+            cons: ["Circa 2 km dal centro (serve navetta o bici)"],
+            email: {
+              sender: "Alberto (Boschetto di Piemma)",
+              text: "Purtroppo, per la sera di Pasqua siamo quasi al completo e non riusciamo più a gestire nuove prenotazioni. Le consigliamo di arrivare direttamente al campeggio prima di mezzogiorno per avere più possibilità di trovare una piazzola libera."
+            }
+          }
+        ],
+        activities: [
+          "Visita alle torri medievali di Pasqua",
+          "Degustazione di gelato in Piazza della Cisterna",
+          "Shopping di prodotti locali e artigianato"
+        ],
+        type: "holiday"
+      },
+      {
+        id: 4,
+        dayOfMonth: 6,
+        date: "Lunedì 6 Aprile (Pasquetta)",
+        title: "San Gimignano → Val d'Orcia",
+        distance: "120 km",
+        time: "2h 25m",
+        stay: "Podere Il Casale",
+        status: "Confermato",
+        bookingCasale: {
+          dates: "06/04/2026 - 08/04/2026",
+          checkIn: "14:00 - 18:00",
+          checkOut: "09:00 - 11:30",
+          breakfast: "Disponibile su prenotazione (10€/pax)",
+          contact: "Lucia Grilli (+39 0578 755109)",
+          menuUrl: "https://podereilcasale.com/it/menu/",
+          catalogUrl: "https://podereilcasale.com/pdf/catalogo-privati-ita.pdf"
+        },
+        stayDetails: [
+          "Fattoria biologica didattica",
+          "Ottimo per far giocare i bambini",
+          "Nota: Ultimo tratto di strada bianca"
+        ],
+        activities: [
+          "Visita della fattoria e dei caseifici",
+          "Tramonto mozzafiato da Pienza",
+          "Passeggiata nel centro storico rinascimentale"
+        ],
+        type: "holiday"
+      },
+      {
+        id: 5,
+        dayOfMonth: 7,
+        date: "Martedì 7 Aprile",
+        title: "Val d'Orcia",
+        distance: "Variabile",
+        time: "Esplorazione",
+        stay: "Podere Il Casale",
+        status: "Confermato",
+        lunchReserved: {
+          time: "12:00",
+          location: "Ristorante Podere Il Casale",
+          note: "Tavolo prenotato per 4 persone"
+        },
+        bookingCasale: {
+          dates: "Soggiorno in corso",
+          checkIn: "Effettuato",
+          checkOut: "Domani 09:00 - 11:30",
+          breakfast: "Disponibile su prenotazione (10€/pax)",
+          contact: "Lucia Grilli (+39 0578 755109)",
+          menuUrl: "https://podereilcasale.com/it/menu/",
+          catalogUrl: "https://podereilcasale.com/pdf/catalogo-privati-ita.pdf"
+        },
+        stayDetails: [
+          "Pranzo in fattoria ore 12:00",
+          "Prodotti a KM 0 della stessa fattoria"
+        ],
+        activities: [
+          "Pranzo con vista sulla Val d'Orcia",
+          "Relax alle terme naturali di San Filippo",
+          "Giro tra le cantine di Montepulciano"
+        ],
+        type: "relax"
+      },
+      {
+        id: 6,
+        dayOfMonth: 8,
+        date: "Mercoledì 8 Aprile",
+        title: "Val d'Orcia → Costa Toscana",
+        distance: "200 km",
+        time: "3h 20m",
+        stay: "Sosta Mare (Da definire)",
+        status: "In standby",
+        stayDetails: [
+          "Scelta tra: Castiglione della Pescaia",
+          "O zona Versilia (Forte dei Marmi)"
+        ],
+        activities: [
+          "Passeggiata sul lungomare",
+          "Ultimo pomeriggio di mare e relax",
+          "Cena di pesce in riva al mare"
+        ],
+        type: "transfer"
+      },
+      {
+        id: 7,
+        dayOfMonth: 9,
+        date: "Giovedì 9 Aprile",
+        title: "Costa → Pisa → Legnano",
+        distance: "400 km",
+        time: "6h totali",
+        stay: "Rientro",
+        status: "Pianificato",
+        activities: [
+          "Foto di rito alla Torre Pendente",
+          "Visita guidata a Piazza dei Miracoli",
+          "Pranzo veloce e rientro verso Legnano"
+        ],
+        type: "return"
+      }
+    ];
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            
-            <aside class="hidden lg:block lg:col-span-4">
-                <div class="sticky-summary space-y-6">
-                    <div id="concept" class="bg-white rounded-3xl p-8 card-shadow border border-slate-100">
-                        <h2 class="text-2xl font-bold mb-4">Il Concept</h2>
-                        <p class="text-slate-600 mb-6 leading-relaxed">
-                            <strong>7 giorni di pura qualità</strong>. Un percorso fluido studiato per massimizzare il relax senza troppi spostamenti.
-                        </p>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="fas fa-water"></i></span>
-                                <span>Liguria: Apertura in riva al mare</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="fas fa-hot-tub"></i></span>
-                                <span>Toscana: Borghi e Terme</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm">
-                                <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center"><i class="fas fa-caravan"></i></span>
-                                <span>Rientro intelligente al Giorno 8</span>
-                            </div>
-                        </div>
-                    </div>
+    var state = {
+      activeTab: 1,
+      showLogistics: false,
+      showBooking: false,
+      showBookingCasale: false,
+      showEmailPiemma: false,
+      showSavedToast: false
+    };
 
-                    <div class="bg-emerald-900 text-emerald-50 rounded-3xl p-8 shadow-xl">
-                        <h3 class="text-xl font-bold mb-4 italic text-balance">"7 Giorni, infiniti sorrisi."</h3>
-                        <p class="text-emerald-200/80 text-sm">
-                            Il Gran Finale WOW resta a disposizione se decidiamo di allungare la festa!
-                        </p>
-                    </div>
-                </div>
-            </aside>
+    var NOTES_STORAGE_KEY = "famiglia-messana-pasqua2026-day-notes";
 
-            <div id="timeline" class="lg:col-span-8 space-y-10 sm:space-y-12">
-                <h2 class="text-2xl sm:text-3xl font-bold flex items-center gap-4">
-                    <i class="fas fa-map-marked-alt text-emerald-600"></i>
-                    Timeline del Viaggio (7 Giorni)
-                </h2>
+    function loadNotesMap() {
+      try {
+        var raw = localStorage.getItem(NOTES_STORAGE_KEY);
+        if (!raw) return {};
+        var o = JSON.parse(raw);
+        return typeof o === "object" && o !== null ? o : {};
+      } catch (e) {
+        return {};
+      }
+    }
 
-                <!-- Tappa 1 -->
-                <div class="relative pl-2 sm:pl-8 lg:pl-0">
-                    <div class="hidden sm:block absolute left-[50%] lg:left-0 top-0 bottom-0 w-px bg-slate-200 lg:hidden"></div>
-                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center gap-4">
-                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
-                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
-                                    <span class="text-lg sm:text-xl">1-2</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight">Riva Trigoso & Sestri</h3>
-                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Liguria • Relax e Mare</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div class="space-y-4 text-balance">
-                                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">Arrivo al mare. Setup camper e prima serata ligure. Il Giorno 2 è dedicato alla ciclopedonale.</p>
-                                <ul class="space-y-2 text-slate-500">
-                                    <li class="flex items-center gap-2 text-xs sm:text-sm"><i class="fas fa-check text-emerald-500"></i> Baia del Silenzio</li>
-                                    <li class="flex items-center gap-2 text-xs sm:text-sm"><i class="fas fa-check text-emerald-500"></i> Focaccia calda in spiaggia</li>
-                                </ul>
-                            </div>
-                            <div class="rounded-2xl overflow-hidden h-40 sm:h-48 shadow-sm">
-                                <img src="https://tourismmedia.italia.it/is/image/mitur/20210408160302-sestri-levante-ligria-shutterstock-1668302098?wid=2480&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Sestri Levante" loading="lazy">
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <details class="bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden group">
-                                <summary class="flex items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-slate-100 transition-colors list-none">
-                                    <span class="font-bold text-slate-700 text-xs sm:text-sm flex items-center"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Suggerimenti</span>
-                                    <i class="fas fa-chevron-down text-slate-400 transition-transform text-xs chevron"></i>
-                                </summary>
-                                <div class="p-3 sm:p-4 pt-0 text-[13px] sm:text-sm text-slate-600 leading-relaxed text-balance">
-                                    <p>Fare un giro in bici lungo la <strong>Maremonti</strong>: panoramica, facile per i bimbi e ventilata.</p>
-                                </div>
-                            </details>
+    function getNoteForDay(dayId) {
+      var m = loadNotesMap();
+      var v = m[String(dayId)];
+      return v == null ? "" : String(v);
+    }
 
-                            <!-- Campo Note -->
-                            <div class="mt-4">
-                                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
-                                <textarea class="note-field" placeholder="Aggiungi qui orari, nomi di ristoranti o appunti per questa tappa..."></textarea>
-                            </div>
-                        </div>
-                    </div>
+    function escTextareaContent(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
 
-                    <!-- Tappa 2 -->
-                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center gap-4">
-                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
-                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
-                                    <span class="text-lg sm:text-xl">3</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight">Pisa: Un Salto nella Storia</h3>
-                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Toscana • Tappa Cultura</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div class="rounded-2xl overflow-hidden h-40 sm:h-48 order-2 md:order-1 shadow-sm">
-                                <img src="https://www.arteemusei.com/upload/blog/1750409082vBannerImage_TorrediPisa.jpg" class="w-full h-full object-cover" alt="Pisa" loading="lazy">
-                            </div>
-                            <div class="space-y-4 order-1 md:order-2 text-balance">
-                                <p class="text-sm sm:text-base text-slate-600 leading-relaxed">Pomeriggio in Piazza dei Miracoli. Picnic e foto divertenti alla Torre.</p>
-                                <div class="bg-slate-50 p-3 sm:p-4 rounded-xl border-l-4 border-emerald-500 shadow-sm">
-                                    <p class="text-[10px] font-bold uppercase text-slate-400 mb-1">Punto Camper</p>
-                                    <p class="text-xs sm:text-sm text-slate-700 leading-snug">Area Via di Pratale: spaziosa e pratica.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Campo Note -->
-                        <div class="mt-4">
-                            <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
-                            <textarea class="note-field" placeholder="Cose da vedere a Pisa o appunti sulla sosta..."></textarea>
-                        </div>
-                    </div>
+    function saveDayNote() {
+      var ta = document.getElementById("day-note-field");
+      if (!ta) return;
+      var id = String(state.activeTab);
+      var m = loadNotesMap();
+      m[id] = ta.value;
+      try {
+        localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(m));
+      } catch (e) {
+        alert("Impossibile salvare le note (spazio esaurito o navigazione privata).");
+        return;
+      }
+      state.showSavedToast = true;
+      render();
+      if (window._noteToastTimer) clearTimeout(window._noteToastTimer);
+      window._noteToastTimer = setTimeout(function () {
+        state.showSavedToast = false;
+        render();
+      }, 2500);
+    }
 
-                    <!-- Tappa 3 -->
-                    <div class="relative z-10 bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-slate-100 mb-8 transition-all hover:border-emerald-200">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-                            <div class="flex items-center gap-4">
-                                <div class="day-number text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
-                                    <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
-                                    <span class="text-lg sm:text-xl">4-5</span>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl sm:text-2xl font-bold leading-tight text-balance text-slate-800">Val d'Orcia & Borghi</h3>
-                                    <p class="text-emerald-600 font-semibold text-[11px] sm:text-sm uppercase text-balance text-emerald-600">Toscana • Colline Verdi</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed text-balance">Pienza e Bagno Vignoni. Gelato, pecorino e corse tra i cipressi.</p>
-                        <div class="grid grid-cols-3 gap-1.5 sm:gap-2 h-24 sm:h-32 mb-6 shadow-sm rounded-xl overflow-hidden">
-                            <img src="https://tourismmedia.italia.it/is/image/mitur/20210312120351-enit-val-dorcia?wid=1600&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Panorama" loading="lazy">
-                            <img src="https://tourismmedia.italia.it/is/image/mitur/20210312120256-val-d-orcia-istock-1287500516?wid=1600&hei=1000&fit=constrain,1&fmt=webp" class="w-full h-full object-cover" alt="Colline" loading="lazy">
-                            <img src="https://www.incinqueconlavaligia.com/wp-content/uploads/2020/06/Cavallo-in-Val-dOrcia_Toscana.jpg" class="w-full h-full object-cover" alt="Cavallo" loading="lazy">
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <details class="bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden group">
-                                <summary class="flex items-center justify-between p-3 sm:p-4 cursor-pointer hover:bg-slate-100 transition-colors list-none">
-                                    <span class="font-bold text-slate-700 text-xs sm:text-sm flex items-center"><i class="fas fa-lightbulb text-amber-500 mr-2"></i>Suggerimenti</span>
-                                    <i class="fas fa-chevron-down text-slate-400 transition-transform text-xs chevron"></i>
-                                </summary>
-                                <div class="p-3 sm:p-4 pt-0 text-[13px] sm:text-sm text-slate-600 text-balance">
-                                    <p>Cercate i <strong>cipressi di San Quirico</strong> al tramonto. Per i piccoli: visita all'agriturismo con le caprette.</p>
-                                </div>
-                            </details>
-                            <!-- Campo Note -->
-                            <div class="mt-4">
-                                <label class="block text-[11px] font-bold text-slate-400 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Note Personali</label>
-                                <textarea class="note-field" placeholder="Agriturismi preferiti o borghi da non perdere..."></textarea>
-                            </div>
-                        </div>
-                    </div>
+    function esc(s) {
+      if (s == null) return "";
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
 
-                    <!-- PENULTIMA TAPPA: SCELTA TERMALE -->
-                    <div class="relative z-10 bg-amber-50 rounded-2xl sm:rounded-3xl p-5 sm:p-8 card-shadow border border-amber-200 mb-8 transition-all">
-                        <div class="flex flex-col sm:flex-row sm:items-center mb-6 gap-4">
-                            <div class="bg-amber-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center font-bold shadow-lg shrink-0 text-white">
-                                <span class="text-[10px] uppercase opacity-80 font-bold">Giorno</span>
-                                <span class="text-lg sm:text-xl">6-7</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xl sm:text-2xl font-bold text-amber-900 leading-tight text-balance">Wellness Toscano</h3>
-                                <p class="text-amber-700 font-semibold text-[11px] sm:text-sm uppercase tracking-wider text-balance">Relax prima del rientro a Milano</p>
-                            </div>
-                        </div>
-                        
-                        <p class="text-sm sm:text-base text-amber-800 mb-8 leading-relaxed text-balance italic font-semibold">
-                            Scegliamo dove passare le ultime 48 ore di relax toscano:
-                        </p>
+    function getActiveDay() {
+      return tripData.find(function (d) { return d.id === state.activeTab; });
+    }
 
-                        <!-- OPZIONE 1: SATURNIA -->
-                        <details class="bg-white border border-amber-200 rounded-2xl overflow-hidden group mb-4 shadow-sm">
-                            <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer hover:bg-amber-100/50 transition-colors list-none">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold">1</div>
-                                    <span class="font-bold text-slate-800 text-sm sm:text-lg">Parco Termale di Saturnia</span>
-                                </div>
-                                <i class="fas fa-chevron-down text-amber-400 transition-transform text-xs chevron"></i>
-                            </summary>
-                            <div class="p-4 sm:p-6 pt-0 border-t border-amber-50">
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left border-collapse resp-table">
-                                        <thead>
-                                            <tr class="text-amber-900 border-b border-amber-100">
-                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">PRO</th>
-                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">CONTRO</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-slate-600">
-                                            <tr class="border-b border-amber-50">
-                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Effetto Wow:</strong> Estetica naturale unica al mondo.</td>
-                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Distanza:</strong> La più lontana (480 km da casa).</td>
-                                            </tr>
-                                            <tr class="border-b border-amber-50">
-                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Bimbi:</strong> Vasche dedicate sicure e calde.</td>
-                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Odore:</strong> Zolfo molto persistente.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center gap-3">
-                                    <i class="fas fa-caravan text-emerald-600 text-xl text-emerald-600"></i>
-                                    <div>
-                                        <p class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">Sosta Camper</p>
-                                        <p class="text-xs sm:text-sm text-emerald-700"><strong>Alveare del Pinzi:</strong> Top per camperisti.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+    function statusClass(status) {
+      if (status === "Confermato") return "bg-green-100 text-green-700";
+      if (status === "Non ancora definito") return "bg-amber-100 text-amber-700";
+      return "bg-slate-200 text-slate-600";
+    }
 
-                        <!-- OPZIONE 2: QUERCIOLAIA -->
-                        <details class="bg-white border border-amber-200 rounded-2xl overflow-hidden group shadow-sm mb-6">
-                            <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer hover:bg-amber-100/50 transition-colors list-none">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</div>
-                                    <span class="font-bold text-slate-800 text-sm sm:text-lg">Terme Antiche Querciolaia</span>
-                                </div>
-                                <i class="fas fa-chevron-down text-amber-400 transition-transform text-xs chevron"></i>
-                            </summary>
-                            <div class="p-4 sm:p-6 pt-0 border-t border-amber-50">
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left border-collapse resp-table">
-                                        <thead>
-                                            <tr class="text-amber-900 border-b border-amber-100">
-                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">PRO</th>
-                                                <th class="py-3 px-2 font-bold uppercase tracking-wider text-xs">CONTRO</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-slate-600">
-                                            <tr class="border-b border-amber-50">
-                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Strategica:</strong> Vicino Siena, accorcia il rientro di 100 km.</td>
-                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Meno Wow:</strong> Atmosfera più sobria.</td>
-                                            </tr>
-                                            <tr class="border-b border-amber-50">
-                                                <td class="py-3 px-2 align-top" data-label="PRO"><strong>Indoor:</strong> Vasche al coperto ottime se piove.</td>
-                                                <td class="py-3 px-2 align-top" data-label="CONTRO"><strong>Regole:</strong> Molto severi su maschere/giochi.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center gap-3">
-                                    <i class="fas fa-caravan text-emerald-600 text-xl text-emerald-600"></i>
-                                    <div>
-                                        <p class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">Sosta Camper</p>
-                                        <p class="text-xs sm:text-sm text-emerald-700"><strong>Area Rapolano:</strong> Tranquilla e vicina.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
+    function setTab(id) {
+      state.activeTab = id;
+      state.showBooking = false;
+      state.showBookingCasale = false;
+      state.showEmailPiemma = false;
+      state.showSavedToast = false;
+      if (window._noteToastTimer) clearTimeout(window._noteToastTimer);
+      render();
+    }
 
-                        <!-- Campo Note Wellness -->
-                        <div class="mt-2 bg-white/50 p-4 rounded-2xl border border-amber-200/50">
-                            <label class="block text-[11px] font-bold text-amber-600 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2"></i>Decisione e Note</label>
-                            <textarea class="note-field" placeholder="Quale scegliamo? Aggiungi qui le tue riflessioni..."></textarea>
-                        </div>
-                    </div>
+    function toggleLogistics() {
+      state.showLogistics = !state.showLogistics;
+      render();
+    }
 
-                    <!-- CHIUSURA VACANZA 7 GIORNI -->
-                    <div class="relative z-10 bg-slate-100 rounded-2xl p-6 sm:p-8 border border-slate-200 text-center mb-12 shadow-inner">
-                        <i class="fas fa-flag-checkered text-3xl text-slate-400 mb-4"></i>
-                        <h3 class="text-2xl font-bold text-slate-800 mb-2 text-balance">Giorno 8: Rientro Base</h3>
-                        <p class="text-slate-600 text-sm sm:text-base text-balance leading-relaxed">
-                            Si riparte con calma verso <strong>Milano/Legnano</strong>. Chiudiamo qui la nostra vacanza ufficiale di 7 giorni, rigenerati e felici!
-                        </p>
-                        <div class="mt-4 flex justify-center gap-2">
-                            <span class="bg-white px-4 py-1.5 rounded-full text-[10px] font-bold text-slate-500 uppercase border border-slate-200 shadow-sm"><i class="fas fa-road mr-2"></i>~350-450 km per casa</span>
-                        </div>
-                    </div>
-                </div>
+    function toggleBooking() {
+      state.showBooking = !state.showBooking;
+      render();
+    }
 
-                <!-- Gran Finale WOW (Opzionale) -->
-                <section id="finale" class="pt-6 sm:pt-8 opacity-90 grayscale-[0.2] hover:grayscale-0 transition-all">
-                    <div class="bg-slate-900 text-white rounded-[1.5rem] sm:rounded-[2rem] p-6 sm:p-12 shadow-2xl relative overflow-hidden border border-white/5">
-                        <div class="relative z-10 text-white">
-                            <div class="inline-block bg-amber-500 text-slate-900 text-[10px] font-black px-3 py-1 rounded-full mb-6 uppercase tracking-widest">Extra Opzionale</div>
-                            <h2 class="text-2xl sm:text-4xl font-bold mb-4 text-amber-400 text-balance text-white text-balance">Gran Finale WOW (Giorno 8-11?)</h2>
-                            <p class="text-slate-400 mb-8 sm:mb-10 max-w-xl text-sm sm:text-base leading-relaxed text-balance text-white">
-                                Decidiamo alla fine: vogliamo allungare di qualche giorno? Ecco le opzioni per i bimbi lungo la strada del ritorno.
-                            </p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                                <div class="space-y-4 text-white">
-                                    <h4 class="text-emerald-400 font-bold uppercase tracking-[0.15em] text-[10px] border-b border-white/10 pb-2 text-center sm:text-left text-emerald-400">Parchi Divertimento</h4>
-                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
-                                        <div class="flex justify-between items-start mb-1">
-                                            <a href="https://www.leolandia.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-amber-500 text-sm sm:text-base hover:underline leading-tight text-amber-500">Leolandia (BG)</a>
-                                            <span class="text-[9px] text-slate-400 shrink-0">50 km</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-500 text-white">Il sogno dei più piccoli a casa.</p>
-                                    </div>
-                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
-                                        <div class="flex justify-between items-start mb-1">
-                                            <a href="https://www.cavallinomatto.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-amber-500 text-sm sm:text-base hover:underline leading-tight text-amber-500">Cavallino Matto (LI)</a>
-                                            <span class="text-[9px] text-slate-400 shrink-0">330 km</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-500 text-white">Adrenalina sulla costa toscana.</p>
-                                    </div>
-                                </div>
-                                <div class="space-y-4 text-white">
-                                    <h4 class="text-blue-400 font-bold uppercase tracking-[0.15em] text-[10px] border-b border-white/10 pb-2 text-center sm:text-left text-blue-400">Scoperte e Natura</h4>
-                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
-                                        <div class="flex justify-between items-start mb-1">
-                                            <a href="https://www.acquariodigenova.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-blue-400 text-sm sm:text-base hover:underline leading-tight text-blue-400">Acquario Genova</a>
-                                            <span class="text-[9px] text-slate-400 shrink-0">170 km</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-500 text-white">Tappa sottomarina lungo la costa.</p>
-                                    </div>
-                                    <div class="bg-white/5 border border-white/10 p-4 rounded-xl group hover:border-white/20 transition-all shadow-inner">
-                                        <div class="flex justify-between items-start mb-1">
-                                            <a href="https://www.parcodellapreistoria.it/" target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-400 text-sm sm:text-base hover:underline leading-tight text-balance text-emerald-400">Parco Preistoria (CR)</a>
-                                            <span class="text-[9px] text-slate-400 shrink-0">60 km</span>
-                                        </div>
-                                        <p class="text-[11px] text-slate-500 text-white">Dinosauri giganti a Rivolta d'Adda.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Campo Note Finale -->
-                            <div class="mt-8 bg-white/5 p-4 rounded-2xl border border-white/10">
-                                <label class="block text-[11px] font-bold text-slate-500 uppercase mb-2 ml-1 tracking-wider"><i class="fas fa-pencil-alt mr-2 text-white"></i>Note e Idee per l'Allungo</label>
-                                <textarea class="note-field" style="background-color: rgba(255,255,255,0.05); color: white; border-style: solid;" placeholder="Quale parco preferiscono Noah e Nicole? Segna qui i desideri dell'ultimo minuto..."></textarea>
-                            </div>
+    function toggleBookingCasale() {
+      state.showBookingCasale = !state.showBookingCasale;
+      render();
+    }
 
-                            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-white">
-                                <div class="text-center md:text-left">
-                                    <p class="text-slate-500 text-[13px] italic text-slate-500">"Il viaggio non finisce finché non siamo a casa."</p>
-                                </div>
-                                <div class="flex items-center gap-4 text-xs sm:text-sm text-white">
-                                    <span class="text-slate-400 tracking-wide font-semibold text-white">Legnano Family Base</span>
-                                    <i class="fas fa-home text-emerald-500 animate-pulse text-emerald-500"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </main>
+    function toggleEmailPiemma() {
+      state.showEmailPiemma = !state.showEmailPiemma;
+      render();
+    }
 
-    <footer class="bg-slate-50 border-t border-slate-200 py-10 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex justify-center gap-5 mb-6 text-slate-300">
-                <i class="fas fa-caravan text-xl sm:text-2xl"></i>
-                <i class="fas fa-map text-xl sm:text-2xl"></i>
-                <i class="fas fa-heart text-xl sm:text-2xl"></i>
-            </div>
-            <p class="text-slate-500 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mb-2 tracking-widest uppercase">Progetto Viaggio Pasqua 2026</p>
-            <p class="text-slate-400 text-[10px] italic font-semibold">Victor, Sandra, Noah & Nicole</p>
-        </div>
-    </footer>
+    function prevDay() {
+      if (state.activeTab > 1) setTab(state.activeTab - 1);
+    }
+
+    function nextDay() {
+      if (state.activeTab < tripData.length) setTab(state.activeTab + 1);
+    }
+
+    function renderOptionsHtml(activeDay) {
+      if (!activeDay.options) return "";
+      var html = '<div class="space-y-4">';
+      activeDay.options.forEach(function (opt) {
+        html += '<div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">';
+        html += '<div class="p-4">';
+        html += '<h4 class="font-bold text-blue-800 mb-2 text-base">' + esc(opt.name) + "</h4>";
+        html += '<div class="space-y-2">';
+        opt.pros.forEach(function (p) {
+          html += '<div class="flex items-start gap-2 text-sm text-slate-800 leading-snug"><span class="icon-box text-green-500 mt-0.5 flex-shrink-0"><i class="fas fa-circle-check" aria-hidden="true"></i></span><span>' + esc(p) + "</span></div>";
+        });
+        opt.cons.forEach(function (c) {
+          html += '<div class="flex items-start gap-2 text-sm text-slate-500 italic leading-snug"><span class="icon-box text-amber-500 mt-0.5 flex-shrink-0"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i></span><span>' + esc(c) + "</span></div>";
+        });
+        html += "</div>";
+        if (opt.email) {
+          html += '<div class="mt-4 border-t border-slate-100 pt-3">';
+          html += '<button type="button" onclick="toggleEmailPiemma()" class="flex items-center gap-2 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-2.5 rounded-xl w-full justify-between border border-amber-100">';
+          html += '<div class="flex items-center gap-2"><i class="fas fa-envelope" aria-hidden="true"></i> Nota sulla disponibilità (Alberto)</div>';
+          html += '<i class="fas ' + (state.showEmailPiemma ? "fa-chevron-down" : "fa-chevron-right") + '" aria-hidden="true"></i>';
+          html += "</button>";
+          if (state.showEmailPiemma) {
+            html += '<div class="mt-2 p-3 bg-amber-50/50 border border-amber-200 rounded-xl text-xs text-slate-700 leading-relaxed animate-fade">';
+            html += '<p class="mb-2 italic text-slate-600">"Purtroppo siamo quasi al completo e non riusciamo più a gestire nuove prenotazioni."</p>';
+            html += '<div class="flex items-start gap-2 bg-amber-100/80 p-2.5 rounded-lg text-amber-900 font-bold text-[11px]">';
+            html += '<i class="fas fa-triangle-exclamation flex-shrink-0 mt-0.5" aria-hidden="true"></i>';
+            html += "<p>CONSIGLIO: Arrivare prima di mezzogiorno per tentare di trovare una piazzola libera.</p></div>";
+            html += '<p class="mt-2 text-[10px] text-slate-500">Contatto: +39 0577 907134</p></div>';
+          }
+          html += "</div>";
+        }
+        html += "</div></div>";
+      });
+      html += "</div>";
+      return html;
+    }
+
+    function renderStaySection(activeDay) {
+      if (activeDay.options) {
+        return renderOptionsHtml(activeDay);
+      }
+      var details = activeDay.stayDetails || [];
+      var html = '<div class="space-y-3">';
+      html += '<div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 shadow-sm">';
+      html += '<p class="font-bold text-blue-950 text-base">' + esc(activeDay.stay || "—") + "</p>";
+      if (details.length) {
+        html += '<ul class="mt-2 space-y-1.5">';
+        details.forEach(function (detail) {
+          html += '<li class="text-sm text-blue-900 flex items-start gap-2 leading-snug"><span class="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0 mt-2"></span>' + esc(detail) + "</li>";
+        });
+        html += "</ul>";
+      }
+      html += "</div>";
+
+      if (activeDay.booking) {
+        html += '<div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">';
+        html += '<button type="button" onclick="toggleBooking()" class="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">';
+        html += '<div class="flex items-center gap-2 text-slate-800 font-bold text-sm"><span class="icon-box text-slate-600"><i class="fas fa-receipt" aria-hidden="true"></i></span> Dettagli Prenotazione e Pagamenti</div>';
+        html += '<i class="fas ' + (state.showBooking ? "fa-chevron-down" : "fa-chevron-right") + ' text-slate-400" aria-hidden="true"></i>';
+        html += "</button>";
+        if (state.showBooking) {
+          html += '<div class="p-4 border-t border-slate-100 space-y-4 animate-fade">';
+          html += '<div class="grid grid-cols-2 gap-3">';
+          html += '<div class="bg-green-50 p-3 rounded-xl border border-green-100"><p class="text-[10px] uppercase font-bold text-green-700 mb-1">Caparra Versata</p>';
+          html += '<p class="text-lg font-black text-green-800">€ ' + esc(activeDay.booking.deposit) + "</p></div>";
+          html += '<div class="bg-amber-50 p-3 rounded-xl border border-amber-100"><p class="text-[10px] uppercase font-bold text-amber-700 mb-1">Saldo Mancante</p>';
+          html += '<p class="text-lg font-black text-amber-800">€ ' + esc(activeDay.booking.balance) + "</p></div></div>";
+          html += '<div class="space-y-2 text-sm">';
+          html += '<div class="flex justify-between py-1 border-b border-slate-100 italic text-slate-600"><span>Totale Preventivo:</span><span class="font-bold not-italic text-slate-800">€ ' + esc(activeDay.booking.total) + " + tassa sogg.</span></div>";
+          html += '<div class="flex justify-between py-1"><span class="text-slate-600">Check-in:</span><span class="font-bold text-slate-900">' + esc(activeDay.booking.checkIn) + "</span></div>";
+          html += '<div class="flex justify-between py-1"><span class="text-slate-600">Check-out:</span><span class="font-bold text-slate-900">entro le ' + esc(activeDay.booking.checkOut) + "</span></div></div></div>";
+        }
+        html += "</div>";
+      }
+
+      if (activeDay.bookingCasale) {
+        var bc = activeDay.bookingCasale;
+        html += '<div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">';
+        html += '<button type="button" onclick="toggleBookingCasale()" class="w-full flex items-center justify-between p-4 bg-slate-800 text-white hover:bg-slate-900 transition-colors text-left">';
+        html += '<div class="flex items-center gap-2 font-bold text-sm"><i class="fas fa-circle-check text-emerald-400" aria-hidden="true"></i> Dettagli Prenotazione Casale</div>';
+        html += '<i class="fas ' + (state.showBookingCasale ? "fa-chevron-down" : "fa-chevron-right") + ' opacity-60" aria-hidden="true"></i>';
+        html += "</button>";
+        if (state.showBookingCasale) {
+          html += '<div class="p-4 border-t border-slate-100 space-y-4 animate-fade">';
+          if (bc.dates && bc.dates !== "Soggiorno in corso") {
+            html += '<p class="text-center text-xs font-bold text-slate-600">' + esc(bc.dates) + "</p>";
+          }
+          html += '<div class="grid grid-cols-2 gap-3 text-center">';
+          html += '<div class="bg-slate-50 p-2 rounded-xl"><p class="text-[10px] uppercase text-slate-500 font-bold">Check-in</p>';
+          html += '<p class="text-xs font-bold text-slate-800">' + esc(bc.checkIn) + "</p></div>";
+          html += '<div class="bg-slate-50 p-2 rounded-xl"><p class="text-[10px] uppercase text-slate-500 font-bold">Check-out</p>';
+          html += '<p class="text-xs font-bold text-slate-800">' + esc(bc.checkOut) + "</p></div></div>";
+          html += '<div class="bg-emerald-50 p-3 rounded-xl flex items-start gap-3 border border-emerald-100">';
+          html += '<span class="icon-box icon-lg text-emerald-600 flex-shrink-0"><i class="fas fa-mug-hot" aria-hidden="true"></i></span>';
+          html += '<div><p class="text-xs font-bold text-emerald-900">Colazione in Terrazza</p>';
+          html += '<p class="text-[11px] text-emerald-800 mt-0.5">Disponibile su prenotazione a 10€/persona presso il ristorante.</p></div></div>';
+          html += '<div class="space-y-2"><p class="text-xs font-bold text-slate-500 uppercase tracking-widest px-1">Documentazione</p>';
+          html += '<div class="flex flex-col sm:flex-row gap-2">';
+          html += '<a href="' + esc(bc.menuUrl) + '" target="_blank" rel="noopener noreferrer" class="flex-1 bg-blue-50 text-blue-800 text-[11px] font-bold py-3 px-2 rounded-xl flex items-center justify-center gap-2 border border-blue-200 hover:bg-blue-100">';
+          html += '<i class="fas fa-utensils" aria-hidden="true"></i> Menu <i class="fas fa-arrow-up-right-from-square text-[10px]" aria-hidden="true"></i></a>';
+          html += '<a href="' + esc(bc.catalogUrl) + '" target="_blank" rel="noopener noreferrer" class="flex-1 bg-blue-50 text-blue-800 text-[11px] font-bold py-3 px-2 rounded-xl flex items-center justify-center gap-2 border border-blue-200 hover:bg-blue-100">';
+          html += '<i class="fas fa-circle-info" aria-hidden="true"></i> Catalogo <i class="fas fa-arrow-up-right-from-square text-[10px]" aria-hidden="true"></i></a>';
+          html += "</div></div>";
+          html += '<div class="pt-2 border-t border-slate-100"><span class="text-[10px] text-slate-500 font-medium">Contatto: ' + esc(bc.contact) + "</span></div></div>";
+        }
+        html += "</div>";
+      }
+      html += "</div>";
+      return html;
+    }
+
+    function render() {
+      var activeDay = getActiveDay();
+      if (!activeDay) return;
+
+      var lunchHtml = "";
+      if (activeDay.lunchReserved) {
+        lunchHtml =
+          '<div class="mb-6 bg-gradient-to-r from-orange-500 to-amber-500 p-1 rounded-2xl shadow-md">' +
+          '<div class="bg-white p-4 rounded-[calc(1rem-2px)] flex flex-wrap items-center justify-between gap-3">' +
+          '<div class="flex items-center gap-3 min-w-0">' +
+          '<div class="bg-orange-100 p-2.5 rounded-xl text-orange-600 icon-box icon-lg flex-shrink-0"><i class="fas fa-bowl-food" aria-hidden="true"></i></div>' +
+          '<div class="min-w-0"><p class="text-[10px] font-black text-orange-600 uppercase tracking-wider">Pranzo Prenotato</p>' +
+          '<p class="text-lg font-bold text-slate-900">Ore ' + esc(activeDay.lunchReserved.time) + "</p></div></div>" +
+          '<div class="text-right"><p class="text-xs font-semibold text-slate-600">' + esc(activeDay.lunchReserved.location) + "</p>" +
+          '<p class="text-[10px] text-slate-500 italic">Tavolo riservato</p></div></div></div>';
+      }
+
+      var activitiesHtml = "";
+      activeDay.activities.forEach(function (act, i) {
+        var isFood = act.indexOf("Cena") !== -1 || act.indexOf("Pranzo") !== -1;
+        var iconClass = isFood ? "fa-utensils" : "fa-chevron-right";
+        var border = i !== activeDay.activities.length - 1 ? " border-b border-slate-100" : "";
+        activitiesHtml +=
+          '<div class="p-4 flex items-center gap-3' + border + '">' +
+          '<div class="w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0 icon-box">' +
+          '<i class="fas ' + iconClass + '" aria-hidden="true"></i></div>' +
+          '<span class="text-sm font-medium text-slate-800 leading-snug">' + esc(act) + "</span></div>";
+      });
+
+      var logisticsHtml = "";
+      if (state.showLogistics) {
+        logisticsHtml =
+          '<div class="mt-4 space-y-3 animate-fade">' +
+          '<div class="bg-blue-50 p-4 rounded-2xl flex gap-3 border border-blue-100">' +
+          '<span class="icon-box text-blue-600 flex-shrink-0"><i class="fas fa-route" aria-hidden="true"></i></span>' +
+          '<p class="text-sm text-blue-950 font-medium leading-relaxed">Pianificazione basata su un camper da 7 metri. I tempi di guida tengono conto di una velocità media ridotta del 20%.</p></div>' +
+          '<div class="bg-purple-50 p-4 rounded-2xl flex gap-3 border border-purple-100">' +
+          '<span class="icon-box text-purple-600 flex-shrink-0"><i class="fas fa-users" aria-hidden="true"></i></span>' +
+          '<p class="text-sm text-purple-950 font-medium leading-relaxed">Le attività sono pensate per una famiglia. A San Gimignano e Pienza le strade sono pedonali: parcheggiare nelle aree indicate e procedere a piedi.</p></div></div>';
+      }
+
+      var dayTabsHtml = tripData
+        .map(function (day) {
+          var active = day.id === state.activeTab;
+          var hasNote = getNoteForDay(day.id).trim().length > 0;
+          var noteMark = hasNote
+            ? '<span class="absolute -top-0.5 -right-0.5 min-w-[14px] h-3.5 px-0.5 flex items-center justify-center rounded bg-amber-400 text-[8px] font-black text-amber-950 leading-none" title="Note salvate">N</span>'
+            : "";
+          return (
+            '<button type="button" onclick="setTab(' +
+            day.id +
+            ')" class="relative flex-shrink-0 w-12 h-12 rounded-2xl flex flex-col items-center justify-center transition-all ' +
+            (active ? "bg-white text-blue-700 scale-110 shadow-lg ring-2 ring-white/50" : "bg-blue-600 text-white opacity-80 hover:opacity-100") +
+            '"><span class="text-xs font-bold leading-none">' +
+            day.dayOfMonth +
+            '</span><span class="text-[10px] uppercase font-semibold">Apr</span>' +
+            noteMark +
+            "</button>"
+          );
+        })
+        .join("");
+
+      var notesSection =
+        '<section class="mb-8 rounded-2xl border-2 border-indigo-200 bg-gradient-to-b from-indigo-50 to-white p-4 sm:p-5 shadow-md">' +
+        '<div class="flex items-center gap-2 mb-3">' +
+        '<span class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white icon-box"><i class="fas fa-pen-to-square" aria-hidden="true"></i></span>' +
+        '<div><h3 class="text-sm font-extrabold uppercase tracking-wide text-indigo-900">Le tue note</h3>' +
+        '<p class="text-xs text-indigo-700/80 font-medium">Giorno ' +
+        activeDay.id +
+        " · " +
+        esc(activeDay.date) +
+        "</p></div></div>" +
+        '<label for="day-note-field" class="sr-only">Note per questo giorno</label>' +
+        '<textarea id="day-note-field" rows="5" class="w-full rounded-xl border-2 border-slate-300 bg-white px-3.5 py-3 text-base text-slate-900 placeholder:text-slate-400 shadow-inner focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none resize-y min-h-[9rem] leading-relaxed">' +
+        escTextareaContent(getNoteForDay(activeDay.id)) +
+        "</textarea>" +
+        '<div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">' +
+        '<p class="text-xs text-slate-600 order-2 sm:order-1"><i class="fas fa-lock mr-1 text-slate-400" aria-hidden="true"></i>Salvate solo su questo dispositivo.</p>' +
+        '<div class="flex items-center justify-end gap-3 order-1 sm:order-2">' +
+        '<span id="note-feedback" class="text-sm font-bold text-emerald-600 min-h-[1.25rem]" aria-live="polite">' +
+        (state.showSavedToast ? "Salvato!" : "") +
+        "</span>" +
+        '<button type="button" onclick="saveDayNote()" class="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-md hover:bg-indigo-700 active:scale-[0.98] transition-all">' +
+        '<i class="fas fa-floppy-disk" aria-hidden="true"></i> Salva</button></div></div></section>';
+
+      var root =
+        '<div class="trip-shell min-h-screen bg-slate-50 font-sans text-slate-900 relative">' +
+        '<header class="bg-blue-700 text-white px-5 pt-6 pb-5 shadow-lg rounded-b-3xl">' +
+        '<div class="flex justify-between items-center mb-4">' +
+        '<h1 class="text-2xl font-bold tracking-tight">In Viaggio! 🚐</h1>' +
+        '<div class="bg-blue-600 p-2.5 rounded-full icon-box icon-lg text-white"><i class="fas fa-calendar-days" aria-hidden="true"></i></div></div>' +
+        '<div class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium text-blue-50" style="background:rgba(30,58,138,0.45)">' +
+        '<span class="icon-box icon-sm"><i class="fas fa-clock" aria-hidden="true"></i></span><span>Partenza Oggi: ' +
+        esc(tripData[0].date) +
+        "</span></div>" +
+        '<div class="flex gap-3 mt-5 overflow-x-auto pb-1 no-scrollbar -mx-1 px-1">' +
+        dayTabsHtml +
+        "</div></header>" +
+        '<main class="px-4 pt-6 pb-4">' +
+        lunchHtml +
+        '<div class="grid grid-cols-2 gap-3 mb-6">' +
+        '<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3">' +
+        '<div class="icon-box h-10 w-10 shrink-0 rounded-lg bg-blue-50 text-blue-600"><i class="fas fa-route" aria-hidden="true"></i></div>' +
+        '<div class="min-w-0"><p class="text-xs text-slate-500 font-medium">Distanza</p><p class="font-bold text-slate-900 truncate">' +
+        esc(activeDay.distance) +
+        "</p></div></div>" +
+        '<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3">' +
+        '<div class="icon-box h-10 w-10 shrink-0 rounded-lg bg-orange-50 text-orange-600"><i class="fas fa-clock" aria-hidden="true"></i></div>' +
+        '<div class="min-w-0"><p class="text-xs text-slate-500 font-medium">Tempo Camper</p><p class="font-bold text-slate-900 truncate">' +
+        esc(activeDay.time) +
+        "</p></div></div></div>" +
+        '<div class="mb-6">' +
+        '<div class="flex items-start justify-between gap-3">' +
+        '<h2 class="text-xl font-bold flex items-start gap-2 text-slate-900 leading-tight"><span class="icon-box text-blue-600 mt-0.5 flex-shrink-0"><i class="fas fa-location-dot" aria-hidden="true"></i></span><span>' +
+        esc(activeDay.title) +
+        "</span></h2>" +
+        '<span class="text-[10px] px-2 py-1 rounded-lg font-black uppercase flex-shrink-0 whitespace-nowrap ' +
+        statusClass(activeDay.status) +
+        '">' +
+        esc(activeDay.status) +
+        "</span></div>" +
+        '<p class="text-slate-600 text-sm mt-2 font-medium">' +
+        esc(activeDay.date) +
+        " | Giorno " +
+        activeDay.id +
+        "</p></div>" +
+        '<section class="mb-6"><h3 class="text-xs font-bold uppercase text-slate-500 mb-3 tracking-wider flex items-center gap-2">' +
+        '<i class="fas fa-campground w-4 h-4 text-slate-400" aria-hidden="true"></i> Pernottamento e Sosta</h3>' +
+        renderStaySection(activeDay) +
+        "</section>" +
+        '<section class="mb-6"><h3 class="text-xs font-bold uppercase text-slate-500 mb-3 tracking-wider flex items-center gap-2">' +
+        '<i class="fas fa-camera w-4 h-4 text-slate-400" aria-hidden="true"></i> Cosa Fare</h3>' +
+        '<div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">' +
+        activitiesHtml +
+        "</div></section>" +
+        notesSection +
+        '<button type="button" onclick="toggleLogistics()" class="w-full bg-slate-800 hover:bg-slate-900 text-white p-4 rounded-2xl flex justify-between items-center transition-colors">' +
+        '<div class="flex items-center gap-3"><span class="icon-box text-blue-400"><i class="fas fa-circle-info" aria-hidden="true"></i></span><span class="font-bold">Info Logistica & Camper</span></div>' +
+        '<i class="fas ' +
+        (state.showLogistics ? "fa-chevron-down" : "fa-chevron-right") +
+        '" aria-hidden="true"></i></button>' +
+        logisticsHtml +
+        "</main>" +
+        '<nav class="fixed bottom-0 left-0 right-0 z-[60] border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">' +
+        '<div class="trip-shell flex justify-around items-center px-2 py-3 safe-area-pb">' +
+        '<button type="button" onclick="prevDay()" class="flex flex-col items-center gap-1 text-slate-500 min-w-[4rem]">' +
+        '<div class="p-2 rounded-xl transition-colors ' +
+        (state.activeTab > 1 ? "bg-slate-100 text-slate-900" : "opacity-40") +
+        '"><i class="fas fa-chevron-left text-lg" aria-hidden="true"></i></div>' +
+        '<span class="text-[10px] font-bold uppercase tracking-wide">Indietro</span></button>' +
+        '<div class="h-10 w-px bg-slate-200"></div>' +
+        '<div class="flex flex-col items-center px-2"><div class="bg-blue-100 text-blue-800 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wide">Giorno ' +
+        state.activeTab +
+        "</div></div>" +
+        '<div class="h-10 w-px bg-slate-200"></div>' +
+        '<button type="button" onclick="nextDay()" class="flex flex-col items-center gap-1 text-slate-500 min-w-[4rem]">' +
+        '<div class="p-2 rounded-xl transition-colors ' +
+        (state.activeTab < tripData.length ? "bg-blue-100 text-blue-900" : "opacity-40") +
+        '"><i class="fas fa-chevron-right text-lg" aria-hidden="true"></i></div>' +
+        '<span class="text-[10px] font-bold uppercase tracking-wide">Avanti</span></button></div></nav></div>';
+
+      document.getElementById("trip-app-root").innerHTML = root;
+    }
+
+    render();
+  </script>
 </body>
 </html>
