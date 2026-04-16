@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wh Questions – Inglese | Spazio Nicole</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Nunito", system-ui, sans-serif; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    .animate-shake { animation: shake 0.2s ease-in-out 0s 2; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="min-h-screen bg-sky-50 text-slate-800 p-4 md:p-8 flex flex-col items-center">
+
+  <nav class="w-full max-w-2xl mb-4 flex flex-wrap gap-2 text-sm font-bold">
+    <a href="../inglese.html" class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sky-700 shadow border border-sky-200 hover:bg-sky-100 transition-colors">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i> Inglese
+    </a>
+    <a href="/famiglia-messana-hub/nicole/index.html" class="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-2 text-slate-600 border border-slate-200 hover:bg-white transition-colors">
+      Spazio Nicole
+    </a>
+  </nav>
+
+  <header class="w-full max-w-2xl mb-8 text-center">
+    <h1 class="text-4xl font-black text-sky-600 mb-2 tracking-tight uppercase">Wh Questions</h1>
+    <p class="text-lg text-slate-500 font-medium italic">Impara l'inglese divertendoti!</p>
+  </header>
+
+  <main class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-6 md:p-8 min-h-[450px] flex flex-col justify-center transition-all duration-300 relative" id="main-card">
+
+    <!-- HOME -->
+    <div id="screen-home" class="text-center space-y-8">
+      <div class="flex justify-center space-x-4 mb-4">
+        <span class="text-6xl animate-bounce" style="animation-delay: 0s">🎒</span>
+        <span class="text-6xl animate-bounce" style="animation-delay: 0.2s">🖍️</span>
+        <span class="text-6xl animate-bounce" style="animation-delay: 0.4s">📚</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <button type="button" onclick="setScreen('lesson')" class="flex flex-col items-center justify-center space-y-3 p-8 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-3xl border-4 border-blue-200 font-bold text-2xl transition-all hover:scale-105 shadow-lg group">
+          <div class="bg-white p-4 rounded-2xl shadow-sm group-hover:rotate-12 transition-transform">
+            <i class="fas fa-book-open text-[40px]" aria-hidden="true"></i>
+          </div>
+          <span>Studia</span>
+        </button>
+        <button type="button" onclick="startQuiz()" class="flex flex-col items-center justify-center space-y-3 p-8 bg-green-50 hover:bg-green-100 text-green-700 rounded-3xl border-4 border-green-200 font-bold text-2xl transition-all hover:scale-105 shadow-lg group">
+          <div class="bg-white p-4 rounded-2xl shadow-sm group-hover:-rotate-12 transition-transform">
+            <i class="fas fa-play text-[40px]" aria-hidden="true"></i>
+          </div>
+          <span>Gioca Quiz</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- LESSON -->
+    <div id="screen-lesson" class="hidden space-y-6">
+      <div class="flex justify-between items-center mb-4 gap-2">
+        <h2 class="text-2xl font-bold text-blue-600">Le parole magiche 🪄</h2>
+        <button type="button" onclick="setScreen('home')" class="p-2 hover:bg-slate-100 rounded-full text-slate-400 shrink-0" aria-label="Torna alla home">
+          <i class="fas fa-home text-2xl" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="lesson-list" class="grid grid-cols-1 gap-4 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar"></div>
+      <button type="button" onclick="startQuiz()" class="w-full mt-4 bg-sky-500 text-white py-4 rounded-2xl font-bold text-lg hover:bg-sky-600 shadow-lg shadow-sky-200 transition-all flex items-center justify-center gap-2">
+        <span>Ora proviamo il quiz!</span>
+        <i class="fas fa-play" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="screen-quiz" class="hidden space-y-6 relative min-h-[380px] flex flex-col">
+      <div class="flex justify-between items-center flex-wrap gap-2">
+        <div class="bg-sky-100 text-sky-700 px-4 py-1 rounded-full font-bold text-sm" id="quiz-progress"></div>
+        <div class="text-amber-500 font-bold flex items-center gap-1">
+          <i class="fas fa-trophy" aria-hidden="true"></i>
+          <span id="quiz-score">Punti: 0</span>
+        </div>
+      </div>
+      <div class="py-8 text-center flex-grow flex flex-col justify-center">
+        <h3 class="text-3xl font-black text-slate-800 mb-2" id="quiz-question"></h3>
+        <p class="text-slate-400 italic font-medium" id="quiz-translation"></p>
+      </div>
+      <div class="grid grid-cols-1 gap-3 pb-4" id="quiz-options"></div>
+      <div id="quiz-feedback" class="hidden absolute inset-0 flex items-center justify-center pointer-events-none z-10"></div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="screen-result" class="hidden text-center space-y-8">
+      <div class="relative inline-block">
+        <div class="text-8xl mb-4">🏆</div>
+        <div class="absolute -top-2 -right-2 bg-yellow-400 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl border-4 border-white">★</div>
+      </div>
+      <div>
+        <h2 class="text-3xl font-bold text-slate-800">Ottimo lavoro!</h2>
+        <p class="text-xl text-slate-500 mt-2">
+          Hai indovinato <span class="text-sky-600 font-black" id="result-score">0</span> risposte su <span id="result-total">7</span>!
+        </p>
+      </div>
+      <div class="p-6 bg-slate-50 rounded-2xl">
+        <p class="text-slate-600 font-medium" id="result-message"></p>
+      </div>
+      <button type="button" onclick="resetGame()" class="w-full bg-slate-800 text-white py-4 rounded-2xl font-bold text-lg hover:bg-slate-700 transition-all shadow-lg">
+        Torna al Menu
+      </button>
+    </div>
+  </main>
+
+  <footer class="mt-8 text-slate-400 text-xs font-medium uppercase tracking-widest text-center">
+    English Learning App - 4ª Elementare
+  </footer>
+
+  <script>
+    var whWords = [
+      { word: "Who", translation: "Chi", icon: "user", iconColor: "text-blue-500", example: "Who is your teacher?", itExample: "Chi è la tua maestra?" },
+      { word: "What", translation: "Cosa", icon: "circle-question", iconColor: "text-green-500", example: "What is your name?", itExample: "Qual è (cosa è) il tuo nome?" },
+      { word: "Where", translation: "Dove", icon: "location-dot", iconColor: "text-red-500", example: "Where do you live?", itExample: "Dove vivi?" },
+      { word: "When", translation: "Quando", icon: "calendar", iconColor: "text-yellow-500", example: "When is your birthday?", itExample: "Quando è il tuo compleanno?" },
+      { word: "Why", translation: "Perché", icon: "lightbulb", iconColor: "text-purple-500", example: "Why are you happy?", itExample: "Perché sei felice?" },
+      { word: "How", translation: "Come", icon: "sliders", iconColor: "text-orange-500", example: "How are you?", itExample: "Come stai?" }
+    ];
+
+    var quizQuestions = [
+      { question: "___ is your best friend?", options: ["Who", "Where", "What"], answer: "Who", translation: "___ è il tuo migliore amico?" },
+      { question: "___ is the cat?", options: ["When", "Where", "How"], answer: "Where", translation: "___ è il gatto?" },
+      { question: "___ are you eating?", options: ["Who", "What", "When"], answer: "What", translation: "___ stai mangiando?" },
+      { question: "___ do you wake up?", options: ["When", "Who", "Why"], answer: "When", translation: "___ ti svegli?" },
+      { question: "___ are you crying?", options: ["How", "Why", "Where"], answer: "Why", translation: "___ stai piangendo?" },
+      { question: "___ is your name?", options: ["What", "Who", "How"], answer: "What", translation: "___ è il tuo nome?" },
+      { question: "___ old are you?", options: ["How", "When", "What"], answer: "How", translation: "___ anni hai?" }
+    ];
+
+    var screen = "home";
+    var score = 0;
+    var currentQuizIndex = 0;
+    var feedback = null;
+    var answerTimer = null;
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function setScreen(s) {
+      screen = s;
+      document.getElementById("screen-home").classList.toggle("hidden", s !== "home");
+      document.getElementById("screen-lesson").classList.toggle("hidden", s !== "lesson");
+      document.getElementById("screen-quiz").classList.toggle("hidden", s !== "quiz");
+      document.getElementById("screen-result").classList.toggle("hidden", s !== "result");
+    }
+
+    function buildLessonList() {
+      var el = document.getElementById("lesson-list");
+      el.innerHTML = whWords
+        .map(function (item) {
+          return (
+            '<div class="flex items-center gap-4 p-4 border-2 border-slate-100 rounded-2xl hover:border-blue-200 transition-colors bg-white">' +
+            '<div class="bg-slate-50 p-3 rounded-xl shrink-0 flex items-center justify-center w-14 h-14"><i class="fas fa-' +
+            item.icon +
+            " " +
+            item.iconColor +
+            ' text-3xl leading-none" aria-hidden="true"></i></div>' +
+            '<div class="min-w-0 text-left">' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+            '<span class="text-xl font-black text-slate-800">' +
+            esc(item.word) +
+            '</span><span class="text-slate-400">=</span><span class="text-lg font-bold text-blue-500">' +
+            esc(item.translation) +
+            "</span></div>" +
+            '<p class="text-sm text-slate-500 italic mt-1">' +
+            esc(item.example) +
+            "</p>" +
+            '<p class="text-xs text-slate-400">(' +
+            esc(item.itExample) +
+            ")</p></div></div>"
+          );
+        })
+        .join("");
+    }
+
+    function startQuiz() {
+      if (answerTimer) {
+        clearTimeout(answerTimer);
+        answerTimer = null;
+      }
+      score = 0;
+      currentQuizIndex = 0;
+      feedback = null;
+      setScreen("quiz");
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      var q = quizQuestions[currentQuizIndex];
+      document.getElementById("quiz-progress").textContent =
+        "Domanda " + (currentQuizIndex + 1) + " di " + quizQuestions.length;
+      document.getElementById("quiz-score").textContent = "Punti: " + score;
+      document.getElementById("quiz-question").textContent = q.question;
+      document.getElementById("quiz-translation").textContent = "(" + q.translation + ")";
+
+      var optsEl = document.getElementById("quiz-options");
+      optsEl.innerHTML = "";
+      q.options.forEach(function (option) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.disabled = feedback !== null;
+        btn.textContent = option;
+        btn.className = optionClasses(option, q.answer);
+        btn.onclick = function () {
+          handleAnswer(option);
+        };
+        optsEl.appendChild(btn);
+      });
+
+      var fb = document.getElementById("quiz-feedback");
+      if (feedback) {
+        fb.classList.remove("hidden");
+        fb.innerHTML =
+          feedback === "correct"
+            ? '<div class="animate-bounce bg-white p-6 rounded-full shadow-2xl"><i class="fas fa-circle-check text-green-500 text-7xl" aria-hidden="true"></i></div>'
+            : '<div class="animate-shake bg-white p-6 rounded-full shadow-2xl border-4 border-red-500"><i class="fas fa-circle-xmark text-red-500 text-7xl" aria-hidden="true"></i></div>';
+      } else {
+        fb.classList.add("hidden");
+        fb.innerHTML = "";
+      }
+    }
+
+    function optionClasses(option, answer) {
+      var base =
+        "quiz-opt-btn p-5 rounded-2xl font-bold text-xl transition-all border-2 w-full text-left ";
+      if (feedback === null) {
+        return base + "bg-white border-slate-200 hover:border-sky-400 hover:bg-sky-50";
+      }
+      if (feedback === "correct" && option === answer) {
+        return base + "bg-green-100 border-green-500 text-green-700 scale-105 shadow-md shadow-green-100";
+      }
+      if (feedback === "correct" && option !== answer) {
+        return base + "bg-slate-50 border-slate-200 text-slate-400 opacity-80";
+      }
+      if (feedback === "wrong") {
+        if (option === answer) {
+          return base + "bg-green-100 border-green-500 text-green-700";
+        }
+        return base + "bg-white border-slate-100 text-slate-300 opacity-50";
+      }
+      return base + "bg-white border-slate-200";
+    }
+
+    function handleAnswer(option) {
+      if (feedback !== null) return;
+      var q = quizQuestions[currentQuizIndex];
+      if (option === q.answer) {
+        score++;
+        feedback = "correct";
+      } else {
+        feedback = "wrong";
+      }
+      renderQuiz();
+
+      answerTimer = setTimeout(function () {
+        answerTimer = null;
+        feedback = null;
+        if (currentQuizIndex < quizQuestions.length - 1) {
+          currentQuizIndex++;
+          renderQuiz();
+        } else {
+          showResult();
+        }
+      }, 1500);
+    }
+
+    function showResult() {
+      document.getElementById("result-score").textContent = String(score);
+      document.getElementById("result-total").textContent = String(quizQuestions.length);
+      var msg =
+        score === quizQuestions.length
+          ? "Incredibile! Sei una campionessa di inglese! 🌟"
+          : score >= 4
+            ? "Ottimo lavoro! Continua così! 👍"
+            : "Niente male! Riprova per migliorare ancora! 💪";
+      document.getElementById("result-message").textContent = msg;
+      setScreen("result");
+    }
+
+    function resetGame() {
+      if (answerTimer) {
+        clearTimeout(answerTimer);
+        answerTimer = null;
+      }
+      screen = "home";
+      score = 0;
+      currentQuizIndex = 0;
+      feedback = null;
+      setScreen("home");
+    }
+
+    buildLessonList();
+    setScreen("home");
+  </script>
+</body>
+</html>
