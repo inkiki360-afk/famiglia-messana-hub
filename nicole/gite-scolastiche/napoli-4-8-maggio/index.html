@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gita Napoli 4–8 maggio | Gite scolastiche – Nicole</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 pb-28">
+
+  <div class="max-w-md mx-auto">
+    <nav class="px-4 pt-3 pb-2 flex flex-wrap gap-2 text-sm font-semibold">
+      <a href="../index.html" class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-blue-700 shadow border border-slate-200">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Gite
+      </a>
+      <a href="/famiglia-messana-hub/nicole/index.html" class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-slate-600">
+        Spazio Nicole
+      </a>
+    </nav>
+
+    <header class="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 rounded-b-[2.5rem] shadow-lg sticky top-0 z-10">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-2xl font-bold">Gita di Nicole ✨</h1>
+          <p class="opacity-90 flex items-center gap-2 text-sm mt-1">
+            <i class="fas fa-calendar" aria-hidden="true"></i> 4 - 8 Maggio | Napoli &amp; Dintorni
+          </p>
+        </div>
+        <div class="bg-white/20 p-2 rounded-full backdrop-blur-sm">
+          <i class="fas fa-pizza-slice text-2xl" aria-hidden="true"></i>
+        </div>
+      </div>
+    </header>
+
+    <main class="p-4 space-y-4 max-w-md mx-auto">
+      <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+        <a href="tel:3404789240" class="flex-shrink-0 bg-red-100 text-red-600 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 border border-red-200">
+          <i class="fas fa-phone text-xs" aria-hidden="true"></i> SCUOLA: 340.4789240
+        </a>
+        <div class="flex-shrink-0 bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 border border-blue-200">
+          <i class="fas fa-mobile-screen-button text-xs" aria-hidden="true"></i> NO CELLULARI
+        </div>
+      </div>
+
+      <div class="flex bg-white rounded-2xl shadow-sm p-1 border border-slate-100" id="tab-bar-top">
+        <button type="button" data-tab="itinerario" class="tab-btn flex-1 py-3 rounded-xl text-sm font-bold transition-all">Programma</button>
+        <button type="button" data-tab="logistica" class="tab-btn flex-1 py-3 rounded-xl text-sm font-bold transition-all text-slate-500">Voli &amp; Hotel</button>
+        <button type="button" data-tab="preparazione" class="tab-btn flex-1 py-3 rounded-xl text-sm font-bold transition-all text-slate-500">Valigia</button>
+      </div>
+
+      <div id="panel-itinerario" class="tab-panel">
+        <div class="space-y-4">
+          <div class="flex gap-2 overflow-x-auto py-2 no-scrollbar" id="day-chips"></div>
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100" id="day-card"></div>
+        </div>
+      </div>
+
+      <div id="panel-logistica" class="tab-panel hidden space-y-4">
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+          <h2 class="font-bold text-lg flex items-center gap-2 mb-4">
+            <i class="fas fa-plane text-blue-500" aria-hidden="true"></i> Dettagli Voli (EasyJet)
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-50 p-4 rounded-2xl">
+              <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Andata (4 Maggio)</p>
+              <p class="text-xs text-slate-600 font-medium">Ritrovo Malpensa: <span class="text-slate-900">06:00</span></p>
+              <p class="text-xs text-slate-600 font-medium">Partenza: <span class="text-slate-900">08:15</span></p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl">
+              <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Ritorno (8 Maggio)</p>
+              <p class="text-xs text-slate-600 font-medium">Da Napoli: <span class="text-slate-900">18:25</span></p>
+              <p class="text-xs text-slate-600 font-medium">Malpensa: <span class="text-slate-900">20:00</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+          <h2 class="font-bold text-lg flex items-center gap-2 mb-4">
+            <i class="fas fa-location-dot text-red-500" aria-hidden="true"></i> Soggiorno
+          </h2>
+          <p class="font-bold text-slate-800">Hotel Ristorante Amitrano</p>
+          <p class="text-sm text-slate-500">Via Lepanto, 97, 80045 Pompei (NA)</p>
+          <div class="mt-4 p-3 bg-blue-50 rounded-xl flex items-start gap-3">
+            <i class="fas fa-circle-info text-blue-400 flex-shrink-0 mt-0.5" aria-hidden="true"></i>
+            <p class="text-xs text-blue-800 italic">All'arrivo in hotel i docenti ritireranno documenti originali e fotocopie. Ricordati di metterli nel porta-documenti da collo!</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-preparazione" class="tab-panel hidden space-y-4">
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
+          <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-circle-check text-emerald-500" aria-hidden="true"></i> Cosa portare
+          </h2>
+          <div class="space-y-2" id="packing-list"></div>
+        </div>
+        <div class="bg-amber-50 p-6 rounded-3xl border border-amber-200">
+          <h2 class="font-bold text-amber-800 mb-3 flex items-center gap-2 uppercase text-xs tracking-widest">
+            <i class="fas fa-circle-exclamation" aria-hidden="true"></i> Promemoria per Nicole
+          </h2>
+          <ul class="text-sm text-amber-800/80 space-y-3">
+            <li class="flex gap-2"><span class="font-bold">•</span> Zaino sotto il sedile max 40x30x20 cm.</li>
+            <li class="flex gap-2"><span class="font-bold">•</span> Valigia da stiva max 15 kg.</li>
+            <li class="flex gap-2"><span class="font-bold">•</span> Cellulare scuola sempre acceso: <span class="font-bold">340.4789240</span>.</li>
+            <li class="flex gap-2"><span class="font-bold">•</span> Consegnare l'autocertificazione entro lunedì 27 aprile.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <a href="tel:3404789240" class="fixed bottom-24 right-4 w-14 h-14 bg-red-600 text-white rounded-full flex items-center justify-center shadow-xl border-4 border-white z-30 animate-bounce" aria-label="Chiama scuola">
+    <i class="fas fa-phone text-xl" aria-hidden="true"></i>
+  </a>
+
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-4 sm:px-8 py-3 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-20 safe-pb" id="bottom-nav">
+    <div class="max-w-md mx-auto w-full flex justify-between items-center">
+      <button type="button" class="bot-tab flex flex-col items-center gap-1 min-w-[4rem]" data-tab="itinerario">
+        <i class="fas fa-calendar w-6 h-6" aria-hidden="true"></i>
+        <span class="text-[10px] font-bold">Programma</span>
+      </button>
+      <button type="button" class="bot-tab flex flex-col items-center gap-1 min-w-[4rem] text-slate-400" data-tab="logistica">
+        <i class="fas fa-plane w-6 h-6" aria-hidden="true"></i>
+        <span class="text-[10px] font-bold">Logistica</span>
+      </button>
+      <button type="button" class="bot-tab flex flex-col items-center gap-1 min-w-[4rem] text-slate-400" data-tab="preparazione">
+        <i class="fas fa-backpack w-6 h-6" aria-hidden="true"></i>
+        <span class="text-[10px] font-bold">Valigia</span>
+      </button>
+    </div>
+  </nav>
+  <style>
+    .safe-pb { padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px)); }
+  </style>
+
+  <script>
+    var itinerary = [
+      { date: "Lunedì 4 Maggio", title: "Napoli & Spaccanapoli", icon: "landmark", iconColor: "text-blue-500", morning: "H. 8.15 Partenza Malpensa. Arrivo h. 9.50. Trasferimento in centro.", lunch: "Pizzeria Regina Margherita (Lungomare Partenope)", afternoon: "Tour guidato: Spaccanapoli, Duomo, Galleria Umberto I, Piazza Plebiscito." },
+      { date: "Martedì 5 Maggio", title: "Tartarughe & Vesuvio", icon: "mountain", iconColor: "text-orange-500", morning: "H. 9.00 Visita al Turtle Point (Portici) per vedere le tartarughe marine.", lunch: "Pizzeria Vesuvio (Pizza + Sfogliatella!)", afternoon: "Escursione al Gran Cono del Vesuvio a quota 1200mt." },
+      { date: "Mercoledì 6 Maggio", title: "Capri & Sorrento", icon: "droplet", iconColor: "text-cyan-500", morning: "H. 9.40 Traghetto da Sorrento per Capri. Visita alla Piazzetta.", lunch: "Pranzo al sacco (Giardini di Augusto)", afternoon: "Faraglioni, tempo libero a Capri e rientro a Sorrento per visita centro." },
+      { date: "Giovedì 7 Maggio", title: "Ceramica & Pompei", icon: "camera", iconColor: "text-emerald-500", morning: "Vietri sul Mare: Laboratorio di manipolazione argilla (La Vietrese).", lunch: "Pizzeria Il Bugigattolo (Pizza a metro!)", afternoon: "Visita guidata agli Scavi Archeologici di Pompei." },
+      { date: "Venerdì 8 Maggio", title: "Gragnano & Rientro", icon: "utensils", iconColor: "text-yellow-600", morning: "H. 11.00 Visita al Pastificio Afeltra e Valle dei Mulini.", lunch: "Ristorante La Valle dei Mulini (Pasta al pomodoro)", afternoon: "H. 16.30 Arrivo in aeroporto a Napoli. H. 18.25 Volo per Malpensa. Arrivo previsto h. 20.00." }
+    ];
+
+    var packingItems = [
+      { id: 1, text: "Zainetto (max 40x30x20 cm)", icon: "backpack" },
+      { id: 2, text: "Documenti e Tessera Sanitaria (+ copie)", icon: "circle-info" },
+      { id: 3, text: "Scarpe comodissime (per Vesuvio/Scavi)", icon: "circle-check" },
+      { id: 4, text: "Ombrellino e k-way", icon: "umbrella" },
+      { id: 5, text: "Farmaci con posologia", icon: "heart-pulse" },
+      { id: 6, text: "Budget extra (~50€)", icon: "wallet" }
+    ];
+
+    var state = { activeTab: "itinerario", selectedDay: 0, packing: {} };
+    packingItems.forEach(function (p) { state.packing[p.id] = false; });
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function setActiveTab(t) {
+      state.activeTab = t;
+      document.querySelectorAll(".tab-panel").forEach(function (el) {
+        el.classList.add("hidden");
+      });
+      document.getElementById("panel-" + t).classList.remove("hidden");
+
+      document.querySelectorAll("#tab-bar-top .tab-btn").forEach(function (btn) {
+        var is = btn.getAttribute("data-tab") === t;
+        btn.className = "tab-btn flex-1 py-3 rounded-xl text-sm font-bold transition-all " + (is ? "bg-blue-600 text-white shadow-md" : "text-slate-500");
+      });
+
+      document.querySelectorAll("#bottom-nav .bot-tab").forEach(function (btn) {
+        var is = btn.getAttribute("data-tab") === t;
+        btn.className = "bot-tab flex flex-col items-center gap-1 min-w-[4rem] " + (is ? "text-blue-600" : "text-slate-400");
+        var icon = btn.querySelector("i");
+        if (icon) icon.classList.toggle("scale-110", is);
+      });
+
+      if (t === "itinerario") {
+        renderDay();
+      }
+      if (t === "preparazione") {
+        renderPacking();
+      }
+    }
+
+    function renderDayChips() {
+      var el = document.getElementById("day-chips");
+      el.innerHTML = itinerary
+        .map(function (_, idx) {
+          var sel = idx === state.selectedDay;
+          return (
+            '<button type="button" class="day-chip flex-shrink-0 w-12 h-12 rounded-full flex flex-col items-center justify-center border-2 transition-all ' +
+            (sel ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-slate-200 text-slate-400") +
+            '" data-day="' +
+            idx +
+            '"><span class="text-[10px] font-bold uppercase leading-none">Giorno</span><span class="text-sm font-bold leading-none">' +
+            (idx + 1) +
+            "</span></button>"
+          );
+        })
+        .join("");
+      el.querySelectorAll(".day-chip").forEach(function (b) {
+        b.addEventListener("click", function () {
+          state.selectedDay = +b.getAttribute("data-day");
+          renderDayChips();
+          renderDayCard();
+        });
+      });
+    }
+
+    function timelineRow(color, label, contentHtml) {
+      return (
+        '<div class="flex gap-4"><div class="flex flex-col items-center">' +
+        '<div class="w-3 h-3 rounded-full ' +
+        color +
+        '"></div><div class="w-0.5 flex-1 min-h-[2rem] bg-slate-100 self-stretch"></div></div>' +
+        '<div class="pb-4 flex-1">' +
+        contentHtml +
+        "</div></div>"
+      );
+    }
+
+    function renderDayCard() {
+      var d = itinerary[state.selectedDay];
+      var ico = '<i class="fas fa-' + d.icon + " w-5 h-5 " + d.iconColor + '" aria-hidden="true"></i>';
+      var lunchBlock =
+        '<p class="text-[10px] font-bold text-slate-400 uppercase">Pranzo</p><div class="bg-orange-50 p-3 rounded-xl border border-orange-100 mt-1">' +
+        '<p class="text-sm font-bold text-orange-800 flex items-center gap-2 flex-wrap"><i class="fas fa-pizza-slice" aria-hidden="true"></i> ' +
+        esc(d.lunch) +
+        "</p></div>";
+      var html =
+        '<div class="flex items-center gap-3 mb-4">' +
+        '<div class="p-3 bg-slate-50 rounded-2xl flex items-center justify-center w-12 h-12">' +
+        ico +
+        "</div><div><h3 class=" +
+        "font-bold text-lg leading-tight" +
+        '>' +
+        esc(d.title) +
+        "</h3>" +
+        '<p class="text-slate-400 text-xs font-medium uppercase tracking-wider">' +
+        esc(d.date) +
+        "</p></div></div>" +
+        '<div class="space-y-6">' +
+        timelineRow("bg-blue-500", "Mattino", "<p class=\"text-[10px] font-bold text-slate-400 uppercase\">Mattino</p><p class=\"text-sm text-slate-700\">" + esc(d.morning) + "</p>") +
+        timelineRow("bg-orange-500", "Pranzo", lunchBlock) +
+        timelineRow("bg-emerald-500", "Pomeriggio", "<p class=\"text-[10px] font-bold text-slate-400 uppercase\">Pomeriggio</p><p class=\"text-sm text-slate-700\">" + esc(d.afternoon) + "</p>") +
+        "</div>";
+      document.getElementById("day-card").innerHTML = html;
+    }
+
+    function renderDay() {
+      renderDayChips();
+      renderDayCard();
+    }
+
+    function togglePacking(id) {
+      state.packing[id] = !state.packing[id];
+      renderPacking();
+    }
+    window.togglePacking = togglePacking;
+
+    function renderPacking() {
+      var el = document.getElementById("packing-list");
+      el.innerHTML = packingItems
+        .map(function (item) {
+          var c = state.packing[item.id];
+          return (
+            '<button type="button" onclick="togglePacking(' +
+            item.id +
+            ')" class="w-full text-left flex items-center gap-3 p-4 rounded-2xl border transition-all ' +
+            (c ? "bg-emerald-50 border-emerald-100" : "bg-slate-50 border-slate-100 hover:border-blue-200") +
+            '">' +
+            '<div class="w-6 h-6 rounded-lg flex items-center justify-center border-2 shrink-0 ' +
+            (c ? "bg-emerald-500 border-emerald-500 text-white" : "bg-white border-slate-300") +
+            '">' +
+            (c ? '<i class="fas fa-check text-sm" aria-hidden="true"></i>' : "") +
+            "</div>" +
+            '<span class="icon-wrap ' +
+            (c ? "text-emerald-600" : "text-slate-400") +
+            '"><i class="fas fa-' +
+            item.icon +
+            '"></i></span>' +
+            '<span class="text-sm font-bold flex-1 ' +
+            (c ? "line-through text-slate-400" : "text-slate-700") +
+            '">' +
+            esc(item.text) +
+            "</span></button>"
+          );
+        })
+        .join("");
+    }
+
+    function wireTabs() {
+      function go(tab) {
+        setActiveTab(tab);
+      }
+      document.querySelectorAll("#tab-bar-top [data-tab], #bottom-nav [data-tab]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          go(btn.getAttribute("data-tab"));
+        });
+      });
+    }
+
+    wireTabs();
+    setActiveTab("itinerario");
+  </script>
+</body>
+</html>

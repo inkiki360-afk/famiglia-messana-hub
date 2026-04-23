@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicole e i Fenici - Studio interattivo | Storia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap");
+    body {
+      font-family: "Quicksand", system-ui, sans-serif;
+      background-color: #f0f9ff;
+    }
+    h1, h2, h3, .font-title {
+      font-family: "Fredoka One", cursive, system-ui, sans-serif;
+    }
+    .ocean-bg {
+      background: linear-gradient(180deg, #0ea5e9 0%, #0369a1 100%);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .quiz-opt-btn.correct {
+      border-color: #10b981 !important;
+      background-color: #ecfdf5 !important;
+      color: #047857 !important;
+    }
+    .quiz-opt-btn.wrong {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+      color: #b91c1c !important;
+    }
+    .waves { position: relative; width: 100%; height: 80px; margin-bottom: -1px; }
+    .parallax > use { animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite; }
+    .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+    .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+    @keyframes move-forever {
+      0% { transform: translate3d(-90px, 0, 0); }
+      100% { transform: translate3d(85px, 0, 0); }
+    }
+  </style>
+</head>
+<body class="text-slate-800">
+
+  <nav class="px-4 pt-3 pb-2 flex flex-wrap gap-2 text-sm font-bold bg-sky-50/90 border-b border-sky-100">
+    <a href="../../storia.html" class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sky-800 shadow border border-sky-200">
+      ← Storia
+    </a>
+    <a href="/famiglia-messana-hub/nicole/index.html" class="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-slate-600 border border-slate-200">
+      Spazio Nicole
+    </a>
+  </nav>
+
+  <header class="ocean-bg text-white relative">
+    <div class="container mx-auto px-4 pt-10 pb-4 text-center">
+      <h1 class="text-4xl md:text-6xl mb-2 tracking-wide">I FENICI</h1>
+      <p class="text-lg opacity-90 font-medium">L'enciclopedia interattiva di Nicole</p>
+    </div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use href="#wave" x="48" y="0" fill="rgba(255,255,255,0.3)" />
+        <use href="#wave" x="48" y="7" fill="#f0f9ff" />
+      </g>
+    </svg>
+  </header>
+
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <div class="container mx-auto px-2 py-3 flex justify-between overflow-x-auto gap-2 no-scrollbar">
+      <button type="button" onclick="showSection('terra')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base text-sky-600 hover:bg-sky-100 flex-shrink-0">🌍 Terra</button>
+      <button type="button" onclick="showSection('societa')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base text-purple-600 hover:bg-purple-100 flex-shrink-0">👑 Società</button>
+      <button type="button" onclick="showSection('economia')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base text-emerald-600 hover:bg-emerald-100 flex-shrink-0">💰 Economia</button>
+      <button type="button" onclick="showSection('navi')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base text-blue-600 hover:bg-blue-100 flex-shrink-0">⛵ Navi</button>
+      <button type="button" onclick="showSection('religione')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base text-amber-600 hover:bg-amber-100 flex-shrink-0">✨ Dei</button>
+      <button type="button" onclick="showSection('quiz')" class="px-4 py-2 rounded-full font-bold transition-all text-sm md:text-base bg-orange-500 text-white shadow-md flex-shrink-0">🏆 QUIZ</button>
+    </div>
+  </nav>
+
+  <main class="container mx-auto px-4 py-8 max-w-4xl">
+
+    <section id="terra" class="section-content">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-sky-200">
+        <h2 class="text-2xl text-sky-700 mb-4">📍 Dove vivevano?</h2>
+        <p class="mb-4">Si stabilirono lungo le coste orientali del Mediterraneo, in una <strong>striscia di terra fertile</strong> tra il mare e le montagne del Libano.</p>
+        <div class="bg-sky-50 p-4 rounded-2xl mb-4 border border-sky-100">
+          <h3 class="font-bold text-sky-800">🏔️ Il Territorio</h3>
+          <p class="text-sm">Le montagne erano ricche di <strong>foreste di cedro</strong>. Il legno di cedro è speciale: ha molta resina che lo rende resistente all'acqua salata, perfetto per le navi!</p>
+        </div>
+        <h3 class="font-bold text-sky-800 mt-6">⏰ La Storia</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+          <div class="p-3 bg-white border rounded-xl shadow-sm"><strong>2000 a.C.</strong>: Inizia la civiltà.</div>
+          <div class="p-3 bg-white border rounded-xl shadow-sm"><strong>1200 a.C.</strong>: Diventano una grande potenza.</div>
+          <div class="p-3 bg-white border rounded-xl shadow-sm"><strong>700 a.C.</strong>: Conquistati dagli Assiri e Babilonesi.</div>
+          <div class="p-3 bg-white border rounded-xl shadow-sm"><strong>64 a.C.</strong>: Conquistati dai Romani.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="societa" class="section-content hidden">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-purple-200">
+        <h2 class="text-2xl text-purple-700 mb-4">👑 Re e Città-Stato</h2>
+        <p class="mb-4">I Fenici erano organizzati in <strong>Città-Stato</strong> indipendenti. Ognuna aveva le sue mura, il suo esercito e i suoi dei.</p>
+        <div class="p-4 bg-purple-50 rounded-2xl mb-4">
+          <h3 class="font-bold text-purple-800">Governo</h3>
+          <p>Ogni città era governata da un <strong>Re</strong>, aiutato dai sacerdoti e da un'assemblea di anziani composta dai mercanti più ricchi.</p>
+        </div>
+        <div class="p-4 bg-amber-50 rounded-2xl">
+          <h3 class="font-bold text-amber-800">Le Colonie</h3>
+          <p>Fondavano <strong>empori</strong> (luoghi di sosta) che poi diventavano <strong>colonie</strong> autonome. La <strong>Madrepatria</strong> era la città da cui provenivano i fondatori.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="economia" class="section-content hidden">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-emerald-200">
+        <h2 class="text-2xl text-emerald-700 mb-4">💰 Artigianato e Commercio</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 border-2 border-purple-100 rounded-2xl">
+            <h3 class="font-bold text-purple-700">🐚 La Porpora</h3>
+            <p class="text-sm">Colorante ricavato dal mollusco <strong>Murice</strong>. Lavorato in vasche fuori città perché puzzava moltissimo!</p>
+          </div>
+          <div class="p-4 border-2 border-cyan-100 rounded-2xl">
+            <h3 class="font-bold text-cyan-700">✨ Il Vetro</h3>
+            <p class="text-sm">Perfezionarono la tecnica della <strong>soffiatura</strong> per creare oggetti vuoti all'interno.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="navi" class="section-content hidden">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-blue-200">
+        <h2 class="text-2xl text-blue-700 mb-4">⛵ Navigazione</h2>
+        <p class="mb-4">Navigavano di notte usando la <strong>Stella Polare</strong> (Stella Fenicia). Usavano il <strong>rostro</strong> sulle navi militari per affondare i nemici.</p>
+        <div class="p-4 bg-blue-50 rounded-2xl">
+          <h3 class="font-bold">Parti della nave:</h3>
+          <p class="text-sm">Ancora, chiglia (asse centrale), vela quadrata e timone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="religione" class="section-content hidden">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-amber-200">
+        <h2 class="text-2xl text-amber-700 mb-4">✨ Gli Dei</h2>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>El</strong>: dio dell'universo.</li>
+          <li><strong>Baalat</strong>: dea della maternità e casa.</li>
+          <li><strong>Baal</strong>: dio della pioggia (muore e risorge ogni anno).</li>
+          <li><strong>Melqart</strong>: dio del mare e commercio.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="quiz" class="section-content hidden">
+      <div class="bg-white rounded-3xl shadow-xl p-6 border-b-4 border-orange-200">
+        <div id="quiz-intro" class="text-center">
+          <h2 class="text-3xl text-orange-600 mb-4 font-title">Super Quiz Fenicio! 🏆</h2>
+          <p class="mb-6 text-lg text-slate-600">Nicole, rispondi alle domande e impara dai tuoi errori!</p>
+          <button type="button" onclick="startQuiz()" class="bg-orange-500 text-white px-10 py-4 rounded-full font-bold text-xl shadow-lg hover:scale-105 transition-all">INIZIA LA SFIDA!</button>
+        </div>
+
+        <div id="quiz-game" class="hidden">
+          <div class="flex justify-between items-center mb-6">
+            <span class="bg-orange-100 text-orange-700 px-4 py-1 rounded-full font-bold">Domanda <span id="q-number">1</span>/20</span>
+            <span id="score-display" class="font-bold text-emerald-600">Punti: 0</span>
+          </div>
+          <h3 id="q-text" class="text-xl font-bold mb-6 text-slate-700 min-h-[3rem]"></h3>
+          <div id="q-options" class="grid grid-cols-1 gap-3 mb-6"></div>
+          <div id="feedback-area" class="hidden">
+            <div id="feedback-box" class="p-4 rounded-2xl border-2 mb-4">
+              <p id="feedback-status" class="font-bold text-lg mb-1"></p>
+              <p id="feedback-explanation" class="text-sm leading-relaxed"></p>
+            </div>
+            <button type="button" id="next-btn" onclick="nextQuestion()" class="w-full bg-sky-500 text-white py-4 rounded-2xl font-bold text-lg shadow-md hover:bg-sky-600 transition-all">
+              Prossima Domanda ➔
+            </button>
+          </div>
+        </div>
+
+        <div id="quiz-results" class="hidden text-center">
+          <h2 class="text-5xl mb-4" id="res-emoji"></h2>
+          <h3 class="text-2xl font-bold mb-2" id="res-title"></h3>
+          <p class="text-xl mb-8" id="res-score"></p>
+          <button type="button" onclick="location.reload()" class="bg-sky-500 text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-sky-600">Ricomincia</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center py-10 opacity-50 text-sm">
+    <p>App creata per lo studio di Nicole · IV elementare</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll(".section-content").forEach(function (s) {
+        s.classList.add("hidden");
+      });
+      document.getElementById(id).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    var questions = [
+      { q: "Quale albero era fondamentale per costruire le navi?", a: ["Cedro", "Quercia", "Pino"], c: 0, e: "Il cedro cresceva sulle montagne del Libano ed era perfetto perché il suo legno è ricco di resina e resiste all'acqua salata." },
+      { q: "Perché il legno di cedro era speciale?", a: ["Perché è colorato", "Perché è gommoso", "Perché è ricco di resina"], c: 2, e: "La resina naturale del cedro lo rende molto resistente all'acqua del mare, impedendo al legno di marcire velocemente." },
+      { q: "Come erano organizzate le città fenicie?", a: ["Erano un unico regno", "Città-Stato indipendenti", "Piccoli villaggi"], c: 1, e: "I Fenici non avevano un unico re. Ogni città (come Tiro o Sidone) era un piccolo stato autonomo con le proprie mura ed esercito." },
+      { q: "In che anno iniziò la civiltà fenicia?", a: ["1000 a.C.", "2000 a.C.", "3000 a.C."], c: 1, e: "La civiltà dei Fenici iniziò a svilupparsi intorno al 2000 a.C. sulle coste del Mediterraneo orientale." },
+      { q: "Quali erano le tre città più famose della Fenicia?", a: ["Roma, Milano, Napoli", "Tiro, Sidone, Biblo", "Cartagine, Malaga, Cadice"], c: 1, e: "Tiro, Sidone e Biblo erano le città principali situate lungo la costa della Madrepatria." },
+      { q: "Chi aiutava il Re a governare?", a: ["Tutti i cittadini", "I soldati", "Sacerdoti e Anziani"], c: 2, e: "Il Re era aiutato dai sacerdoti e da un'assemblea di anziani composta dai mercanti più ricchi della città." },
+      { q: "Cos'è la 'Madrepatria'?", a: ["La città-stato di origine", "La terra della regina", "Una nuova colonia"], c: 0, e: "La Madrepatria è la città-stato da cui provenivano le persone che andavano a fondare una nuova colonia." },
+      { q: "In che nazione attuale si trova la famosa colonia di Cartagine?", a: ["Italia", "Spagna", "Tunisia"], c: 2, e: "Cartagine è la colonia fenicia più famosa e si trova nell'attuale Tunisia, in Africa settentrionale." },
+      { q: "Cosa diventarono col tempo i 'luoghi di sosta'?", a: ["Fortezze", "Empori e poi Colonie", "Spiagge pubbliche"], c: 1, e: "Quelli che all'inizio erano semplici approdi diventarono empori per il commercio e infine vere città chiamate colonie." },
+      { q: "Da quale mollusco si ricavava la preziosa porpora?", a: ["Murice", "Ostrica", "Cozza"], c: 0, e: "La porpora veniva estratta dal murice. Servivano migliaia di molluschi per produrre poche gocce di colore!" },
+      { q: "Cosa significa 'Phoinikes', il nome dato dai Greci?", a: ["Grandi viaggiatori", "Popolo della porpora", "Uomini del Libano"], c: 1, e: "Gli antichi Greci chiamavano i Fenici 'Phoinikes' proprio perché erano famosi per la produzione del colorante porpora." },
+      { q: "Quale elemento era fondamentale per conservare i cibi?", a: ["Il vetro", "Il sale", "L'olio"], c: 1, e: "I Fenici realizzarono saline per ricavare il sale, indispensabile per conservare la carne e il pesce durante i lunghi viaggi." },
+      { q: "Quale tecnica del vetro migliorarono i Fenici?", a: ["Soffiatura", "Taglio a diamante", "Colorazione a pennello"], c: 0, e: "Grazie alla tecnica della soffiatura, i Fenici riuscirono a creare oggetti di vetro vuoti all'interno, come vasi e ampolle." },
+      { q: "Dove si trovavano le vasche per la porpora?", a: ["In centro città", "Vicino ai templi", "Lontano dalle città"], c: 2, e: "Le vasche erano lontane dalle città perché durante la lavorazione del murice l'odore diventava insopportabile!" },
+      { q: "Quale stella usavano i Fenici per orientarsi di notte?", a: ["Stella Cometa", "Stella Polare", "Venere"], c: 1, e: "Impararono a orientarsi usando la Stella Polare, che per questo motivo veniva anche chiamata 'Stella Fenicia'." },
+      { q: "Cos'è il 'Rostro' su una nave militare?", a: ["Una punta metallica", "Il timone posteriore", "L'albero maestro"], c: 0, e: "Il rostro era una punta metallica fissata a prua che serviva per squarciare e affondare le navi nemiche." },
+      { q: "Perché c'era la musica sulle navi fenicie?", a: ["Per ballare", "Per dare il ritmo ai rematori", "Per attirare i pesci"], c: 1, e: "Il flautista (musicista) dava il ritmo ai rematori per farli remare tutti insieme senza stancarsi troppo." },
+      { q: "Chi era il dio dell'universo per i Fenici?", a: ["Baal", "El", "Melqart"], c: 1, e: "El era considerato il dio dell'universo, sposato con Baalat, la dea della maternità." },
+      { q: "Cosa accadeva al dio Baal ogni anno?", a: ["Andava in vacanza", "Cambiava nome", "Moriva e poi risorgeva"], c: 2, e: "Baal, dio della pioggia, moriva e risorgeva ogni anno: questo serviva a spiegare il cambio delle stagioni." },
+      { q: "Cos'erano i Tofet?", a: ["Navi da guerra", "Santuari all'aperto", "Mura della città"], c: 1, e: "I tofet erano santuari spesso all'aperto, costituiti da pilastri circondati da recinti sacri dove si celebravano i riti." }
+    ];
+
+    var curQ = 0;
+    var score = 0;
+    var answered = false;
+
+    function startQuiz() {
+      document.getElementById("quiz-intro").classList.add("hidden");
+      document.getElementById("quiz-game").classList.remove("hidden");
+      curQ = 0;
+      score = 0;
+      document.getElementById("score-display").innerText = "Punti: 0";
+      loadQ();
+    }
+
+    function loadQ() {
+      answered = false;
+      var q = questions[curQ];
+      document.getElementById("q-number").innerText = String(curQ + 1);
+      document.getElementById("q-text").innerText = q.q;
+      document.getElementById("feedback-area").classList.add("hidden");
+      var optDiv = document.getElementById("q-options");
+      optDiv.innerHTML = "";
+      q.a.forEach(function (opt, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className =
+          "w-full text-left p-4 rounded-2xl border-2 border-slate-100 bg-white hover:border-sky-300 transition-all font-medium quiz-opt-btn";
+        b.innerText = opt;
+        b.addEventListener("click", function () {
+          selectOpt(i, b);
+        });
+        optDiv.appendChild(b);
+      });
+    }
+
+    function selectOpt(idx, btn) {
+      if (answered) return;
+      answered = true;
+      var q = questions[curQ];
+      var isCorrect = idx === q.c;
+      var allBtns = document.querySelectorAll("#q-options .quiz-opt-btn");
+      allBtns.forEach(function (b) {
+        b.classList.add("cursor-default", "pointer-events-none");
+        b.setAttribute("disabled", "disabled");
+      });
+      if (isCorrect) {
+        score++;
+        btn.classList.add("correct");
+        document.getElementById("feedback-status").innerText = "BRAVA NICOLE! È GIUSTA!";
+        document.getElementById("feedback-status").className = "font-bold text-lg mb-1 text-emerald-600";
+        document.getElementById("feedback-box").className = "p-4 rounded-2xl border-2 mb-4 border-emerald-200 bg-emerald-50";
+      } else {
+        btn.classList.add("wrong");
+        allBtns[q.c].classList.add("correct");
+        document.getElementById("feedback-status").innerText = "OPS, SBAGLIATO!";
+        document.getElementById("feedback-status").className = "font-bold text-lg mb-1 text-red-600";
+        document.getElementById("feedback-box").className = "p-4 rounded-2xl border-2 mb-4 border-red-200 bg-red-50";
+      }
+      document.getElementById("feedback-explanation").innerText = q.e;
+      document.getElementById("feedback-area").classList.remove("hidden");
+      document.getElementById("score-display").innerText = "Punti: " + score;
+    }
+
+    function nextQuestion() {
+      curQ++;
+      if (curQ < questions.length) {
+        loadQ();
+      } else {
+        showFinalResults();
+      }
+    }
+
+    function showFinalResults() {
+      document.getElementById("quiz-game").classList.add("hidden");
+      document.getElementById("quiz-results").classList.remove("hidden");
+      var resScore = document.getElementById("res-score");
+      var resEmoji = document.getElementById("res-emoji");
+      var resTitle = document.getElementById("res-title");
+      resScore.innerText = "Hai totalizzato " + score + " punti su " + questions.length + "!";
+      if (score === 20) {
+        resEmoji.innerText = "👑";
+        resTitle.innerText = "INCREDIBILE NICOLE! Sei una vera Regina dei Fenici!";
+      } else if (score > 15) {
+        resEmoji.innerText = "⛵";
+        resTitle.innerText = "BRAVISSIMA! Sei un'esperta navigatrice!";
+      } else if (score > 10) {
+        resEmoji.innerText = "🐚";
+        resTitle.innerText = "BUONO! Hai imparato molte cose!";
+      } else {
+        resEmoji.innerText = "📖";
+        resTitle.innerText = "Riprova! Leggi bene le spiegazioni per imparare!";
+      }
+    }
+  </script>
+</body>
+</html>
