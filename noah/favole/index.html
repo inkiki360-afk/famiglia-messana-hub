@@ -1,117 +1,347 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Favole da leggere – Spazio Noah</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --cream: #fef9f3;
-      --warm-white: #fffbf7;
-      --coral: #e07a5f;
-      --coral-soft: rgba(224,122,95,0.2);
-      --mustard: #f2cc8f;
-      --text: #3d405b;
-      --text-soft: #6b6d7a;
-      --shadow: rgba(61,64,91,0.12);
-      --radius: 24px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Nunito", system-ui, sans-serif;
-      background: linear-gradient(160deg, #fef9f3 0%, #f5e6d8 40%, #ede0d4 100%);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-    .top-nav {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      padding: 1rem;
-      background: rgba(255,251,247,0.95);
-      border-bottom: 2px solid var(--coral-soft);
-    }
-    .top-nav a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-soft);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: var(--warm-white);
-      border: 2px solid rgba(224,122,95,0.25);
-      transition: all 0.2s;
-    }
-    .top-nav a:hover { color: var(--coral); border-color: var(--coral); }
-    main { max-width: 700px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { font-family: "Nunito", system-ui, sans-serif; font-size: 2.2rem; color: var(--text); margin-bottom: 0.5rem; }
-    .page-header p { font-size: 1.1rem; color: var(--text-soft); }
-    .storie-list { list-style: none; }
-    .storie-list li { margin-bottom: 0.75rem; }
-    .storie-list a {
-      display: block;
-      padding: 1rem 1.25rem;
-      background: var(--warm-white);
-      border: 2px solid rgba(224,122,95,0.25);
-      border-radius: var(--radius);
-      color: var(--text);
-      text-decoration: none;
-      font-family: "Nunito", system-ui, sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      box-shadow: 0 4px 12px var(--shadow);
-      transition: all 0.25s;
-    }
-    .storie-list a:hover {
-      border-color: var(--coral);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(224,122,95,0.2);
-    }
-    .storie-list a::before { content: "📖 "; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Letture di Noah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .story-text {
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
-<body>
-  <nav class="top-nav" aria-label="Navigazione">
-    <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="../index.html"><i class="fas fa-user"></i> Spazio Noah</a>
-  </nav>
-  <main>
-    <header class="page-header">
-      <h1>Favole da leggere</h1>
-      <p>Storie semplici per allenare la lettura. Scegli una storia!</p>
-    </header>
-    <ol class="storie-list" start="1">
-      <li><a href="storia.html?id=1">Noah e la super car rossa</a></li>
-      <li><a href="storia.html?id=2">Il diamante magico della montagna</a></li>
-      <li><a href="storia.html?id=3">Noah e la grotta dei cristalli</a></li>
-      <li><a href="storia.html?id=4">La gara delle super car</a></li>
-      <li><a href="storia.html?id=5">Il piccolo rubino brillante</a></li>
-      <li><a href="storia.html?id=6">Noah trova una pietra misteriosa</a></li>
-      <li><a href="storia.html?id=7">Il quarzo parlante</a></li>
-      <li><a href="storia.html?id=8">La corsa verso il tesoro</a></li>
-      <li><a href="storia.html?id=9">Il diamante che brillava di notte</a></li>
-      <li><a href="storia.html?id=10">Noah e la miniera segreta</a></li>
-      <li><a href="storia.html?id=11">Il sasso che diventò una gemma</a></li>
-      <li><a href="storia.html?id=12">Il cristallo della luce blu</a></li>
-      <li><a href="storia.html?id=13">Noah e la macchina velocissima</a></li>
-      <li><a href="storia.html?id=14">La collina delle pietre preziose</a></li>
-      <li><a href="storia.html?id=15">Il piccolo smeraldo verde</a></li>
-      <li><a href="storia.html?id=16">Noah e il tunnel dei minerali</a></li>
-      <li><a href="storia.html?id=17">La super car nel deserto</a></li>
-      <li><a href="storia.html?id=18">Il diamante che rideva</a></li>
-      <li><a href="storia.html?id=19">Noah e il gigante di quarzo</a></li>
-      <li><a href="storia.html?id=20">Il tesoro delle cento pietre</a></li>
-    </ol>
-  </main>
+<body class="p-4 md:p-8">
+    <nav class="max-w-2xl mx-auto mb-4 flex flex-wrap gap-3 justify-center items-center text-sm" aria-label="Navigazione">
+        <a href="../../index.html" class="font-semibold text-blue-700 hover:text-blue-900 hover:underline">Home</a>
+        <span class="text-gray-400" aria-hidden="true">·</span>
+        <a href="../index.html" class="font-semibold text-blue-700 hover:text-blue-900 hover:underline">Spazio Noah</a>
+    </nav>
+    <div id="app" class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-blue-200">
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-white text-center">
+            <h1 class="text-3xl font-bold mb-1">📖 Il Libro di Noah</h1>
+            <p class="text-blue-100 opacity-90">10 Pagine di Avventure • Target 1.4 - 1.7 sill/sec</p>
+        </div>
+
+        <div class="p-6">
+            <!-- Story Selection Screen -->
+            <div id="selection-screen">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-700">Scegli una storia (Pagina <span id="page-num">1</span>):</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4 mb-6" id="story-list">
+                    <!-- Stories injected by JS -->
+                </div>
+
+                <!-- Pagination Controls -->
+                <div class="flex justify-between items-center bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                    <button onclick="prevPage()" id="prev-btn" class="pagination-btn bg-white border border-gray-200 p-2 rounded-full shadow-sm hover:bg-blue-50">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div class="flex gap-1 overflow-x-auto px-2 max-w-[200px] no-scrollbar" id="page-indicators">
+                        <!-- Dots injected by JS -->
+                    </div>
+                    <button onclick="nextPage()" id="next-btn" class="pagination-btn bg-white border border-gray-200 p-2 rounded-full shadow-sm hover:bg-blue-50">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reading Screen -->
+            <div id="reading-screen" class="hidden text-center">
+                <div class="flex justify-between items-center mb-6">
+                    <button onclick="showSelection()" class="text-blue-500 font-semibold flex items-center hover:bg-blue-50 px-3 py-1 rounded-lg transition-colors">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        Indietro
+                    </button>
+                    <div class="bg-yellow-100 px-4 py-1 rounded-full text-yellow-700 font-bold border border-yellow-200 tabular-nums" id="live-timer">
+                        0.0s
+                    </div>
+                </div>
+
+                <div class="story-text text-3xl md:text-4xl text-gray-800 mb-10 p-8 bg-blue-50 rounded-2xl border-2 border-blue-100 select-none shadow-inner" id="current-story-display">
+                    <!-- Text injected by JS -->
+                </div>
+
+                <div id="action-buttons">
+                    <button id="start-btn" onclick="startReading()" class="btn-pulse bg-green-500 hover:bg-green-600 text-white text-2xl font-bold py-6 px-12 rounded-full shadow-lg transition-transform active:scale-95">
+                        INIZIA ORA
+                    </button>
+                    <button id="stop-btn" onclick="stopReading()" class="hidden bg-red-500 hover:bg-red-600 text-white text-2xl font-bold py-6 px-12 rounded-full shadow-lg transition-transform active:scale-95">
+                        HO FINITO! 🏁
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="hidden">
+                <div class="text-center mb-6">
+                    <div class="inline-block p-4 bg-green-100 rounded-full mb-4">
+                        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Grande Noah!</h2>
+                    <p class="text-gray-600">Velocità di lettura (Fine 1ª Elementare):</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
+                        <p class="text-[10px] text-blue-600 font-bold uppercase tracking-widest mb-1">Tempo</p>
+                        <p class="text-xl font-bold text-blue-900" id="res-time">0.0s</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 text-center">
+                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-widest mb-1">Sillabe</p>
+                        <p class="text-xl font-bold text-purple-900" id="res-syllables">0</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 text-center">
+                        <p class="text-[10px] text-orange-600 font-bold uppercase tracking-widest mb-1">Sill/Sec</p>
+                        <p class="text-xl font-bold text-orange-900" id="res-speed">0.00</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-2xl border border-green-200 text-center">
+                        <p class="text-[10px] text-green-700 font-bold uppercase tracking-widest mb-1">Percentile</p>
+                        <p class="text-xl font-bold text-green-900" id="res-percentile">50°</p>
+                    </div>
+                </div>
+
+                <div class="mb-8 bg-gray-50 p-4 rounded-2xl border border-gray-200">
+                    <div class="flex justify-between text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-tighter">
+                        <span>Lento</span>
+                        <span>Media (1.55)</span>
+                        <span>Veloce</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="percentile-bar" class="bg-green-500 h-3 rounded-full transition-all duration-1000" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div id="performance-feedback" class="mb-8 p-5 rounded-2xl font-semibold text-lg text-center shadow-sm">
+                    <!-- Feedback -->
+                </div>
+
+                <button onclick="showSelection()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-md">
+                    ALTRE STORIE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const stories = [
+            // PAGINA 1: ANIMALI
+            { id: 1, cat: "Animali", title: "Il Leone Re", text: "Il leone ruggisce forte nella savana e corre veloce tra l'erba alta e dorata.", syllables: 28, icon: "🦁" },
+            { id: 2, cat: "Animali", title: "Gatto Birba", text: "Il gatto Birba rincorre un gomitolo di lana rossa che rotola sul pavimento della sala.", syllables: 33, icon: "🐱" },
+            { id: 3, cat: "Animali", title: "L'Elefante", text: "Un elefante grigio beve acqua fresca con la proboscide nel fiume sotto il sole caldo.", syllables: 31, icon: "🐘" },
+            { id: 4, cat: "Animali", title: "La Scimmia", text: "La scimmia dispettosa mangia una banana gialla e salta felice tra i rami degli alberi.", syllables: 34, icon: "🐒" },
+            // PAGINA 2: MINERALI
+            { id: 5, cat: "Minerali", title: "L'Oro Lucente", text: "L'oro brilla tanto e i pirati lo cercano dentro una caverna scura e misteriosa.", syllables: 29, icon: "🪙" },
+            { id: 6, cat: "Minerali", title: "Il Diamante", text: "Il diamante è la pietra più dura del mondo e luccica come una stella nel buio.", syllables: 31, icon: "💎" },
+            { id: 7, cat: "Minerali", title: "Il Cristallo", text: "Il cristallo di rocca è trasparente come l'acqua gelata di un ruscello di montagna.", syllables: 30, icon: "🔮" },
+            { id: 8, cat: "Minerali", title: "Lo Smeraldo", text: "Lo smeraldo è una pietra di colore verde speranza che splende sopra la corona del re.", syllables: 32, icon: "🟢" },
+            // PAGINA 3: SUPER CAR
+            { id: 9, cat: "Auto", title: "La Ferrari", text: "La Ferrari rossa corre in pista con un motore potentissimo che fa molto rumore.", syllables: 29, icon: "🏎️" },
+            { id: 10, cat: "Auto", title: "Lamborghini", text: "La Lamborghini gialla ha le porte che si aprono verso l'alto come ali di un uccello.", syllables: 32, icon: "🏎️" },
+            { id: 11, cat: "Auto", title: "La Porsche", text: "La Porsche blu corre veloce sull'autostrada e sorpassa tutti con grande eleganza.", syllables: 28, icon: "🚗" },
+            { id: 12, cat: "Auto", title: "La Bugatti", text: "La Bugatti nera è l'auto più veloce della terra e vola sulla strada come un razzo.", syllables: 33, icon: "🔥" },
+            // PAGINA 4: NOAH
+            { id: 13, cat: "Noah", title: "Noah a Scuola", text: "Noah va a scuola con lo zaino sulle spalle e scrive tante parole belle sul quaderno.", syllables: 31, icon: "🎒" },
+            { id: 14, cat: "Noah", title: "Il Gelato", text: "Noah mangia un cono gelato al cioccolato e panna che è dolce e molto freddo.", syllables: 27, icon: "🍦" },
+            { id: 15, cat: "Noah", title: "Noah Disegna", text: "Noah prende i pennarelli colorati per disegnare un grande drago che sputa fuoco.", syllables: 32, icon: "🖍️" },
+            { id: 16, cat: "Noah", title: "Il Calcio", text: "Noah tira un calcio fortissimo al pallone e fa un gol bellissimo sotto la traversa.", syllables: 33, icon: "⚽" },
+            // PAGINA 5: NOAH E PAPÀ
+            { id: 17, cat: "Papà", title: "In Montagna", text: "Noah e il papà camminano nel bosco per cercare i funghi e vedere gli scoiattoli.", syllables: 31, icon: "⛰️" },
+            { id: 18, cat: "Papà", title: "In Bicicletta", text: "Noah pedala veloce sulla sua bici blu mentre il papà corre felice accanto a lui.", syllables: 30, icon: "🚲" },
+            { id: 19, cat: "Papà", title: "La Pizza", text: "Noah e il papà preparano insieme una pizza margherita con tanto pomodoro e formaggio.", syllables: 34, icon: "🍕" },
+            { id: 20, cat: "Papà", title: "Il Campeggio", text: "Noah e il papà montano una tenda blu sotto le stelle per dormire nel sacco a pelo.", syllables: 33, icon: "⛺" },
+            // PAGINA 6: ALTRI ANIMALI
+            { id: 21, cat: "Animali", title: "Lo Squalo", text: "Lo squalo grigio nuota veloce nel mare profondo con la sua pinna sopra l'acqua.", syllables: 31, icon: "🦈" },
+            { id: 22, cat: "Animali", title: "La Farfalla", text: "La farfalla colorata vola leggera sopra i fiori del giardino in cerca di polline.", syllables: 31, icon: "🦋" },
+            { id: 23, cat: "Animali", title: "Il Lupo", text: "Il lupo ulula alla luna piena nella notte fredda sopra la collina del bosco.", syllables: 30, icon: "🐺" },
+            { id: 24, cat: "Animali", title: "Il Delfino", text: "Il delfino azzurro gioca con le onde del mare e fa dei salti altissimi nell'aria.", syllables: 31, icon: "🐬" },
+            // PAGINA 7: ALTRI MINERALI
+            { id: 25, cat: "Minerali", title: "Il Rubino", text: "Il rubino è una pietra preziosa di colore rosso fuoco che brilla su un anello d'oro.", syllables: 34, icon: "🔴" },
+            { id: 26, cat: "Minerali", title: "Lo Zaffiro", text: "Lo zaffiro blu sembra un pezzetto di cielo caduto sulla terra dentro una grotta.", syllables: 32, icon: "🔵" },
+            { id: 27, cat: "Minerali", title: "La Perla", text: "La perla bianca e tonda nasce dentro una conchiglia in fondo all'oceano blu.", syllables: 31, icon: "⚪" },
+            { id: 28, cat: "Minerali", title: "Il Rame", text: "Il rame ha un colore arancione e serve per fare i fili della luce di casa nostra.", syllables: 33, icon: "🟠" },
+            // PAGINA 8: ALTRE AUTO
+            { id: 29, cat: "Auto", title: "La Tesla", text: "La Tesla è un'auto elettrica silenziosa che non fa fumo e corre senza benzina.", syllables: 32, icon: "⚡" },
+            { id: 30, cat: "Auto", title: "La Formula 1", text: "I piloti di Formula Uno portano il casco e guidano auto basse e molto veloci.", syllables: 32, icon: "🏁" },
+            { id: 31, cat: "Auto", title: "Il Fuoristrada", text: "Il grande fuoristrada ha le ruote giganti per salire sopra il fango e i sassi.", syllables: 32, icon: "🛞" },
+            { id: 32, cat: "Auto", title: "La McLaren", text: "La McLaren arancione ha un muso basso e corre in pista come un vero proiettile.", syllables: 31, icon: "🏎️" },
+            // PAGINA 9: NOAH AVVENTURE
+            { id: 33, cat: "Noah", title: "Noah Pirata", text: "Noah mette la benda sull'occhio e cerca il tesoro nascosto sotto il divano.", syllables: 30, icon: "🏴‍☠️" },
+            { id: 34, cat: "Noah", title: "L'Astronauta", text: "Noah sale su un razzo spaziale di cartone per volare lontano fino alla luna.", syllables: 30, icon: "🚀" },
+            { id: 35, cat: "Noah", title: "Noah a Pesca", text: "Noah usa una canna di bambù per pescare un pesciolino rosso nello stagno.", syllables: 30, icon: "🎣" },
+            { id: 36, cat: "Noah", title: "Noah al Mare", text: "Noah scava una buca profonda nella sabbia per fare un castello con le torri.", syllables: 31, icon: "🏖️" },
+            // PAGINA 10: NOAH E PAPÀ 2
+            { id: 37, cat: "Papà", title: "Lavando l'Auto", text: "Noah e il papà usano l'acqua e la spugna per lavare l'auto che ora brilla.", syllables: 32, icon: "🧼" },
+            { id: 38, cat: "Papà", title: "Al Cinema", text: "Noah e il papà mangiano i popcorn caldi mentre guardano un film di eroi.", syllables: 30, icon: "🍿" },
+            { id: 39, cat: "Papà", title: "In Officina", text: "Noah e il papà aggiustano la ruota della bici con le chiavi e il grasso nero.", syllables: 32, icon: "🔧" },
+            { id: 40, cat: "Papà", title: "Leggendo", text: "Il papà legge una storia della buonanotte a Noah che sta quasi per dormire.", syllables: 31, icon: "🌙" }
+        ];
+
+        let currentPage = 0;
+        const storiesPerPage = 4;
+        let currentStory = null;
+        let startTime = null;
+        let timerInterval = null;
+
+        function getPercentile(sylPerSec) {
+            if (sylPerSec >= 2.5) return 99; 
+            if (sylPerSec >= 2.0) return 90; 
+            if (sylPerSec >= 1.7) return 75; 
+            if (sylPerSec >= 1.55) return 50; 
+            if (sylPerSec >= 1.4) return 25; 
+            if (sylPerSec >= 1.0) return 10; 
+            if (sylPerSec >= 0.8) return 5;  
+            return 1;
+        }
+
+        function init() {
+            renderStories();
+            renderPageIndicators();
+        }
+
+        function renderStories() {
+            const list = document.getElementById('story-list');
+            list.innerHTML = '';
+            
+            const start = currentPage * storiesPerPage;
+            const end = start + storiesPerPage;
+            const currentStories = stories.slice(start, end);
+
+            currentStories.forEach(story => {
+                const btn = document.createElement('button');
+                btn.className = "w-full flex items-center p-3 bg-gray-50 border-2 border-gray-100 rounded-2xl hover:border-blue-400 hover:bg-white transition-all text-left group shadow-sm";
+                btn.onclick = () => selectStory(story.id);
+                btn.innerHTML = `
+                    <span class="text-3xl mr-3">${story.icon}</span>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-gray-800">${story.title}</h3>
+                            <span class="text-[9px] font-bold px-1.5 py-0.5 bg-blue-100 rounded text-blue-600 uppercase">${story.cat}</span>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(btn);
+            });
+
+            document.getElementById('page-num').innerText = currentPage + 1;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = end >= stories.length;
+        }
+
+        function renderPageIndicators() {
+            const container = document.getElementById('page-indicators');
+            container.innerHTML = '';
+            const totalPages = Math.ceil(stories.length / storiesPerPage);
+            
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = `w-2 h-2 rounded-full transition-all ${i === currentPage ? 'bg-blue-600 w-4' : 'bg-gray-300'}`;
+                container.appendChild(dot);
+            }
+        }
+
+        function nextPage() {
+            if ((currentPage + 1) * storiesPerPage < stories.length) {
+                currentPage++;
+                renderStories();
+                renderPageIndicators();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderStories();
+                renderPageIndicators();
+            }
+        }
+
+        function selectStory(id) {
+            currentStory = stories.find(s => s.id === id);
+            document.getElementById('current-story-display').innerText = currentStory.text;
+            document.getElementById('selection-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('reading-screen').classList.remove('hidden');
+            
+            document.getElementById('start-btn').classList.remove('hidden');
+            document.getElementById('stop-btn').classList.add('hidden');
+            document.getElementById('live-timer').innerText = "0.0s";
+            document.getElementById('live-timer').className = "bg-yellow-100 px-4 py-1 rounded-full text-yellow-700 font-bold border border-yellow-200 tabular-nums";
+        }
+
+        function showSelection() {
+            clearInterval(timerInterval);
+            document.getElementById('selection-screen').classList.remove('hidden');
+            document.getElementById('reading-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+        }
+
+        function startReading() {
+            startTime = Date.now();
+            document.getElementById('start-btn').classList.add('hidden');
+            document.getElementById('stop-btn').classList.remove('hidden');
+            document.getElementById('live-timer').className = "bg-green-100 px-4 py-1 rounded-full text-green-700 font-bold border border-green-200 tabular-nums";
+
+            timerInterval = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                document.getElementById('live-timer').innerText = elapsed.toFixed(1) + "s";
+            }, 100);
+        }
+
+        function stopReading() {
+            clearInterval(timerInterval);
+            const totalTime = (Date.now() - startTime) / 1000;
+            const sylPerSec = currentStory.syllables / totalTime;
+            const percentile = getPercentile(sylPerSec);
+
+            document.getElementById('res-time').innerText = totalTime.toFixed(1) + "s";
+            document.getElementById('res-syllables').innerText = currentStory.syllables;
+            document.getElementById('res-speed').innerText = sylPerSec.toFixed(2);
+            document.getElementById('res-percentile').innerText = percentile + "°";
+            document.getElementById('percentile-bar').style.width = percentile + "%";
+
+            let feedbackText = "";
+            let feedbackClass = "";
+            if (percentile >= 75) {
+                feedbackText = "Noah è un fulmine! 🚀";
+                feedbackClass = "bg-green-100 text-green-800 border-2 border-green-200";
+            } else if (percentile >= 25) {
+                feedbackText = "Bravissimo Noah! Sei nel range giusto. 🌟";
+                feedbackClass = "bg-blue-100 text-blue-800 border-2 border-blue-200";
+            } else {
+                feedbackText = "Bravo! Leggi ogni giorno per diventare più fluido. 💪";
+                feedbackClass = "bg-orange-50 text-orange-800 border-2 border-orange-200";
+            }
+
+            document.getElementById('performance-feedback').innerText = feedbackText;
+            document.getElementById('performance-feedback').className = "mb-8 p-5 rounded-2xl font-semibold text-lg text-center shadow-sm " + feedbackClass;
+
+            document.getElementById('reading-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+        }
+
+        init();
+    </script>
 </body>
 </html>
